@@ -4,11 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import SearchBar from "@/components/SearchBar";
+import OrderModeToggle from "@/components/OrderModeToggle";
 
 import { categories, subcategories, products, productVariants } from "@/data/store";
 import { useCart } from "@/context/CartContext";
 import CartIcon from "@/components/CartIcon";
-
+import TopNavbar from "@/components/TopNavBar";
 const HERO_SLIDES = [
   { id: 1, img: "/hero1.webp" },
   { id: 2, img: "/hero2.webp" },
@@ -71,26 +72,17 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-white text-black pb-28">
       {/* HEADER */}
-      <header className="sticky top-0 z-50 bg-[#0B6EA9]">
-        <div className="mx-auto max-w-md px-3 py-2 flex gap-2 items-center">
-<SearchBar placeholder="Search products" />
-
-
-          {/* ✅ LIVE CART ICON + COUNT */}
-          <CartIcon />
-
-          <button className="h-10 w-10 rounded-full bg-[#0A5F91] text-white" aria-label="Profile">
+      <TopNavbar
+        locationText="Deliver to: Mogadishu"
+        rightSlot={
+          <button
+            className="h-10 w-10 rounded-full bg-[#0A5F91] text-white"
+            aria-label="Profile"
+          >
             👤
           </button>
-        </div>
-
-        <div className="bg-white border-t">
-          <div className="mx-auto max-w-md px-4 py-2 text-sm">
-            📍 Amiin Ambulance , Taleh ▾
-          </div>
-        </div>
-      </header>
-
+        }
+      />
       {/* TOP CATEGORY STRIP */}
       <section className="border-b bg-white">
         <div className="mx-auto max-w-md px-2 py-2 flex gap-4 overflow-x-auto">

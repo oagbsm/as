@@ -29,18 +29,39 @@ function getPrimaryImageUrl(productId: number) {
   return primary?.url || any?.url || "/example.png";
 }
 
-function getBestVariant(productId: number, basePrice?: number) {
-  const vars = productVariants.filter((v) => v.product_id === productId);
-  if (vars.length === 0) {
-    return { price: basePrice ?? 0, mrp: null as number | null, label: "" };
-  }
-  const best = vars.reduce((min, v) => (v.price < min.price ? v : min), vars[0]);
-  return { price: best.price, mrp: best.mrp ?? null, label: best.label ?? "" };
+function getVariantsFor(productId: number) {
+  return productVariants
+    .filter((v) => v.product_id === productId)
+    .slice()
+    .sort((a, b) => a.price - b.price); // cheapest first
+}
+
+function getDefaultVariantId(productId: number) {
+  const vars = getVariantsFor(productId);
+  return vars.length ? vars[0].id : null;
+}
+
+function getVariantById(productId: number, variantId: number | null) {
+  if (variantId == null) return null;
+  return productVariants.find((v) => v.product_id === productId && v.id === variantId) || null;
+}
+
+function getVariantPrice(productId: number, variantId: number | null, basePrice?: number) {
+  if (variantId == null) return Number(basePrice ?? 0);
+  const v = getVariantById(productId, variantId);
+  return Number(v?.price ?? basePrice ?? 0);
+}
+
+function getVariantMRP(productId: number, variantId: number | null) {
+  if (variantId == null) return null;
+  const v = getVariantById(productId, variantId);
+  return v?.mrp ?? null;
 }
 
 /** ===== page ===== */
 export default function SubcategoryPage() {
   const { slug } = useParams<{ slug: string }>();
+
   const { items, addItem, setQty } = useCart();
 
   const currentSub = useMemo(
@@ -56,7 +77,6 @@ export default function SubcategoryPage() {
     );
   }
 
-  // Sub-subcategories under this subcategory
   const ssList = useMemo(
     () =>
       (subsubcategories ?? []).filter(
@@ -65,8 +85,12 @@ export default function SubcategoryPage() {
     [currentSub.id]
   );
 
-  // selected sub-subcategory slug (null = All)
   const [activeSS, setActiveSS] = useState<string | null>(null);
+
+  // ✅ per-card selected variant (pack chip selection)
+  const [selectedVariantByProduct, setSelectedVariantByProduct] = useState<
+    Record<number, number | null>
+  >({});
 
   // "Added ✓" animation state
   const [justAddedId, setJustAddedId] = useState<number | null>(null);
@@ -76,24 +100,34 @@ export default function SubcategoryPage() {
     return () => clearTimeout(t);
   }, [justAddedId]);
 
-  // Products in this subcategory
   const baseList = useMemo(
     () => products.filter((p: any) => p.subcategory_id === currentSub.id),
     [currentSub.id]
   );
 
-  // Filtered products (tags-based)
   const filtered = useMemo(() => {
     if (!activeSS) return baseList;
     return baseList.filter((p: any) => (p.tags ?? []).includes(activeSS));
   }, [activeSS, baseList]);
 
-  // Title
+  // ✅ ensure every product has a selected variant (default cheapest) when list changes
+  useEffect(() => {
+    setSelectedVariantByProduct((prev) => {
+      const next = { ...prev };
+      for (const p of filtered as any[]) {
+        if (next[p.id] === undefined) {
+          next[p.id] = getDefaultVariantId(p.id);
+        }
+      }
+      return next;
+    });
+  }, [filtered]);
+
   const titleText = activeSS
     ? ssList.find((x: any) => x.slug === activeSS)?.name ?? currentSub.name
     : currentSub.name;
 
-  // Cart totals for sticky bar
+  // Cart totals (variant-safe)
   const cartTotals = useMemo(() => {
     let total = 0;
     let count = 0;
@@ -101,23 +135,36 @@ export default function SubcategoryPage() {
     for (const it of items ?? []) {
       const p: any = products.find((x: any) => x.id === it.productId);
       if (!p) continue;
-      const { price } = getBestVariant(p.id, p.base_price);
-      total += price * it.qty;
-      count += it.qty;
+
+      const price = getVariantPrice(it.productId, it.variantId ?? null, p.base_price);
+      total += price * (it.qty ?? 1);
+      count += it.qty ?? 1;
     }
+
     return { total, count };
   }, [items]);
 
-  function ProductAdd({ productId }: { productId: number }) {
-    const item = (items ?? []).find((i) => i.productId === productId);
+  function ProductAdd({
+    productId,
+    basePrice,
+    selectedVariantId,
+  }: {
+    productId: number;
+    basePrice?: number;
+    selectedVariantId: number | null;
+  }) {
+    const item = (items ?? []).find(
+      (i: any) =>
+        i.productId === productId &&
+        (i.variantId ?? null) === (selectedVariantId ?? null)
+    );
     const qty = item?.qty ?? 0;
 
-    // Not in cart
     if (!item) {
       return (
         <button
           onClick={() => {
-            addItem(productId, 1);
+            addItem(productId, selectedVariantId, 1);
             setJustAddedId(productId);
           }}
           className="mt-2 w-full h-10 rounded-xl border-2 border-[#0B6EA9] text-[#0B6EA9] font-bold flex items-center justify-center gap-2 active:scale-[0.99] transition"
@@ -127,18 +174,19 @@ export default function SubcategoryPage() {
       );
     }
 
-    // In cart
     return (
       <div className="mt-2 flex items-center justify-between">
         <button
-          onClick={() => setQty(productId, qty - 1)}
+          onClick={() => setQty(productId, selectedVariantId, qty - 1)}
           className="w-10 h-10 rounded-full bg-[#0B6EA9] text-white text-xl font-bold grid place-items-center"
         >
           −
         </button>
+
         <div className="text-sm font-extrabold text-gray-900">{qty}</div>
+
         <button
-          onClick={() => setQty(productId, qty + 1)}
+          onClick={() => setQty(productId, selectedVariantId, qty + 1)}
           className="w-10 h-10 rounded-full bg-[#0B6EA9] text-white text-xl font-bold grid place-items-center"
         >
           +
@@ -163,11 +211,9 @@ export default function SubcategoryPage() {
             🔎 Search JioMart
           </div>
 
-          {/* ✅ cart count visible here */}
           <CartIcon />
         </div>
 
-        {/* location */}
         <div className="bg-white border-t">
           <div className="mx-auto max-w-md px-4 py-2 text-sm text-gray-800 flex items-center gap-2">
             📍 <span className="font-medium">Amin Ambulance Taleh</span>{" "}
@@ -191,7 +237,6 @@ export default function SubcategoryPage() {
           </div>
         </div>
 
-        {/* chips row */}
         <div className="mx-auto max-w-md px-4 pb-3 flex gap-2 overflow-x-auto">
           <button className="h-8 px-3 rounded-full bg-gray-100 text-xs whitespace-nowrap flex items-center gap-2">
             ↕ By Popularity ▾
@@ -207,9 +252,8 @@ export default function SubcategoryPage() {
 
       {/* ===== MAIN: LEFT RAIL + GRID ===== */}
       <section className="mx-auto max-w-md grid grid-cols-[96px_1fr]">
-        {/* LEFT RAIL (All + sub-subcategories only) */}
+        {/* LEFT RAIL */}
         <aside className="bg-white border-r">
-          {/* ALL */}
           <button
             onClick={() => setActiveSS(null)}
             className={`w-full block px-2 py-3 border-l-4 ${
@@ -219,9 +263,7 @@ export default function SubcategoryPage() {
             }`}
           >
             <div className="w-12 h-12 mx-auto rounded-xl bg-gray-100 overflow-hidden grid place-items-center">
-              <span className="text-[11px] font-extrabold text-gray-700">
-                All
-              </span>
+              <span className="text-[11px] font-extrabold text-gray-700">All</span>
             </div>
             <div
               className={`mt-2 text-[11px] text-center ${
@@ -234,7 +276,6 @@ export default function SubcategoryPage() {
             </div>
           </button>
 
-          {/* SUB-SUBCATEGORIES */}
           {ssList.map((ss: any) => {
             const isActive = activeSS === ss.slug;
             return (
@@ -271,27 +312,38 @@ export default function SubcategoryPage() {
           <div className="grid grid-cols-2 gap-3">
             {filtered.map((p: any) => {
               const imgUrl = getPrimaryImageUrl(p.id);
-              const { price, mrp, label } = getBestVariant(p.id, p.base_price);
+
+              const vars = getVariantsFor(p.id);
+              const hasVariants = vars.length > 0;
+
+              const selectedVariantId =
+                selectedVariantByProduct[p.id] ?? getDefaultVariantId(p.id);
+
+              const selectedV = getVariantById(p.id, selectedVariantId);
+              const price = getVariantPrice(p.id, selectedVariantId, p.base_price);
+              const mrp = getVariantMRP(p.id, selectedVariantId);
+
+              const label = selectedV?.label ?? "";
               const offPct =
                 mrp && price ? Math.round(((mrp - price) / mrp) * 100) : null;
+
+              // show up to 3 chips; if more, show "More"
+              const chips = vars.slice(0, 3);
+              const extraCount = Math.max(0, vars.length - chips.length);
 
               return (
                 <div
                   key={p.id}
                   className="bg-white rounded-2xl shadow-sm border overflow-hidden"
                 >
-                  {/* image block */}
+                  {/* image */}
                   <div className="relative p-2">
-                    {/* ✅ Wishlist disabled: removed heart button */}
-
-                    {/* weight badge */}
                     {label ? (
                       <div className="absolute right-2 bottom-2 text-[10px] px-2 py-0.5 rounded-full bg-black/70 text-white">
                         {label}
                       </div>
                     ) : null}
 
-                    {/* Added animation */}
                     {justAddedId === p.id ? (
                       <div className="absolute left-2 top-2 text-[11px] px-2 py-1 rounded-full bg-green-600 text-white font-bold shadow">
                         Added ✓
@@ -315,7 +367,45 @@ export default function SubcategoryPage() {
                       {p.name}
                     </div>
 
-                    <div className="mt-1 flex items-end gap-2">
+                    {/* ✅ pack chips (JioMart-like) */}
+                    {hasVariants ? (
+                      <div className="mt-1 flex flex-wrap gap-1.5">
+                        {chips.map((v) => {
+                          const active = v.id === selectedVariantId;
+                          return (
+                            <button
+                              key={v.id}
+                              onClick={() =>
+                                setSelectedVariantByProduct((prev) => ({
+                                  ...prev,
+                                  [p.id]: v.id,
+                                }))
+                              }
+                              className={`h-7 px-2 rounded-full border text-[11px] font-semibold ${
+                                active
+                                  ? "border-[#0B6EA9] bg-[#EAF4FB] text-[#0B6EA9]"
+                                  : "bg-white text-gray-700"
+                              }`}
+                            >
+                              {v.label}
+                            </button>
+                          );
+                        })}
+
+                        {extraCount > 0 ? (
+                          <Link
+                            href={`/product/${p.slug}`}
+                            className="h-7 px-2 rounded-full border text-[11px] font-semibold bg-white text-[#0B6EA9] grid place-items-center"
+                          >
+                            +{extraCount} more
+                          </Link>
+                        ) : null}
+                      </div>
+                    ) : (
+                      <div className="h-[28px]" />
+                    )}
+
+                    <div className="mt-2 flex items-end gap-2">
                       <div className="text-[14px] font-extrabold text-gray-900">
                         {money(price)}
                       </div>
@@ -334,10 +424,13 @@ export default function SubcategoryPage() {
                       <div className="h-[18px]" />
                     )}
 
-                    {/* ✅ REAL add-to-cart */}
-                    <ProductAdd productId={p.id} />
+                    {/* ✅ add/qty targets the selected pack */}
+                    <ProductAdd
+                      productId={p.id}
+                      basePrice={p.base_price}
+                      selectedVariantId={selectedVariantId}
+                    />
 
-                    {/* Quick strip */}
                     <div className="mt-2 h-7 rounded-lg bg-[#E8F5EE] text-[#0F8A4B] text-xs font-semibold grid place-items-center">
                       ⚡ Quick
                     </div>
@@ -349,17 +442,13 @@ export default function SubcategoryPage() {
             {filtered.length === 0 && (
               <div className="col-span-2 bg-white rounded-2xl border p-4 text-sm text-gray-600">
                 No products found in this section.
-                <div className="mt-1 text-xs text-gray-500">
-                  (Make sure products have matching <code>tags</code> for this
-                  sub-subcategory.)
-                </div>
               </div>
             )}
           </div>
         </div>
       </section>
 
-      {/* ✅ STICKY GO TO CART BAR (only when cart has items) */}
+      {/* STICKY CART BAR */}
       {cartTotals.count > 0 && (
         <div className="fixed left-0 right-0 bottom-12 z-40">
           <div className="mx-auto max-w-md px-3">
@@ -369,12 +458,9 @@ export default function SubcategoryPage() {
             >
               <div>
                 <div className="text-xs opacity-90">
-                  {cartTotals.count} item{cartTotals.count > 1 ? "s" : ""} in
-                  cart
+                  {cartTotals.count} item{cartTotals.count > 1 ? "s" : ""} in cart
                 </div>
-                <div className="text-lg font-extrabold">
-                  {money(cartTotals.total)}
-                </div>
+                <div className="text-lg font-extrabold">{money(cartTotals.total)}</div>
               </div>
               <div className="font-extrabold">Go to Cart →</div>
             </Link>
@@ -382,7 +468,7 @@ export default function SubcategoryPage() {
         </div>
       )}
 
-      {/* ===== BOTTOM NAV ===== */}
+      {/* BOTTOM NAV */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white border-t z-50">
         <div className="mx-auto max-w-md grid grid-cols-4 py-2 text-xs text-gray-700">
           <Link href="/" className="grid place-items-center gap-1">
@@ -393,7 +479,6 @@ export default function SubcategoryPage() {
             📂<span>Categories</span>
           </Link>
 
-          {/* ✅ Wishlist disabled */}
           <button
             disabled
             className="grid place-items-center gap-1 opacity-40 cursor-not-allowed"

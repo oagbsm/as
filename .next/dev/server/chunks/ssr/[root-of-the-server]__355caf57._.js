@@ -25,6 +25,8 @@ __turbopack_context__.s([
     ()=>brands,
     "categories",
     ()=>categories,
+    "customers",
+    ()=>customers,
     "productImages",
     ()=>productImages,
     "productVariants",
@@ -1004,13 +1006,13 @@ const productImages = [
     {
         id: 1,
         product_id: 1,
-        url: "/.webp",
+        url: "/dairy..webp",
         is_primary: true
     },
     {
         id: 2,
         product_id: 1,
-        url: "/products/alfanar-2.webp",
+        url: "/alfanar.webp",
         is_primary: false
     },
     {
@@ -1094,6 +1096,48 @@ const brands = [
         slug: "huggies"
     }
 ];
+const customers = [
+    {
+        id: 1,
+        name: "Ahmed Ali",
+        phone: "0622000001"
+    },
+    {
+        id: 2,
+        name: "Amina Noor",
+        phone: "0622000002"
+    },
+    {
+        id: 3,
+        name: "Hodan Yusuf",
+        phone: "0619000123"
+    },
+    {
+        id: 4,
+        name: "Mohamed Hassan",
+        phone: "0622000456"
+    },
+    {
+        id: 5,
+        name: "Fatima Omar",
+        phone: "0615557788"
+    },
+    {
+        id: 6,
+        name: "Abdiqani Mohamed",
+        phone: "0627003344"
+    },
+    {
+        id: 7,
+        name: "Khadra Aden",
+        phone: "0612223344"
+    },
+    {
+        id: 8,
+        name: "Sahra Ismail",
+        phone: "0626112233"
+    }
+];
 }),
 "[project]/components/CartIcon.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
@@ -1166,21 +1210,26 @@ function getPrimaryImageUrl(productId) {
     const any = __TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["productImages"].find((img)=>img.product_id === productId);
     return primary?.url || any?.url || "/example.png";
 }
-function getBestVariant(productId, basePrice) {
-    const vars = __TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["productVariants"].filter((v)=>v.product_id === productId);
-    if (vars.length === 0) {
-        return {
-            price: basePrice ?? 0,
-            mrp: null,
-            label: ""
-        };
-    }
-    const best = vars.reduce((min, v)=>v.price < min.price ? v : min, vars[0]);
-    return {
-        price: best.price,
-        mrp: best.mrp ?? null,
-        label: best.label ?? ""
-    };
+function getVariantsFor(productId) {
+    return __TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["productVariants"].filter((v)=>v.product_id === productId).slice().sort((a, b)=>a.price - b.price); // cheapest first
+}
+function getDefaultVariantId(productId) {
+    const vars = getVariantsFor(productId);
+    return vars.length ? vars[0].id : null;
+}
+function getVariantById(productId, variantId) {
+    if (variantId == null) return null;
+    return __TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["productVariants"].find((v)=>v.product_id === productId && v.id === variantId) || null;
+}
+function getVariantPrice(productId, variantId, basePrice) {
+    if (variantId == null) return Number(basePrice ?? 0);
+    const v = getVariantById(productId, variantId);
+    return Number(v?.price ?? basePrice ?? 0);
+}
+function getVariantMRP(productId, variantId) {
+    if (variantId == null) return null;
+    const v = getVariantById(productId, variantId);
+    return v?.mrp ?? null;
 }
 function SubcategoryPage() {
     const { slug } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useParams"])();
@@ -1194,16 +1243,16 @@ function SubcategoryPage() {
             children: "Subcategory not found."
         }, void 0, false, {
             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-            lineNumber: 53,
+            lineNumber: 74,
             columnNumber: 7
         }, this);
     }
-    // Sub-subcategories under this subcategory
     const ssList = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>(__TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["subsubcategories"] ?? []).filter((x)=>x.subcategory_id === currentSub.id), [
         currentSub.id
     ]);
-    // selected sub-subcategory slug (null = All)
     const [activeSS, setActiveSS] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    // ✅ per-card selected variant (pack chip selection)
+    const [selectedVariantByProduct, setSelectedVariantByProduct] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({});
     // "Added ✓" animation state
     const [justAddedId, setJustAddedId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
@@ -1213,11 +1262,9 @@ function SubcategoryPage() {
     }, [
         justAddedId
     ]);
-    // Products in this subcategory
     const baseList = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>__TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["products"].filter((p)=>p.subcategory_id === currentSub.id), [
         currentSub.id
     ]);
-    // Filtered products (tags-based)
     const filtered = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
         if (!activeSS) return baseList;
         return baseList.filter((p)=>(p.tags ?? []).includes(activeSS));
@@ -1225,18 +1272,33 @@ function SubcategoryPage() {
         activeSS,
         baseList
     ]);
-    // Title
+    // ✅ ensure every product has a selected variant (default cheapest) when list changes
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        setSelectedVariantByProduct((prev)=>{
+            const next = {
+                ...prev
+            };
+            for (const p of filtered){
+                if (next[p.id] === undefined) {
+                    next[p.id] = getDefaultVariantId(p.id);
+                }
+            }
+            return next;
+        });
+    }, [
+        filtered
+    ]);
     const titleText = activeSS ? ssList.find((x)=>x.slug === activeSS)?.name ?? currentSub.name : currentSub.name;
-    // Cart totals for sticky bar
+    // Cart totals (variant-safe)
     const cartTotals = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
         let total = 0;
         let count = 0;
         for (const it of items ?? []){
             const p = __TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["products"].find((x)=>x.id === it.productId);
             if (!p) continue;
-            const { price } = getBestVariant(p.id, p.base_price);
-            total += price * it.qty;
-            count += it.qty;
+            const price = getVariantPrice(it.productId, it.variantId ?? null, p.base_price);
+            total += price * (it.qty ?? 1);
+            count += it.qty ?? 1;
         }
         return {
             total,
@@ -1245,14 +1307,13 @@ function SubcategoryPage() {
     }, [
         items
     ]);
-    function ProductAdd({ productId }) {
-        const item = (items ?? []).find((i)=>i.productId === productId);
+    function ProductAdd({ productId, basePrice, selectedVariantId }) {
+        const item = (items ?? []).find((i)=>i.productId === productId && (i.variantId ?? null) === (selectedVariantId ?? null));
         const qty = item?.qty ?? 0;
-        // Not in cart
         if (!item) {
             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 onClick: ()=>{
-                    addItem(productId, 1);
+                    addItem(productId, selectedVariantId, 1);
                     setJustAddedId(productId);
                 },
                 className: "mt-2 w-full h-10 rounded-xl border-2 border-[#0B6EA9] text-[#0B6EA9] font-bold flex items-center justify-center gap-2 active:scale-[0.99] transition",
@@ -1263,27 +1324,26 @@ function SubcategoryPage() {
                         children: "+"
                     }, void 0, false, {
                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                        lineNumber: 125,
+                        lineNumber: 172,
                         columnNumber: 15
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                lineNumber: 118,
+                lineNumber: 165,
                 columnNumber: 9
             }, this);
         }
-        // In cart
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "mt-2 flex items-center justify-between",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                    onClick: ()=>setQty(productId, qty - 1),
+                    onClick: ()=>setQty(productId, selectedVariantId, qty - 1),
                     className: "w-10 h-10 rounded-full bg-[#0B6EA9] text-white text-xl font-bold grid place-items-center",
                     children: "−"
                 }, void 0, false, {
                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                    lineNumber: 133,
+                    lineNumber: 179,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1291,22 +1351,22 @@ function SubcategoryPage() {
                     children: qty
                 }, void 0, false, {
                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                    lineNumber: 139,
+                    lineNumber: 186,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                    onClick: ()=>setQty(productId, qty + 1),
+                    onClick: ()=>setQty(productId, selectedVariantId, qty + 1),
                     className: "w-10 h-10 rounded-full bg-[#0B6EA9] text-white text-xl font-bold grid place-items-center",
                     children: "+"
                 }, void 0, false, {
                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                    lineNumber: 140,
+                    lineNumber: 188,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-            lineNumber: 132,
+            lineNumber: 178,
             columnNumber: 7
         }, this);
     }
@@ -1325,7 +1385,7 @@ function SubcategoryPage() {
                                 children: "←"
                             }, void 0, false, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 155,
+                                lineNumber: 203,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1333,18 +1393,18 @@ function SubcategoryPage() {
                                 children: "🔎 Search JioMart"
                             }, void 0, false, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 162,
+                                lineNumber: 210,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$CartIcon$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 167,
+                                lineNumber: 214,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                        lineNumber: 154,
+                        lineNumber: 202,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1358,7 +1418,7 @@ function SubcategoryPage() {
                                     children: "Amin Ambulance Taleh"
                                 }, void 0, false, {
                                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 173,
+                                    lineNumber: 219,
                                     columnNumber: 16
                                 }, this),
                                 " ",
@@ -1367,24 +1427,24 @@ function SubcategoryPage() {
                                     children: "▾"
                                 }, void 0, false, {
                                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 174,
+                                    lineNumber: 220,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                            lineNumber: 172,
+                            lineNumber: 218,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                        lineNumber: 171,
+                        lineNumber: 217,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                lineNumber: 153,
+                lineNumber: 201,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1398,7 +1458,7 @@ function SubcategoryPage() {
                                 children: titleText
                             }, void 0, false, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 182,
+                                lineNumber: 228,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1409,7 +1469,7 @@ function SubcategoryPage() {
                                         children: "↕ Sort"
                                     }, void 0, false, {
                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                        lineNumber: 185,
+                                        lineNumber: 231,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1417,19 +1477,19 @@ function SubcategoryPage() {
                                         children: "⚙ Filter"
                                     }, void 0, false, {
                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                        lineNumber: 188,
+                                        lineNumber: 234,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 184,
+                                lineNumber: 230,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                        lineNumber: 181,
+                        lineNumber: 227,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1440,7 +1500,7 @@ function SubcategoryPage() {
                                 children: "↕ By Popularity ▾"
                             }, void 0, false, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 196,
+                                lineNumber: 241,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1448,7 +1508,7 @@ function SubcategoryPage() {
                                 children: "Brands ▾"
                             }, void 0, false, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 199,
+                                lineNumber: 244,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1456,19 +1516,19 @@ function SubcategoryPage() {
                                 children: "Filters ▾"
                             }, void 0, false, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 202,
+                                lineNumber: 247,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                        lineNumber: 195,
+                        lineNumber: 240,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                lineNumber: 180,
+                lineNumber: 226,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1488,12 +1548,12 @@ function SubcategoryPage() {
                                             children: "All"
                                         }, void 0, false, {
                                             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                            lineNumber: 222,
+                                            lineNumber: 266,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                        lineNumber: 221,
+                                        lineNumber: 265,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1501,13 +1561,13 @@ function SubcategoryPage() {
                                         children: "All"
                                     }, void 0, false, {
                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                        lineNumber: 226,
+                                        lineNumber: 268,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 213,
+                                lineNumber: 257,
                                 columnNumber: 11
                             }, this),
                             ssList.map((ss)=>{
@@ -1523,12 +1583,12 @@ function SubcategoryPage() {
                                                 children: ss.name?.split(" ").slice(0, 2).join(" ")
                                             }, void 0, false, {
                                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                lineNumber: 251,
+                                                lineNumber: 292,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                            lineNumber: 250,
+                                            lineNumber: 291,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1536,20 +1596,20 @@ function SubcategoryPage() {
                                             children: ss.name
                                         }, void 0, false, {
                                             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                            lineNumber: 255,
+                                            lineNumber: 296,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, ss.id, true, {
                                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 241,
+                                    lineNumber: 282,
                                     columnNumber: 15
                                 }, this);
                             })
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                        lineNumber: 211,
+                        lineNumber: 256,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1559,8 +1619,17 @@ function SubcategoryPage() {
                             children: [
                                 filtered.map((p)=>{
                                     const imgUrl = getPrimaryImageUrl(p.id);
-                                    const { price, mrp, label } = getBestVariant(p.id, p.base_price);
+                                    const vars = getVariantsFor(p.id);
+                                    const hasVariants = vars.length > 0;
+                                    const selectedVariantId = selectedVariantByProduct[p.id] ?? getDefaultVariantId(p.id);
+                                    const selectedV = getVariantById(p.id, selectedVariantId);
+                                    const price = getVariantPrice(p.id, selectedVariantId, p.base_price);
+                                    const mrp = getVariantMRP(p.id, selectedVariantId);
+                                    const label = selectedV?.label ?? "";
                                     const offPct = mrp && price ? Math.round((mrp - price) / mrp * 100) : null;
+                                    // show up to 3 chips; if more, show "More"
+                                    const chips = vars.slice(0, 3);
+                                    const extraCount = Math.max(0, vars.length - chips.length);
                                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "bg-white rounded-2xl shadow-sm border overflow-hidden",
                                         children: [
@@ -1572,7 +1641,7 @@ function SubcategoryPage() {
                                                         children: label
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 289,
+                                                        lineNumber: 342,
                                                         columnNumber: 23
                                                     }, this) : null,
                                                     justAddedId === p.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1580,7 +1649,7 @@ function SubcategoryPage() {
                                                         children: "Added ✓"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 296,
+                                                        lineNumber: 348,
                                                         columnNumber: 23
                                                     }, this) : null,
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1594,18 +1663,18 @@ function SubcategoryPage() {
                                                             className: "mx-auto h-28 w-auto object-contain"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                            lineNumber: 302,
+                                                            lineNumber: 354,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 301,
+                                                        lineNumber: 353,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                lineNumber: 284,
+                                                lineNumber: 340,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1616,18 +1685,61 @@ function SubcategoryPage() {
                                                         children: p.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 314,
+                                                        lineNumber: 366,
                                                         columnNumber: 21
                                                     }, this),
+                                                    hasVariants ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "mt-1 flex flex-wrap gap-1.5",
+                                                        children: [
+                                                            chips.map((v)=>{
+                                                                const active = v.id === selectedVariantId;
+                                                                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                    onClick: ()=>setSelectedVariantByProduct((prev)=>({
+                                                                                ...prev,
+                                                                                [p.id]: v.id
+                                                                            })),
+                                                                    className: `h-7 px-2 rounded-full border text-[11px] font-semibold ${active ? "border-[#0B6EA9] bg-[#EAF4FB] text-[#0B6EA9]" : "bg-white text-gray-700"}`,
+                                                                    children: v.label
+                                                                }, v.id, false, {
+                                                                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                                                    lineNumber: 376,
+                                                                    columnNumber: 29
+                                                                }, this);
+                                                            }),
+                                                            extraCount > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                                                href: `/product/${p.slug}`,
+                                                                className: "h-7 px-2 rounded-full border text-[11px] font-semibold bg-white text-[#0B6EA9] grid place-items-center",
+                                                                children: [
+                                                                    "+",
+                                                                    extraCount,
+                                                                    " more"
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                                                lineNumber: 396,
+                                                                columnNumber: 27
+                                                            }, this) : null
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                                        lineNumber: 372,
+                                                        columnNumber: 23
+                                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "h-[28px]"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                                        lineNumber: 405,
+                                                        columnNumber: 23
+                                                    }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "mt-1 flex items-end gap-2",
+                                                        className: "mt-2 flex items-end gap-2",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "text-[14px] font-extrabold text-gray-900",
                                                                 children: money(price)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                                lineNumber: 319,
+                                                                lineNumber: 409,
                                                                 columnNumber: 23
                                                             }, this),
                                                             mrp ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1635,13 +1747,13 @@ function SubcategoryPage() {
                                                                 children: money(mrp)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                                lineNumber: 323,
+                                                                lineNumber: 413,
                                                                 columnNumber: 25
                                                             }, this) : null
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 318,
+                                                        lineNumber: 408,
                                                         columnNumber: 21
                                                     }, this),
                                                     offPct ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1652,20 +1764,22 @@ function SubcategoryPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 330,
+                                                        lineNumber: 420,
                                                         columnNumber: 23
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "h-[18px]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 334,
+                                                        lineNumber: 424,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ProductAdd, {
-                                                        productId: p.id
+                                                        productId: p.id,
+                                                        basePrice: p.base_price,
+                                                        selectedVariantId: selectedVariantId
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 338,
+                                                        lineNumber: 428,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1673,65 +1787,45 @@ function SubcategoryPage() {
                                                         children: "⚡ Quick"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 341,
+                                                        lineNumber: 434,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                lineNumber: 313,
+                                                lineNumber: 365,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, p.id, true, {
                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                        lineNumber: 279,
+                                        lineNumber: 335,
                                         columnNumber: 17
                                     }, this);
                                 }),
                                 filtered.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "col-span-2 bg-white rounded-2xl border p-4 text-sm text-gray-600",
-                                    children: [
-                                        "No products found in this section.",
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "mt-1 text-xs text-gray-500",
-                                            children: [
-                                                "(Make sure products have matching ",
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("code", {
-                                                    children: "tags"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                    lineNumber: 353,
-                                                    columnNumber: 53
-                                                }, this),
-                                                " for this sub-subcategory.)"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                            lineNumber: 352,
-                                            columnNumber: 17
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
+                                    children: "No products found in this section."
+                                }, void 0, false, {
                                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 350,
+                                    lineNumber: 443,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                            lineNumber: 271,
+                            lineNumber: 312,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                        lineNumber: 270,
+                        lineNumber: 311,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                lineNumber: 209,
+                lineNumber: 254,
                 columnNumber: 7
             }, this),
             cartTotals.count > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1754,7 +1848,7 @@ function SubcategoryPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                        lineNumber: 371,
+                                        lineNumber: 460,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1762,13 +1856,13 @@ function SubcategoryPage() {
                                         children: money(cartTotals.total)
                                     }, void 0, false, {
                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                        lineNumber: 375,
+                                        lineNumber: 463,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 370,
+                                lineNumber: 459,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1776,23 +1870,23 @@ function SubcategoryPage() {
                                 children: "Go to Cart →"
                             }, void 0, false, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 379,
+                                lineNumber: 465,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                        lineNumber: 366,
+                        lineNumber: 455,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                    lineNumber: 365,
+                    lineNumber: 454,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                lineNumber: 364,
+                lineNumber: 453,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -1809,13 +1903,13 @@ function SubcategoryPage() {
                                     children: "Home"
                                 }, void 0, false, {
                                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 389,
+                                    lineNumber: 475,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                            lineNumber: 388,
+                            lineNumber: 474,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1827,13 +1921,13 @@ function SubcategoryPage() {
                                     children: "Categories"
                                 }, void 0, false, {
                                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 393,
+                                    lineNumber: 479,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                            lineNumber: 392,
+                            lineNumber: 478,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1846,13 +1940,13 @@ function SubcategoryPage() {
                                     children: "Wishlist"
                                 }, void 0, false, {
                                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 402,
+                                    lineNumber: 487,
                                     columnNumber: 14
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                            lineNumber: 397,
+                            lineNumber: 482,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1864,30 +1958,30 @@ function SubcategoryPage() {
                                     children: "Orders"
                                 }, void 0, false, {
                                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 406,
+                                    lineNumber: 491,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                            lineNumber: 405,
+                            lineNumber: 490,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                    lineNumber: 387,
+                    lineNumber: 473,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                lineNumber: 386,
+                lineNumber: 472,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-        lineNumber: 151,
+        lineNumber: 199,
         columnNumber: 5
     }, this);
 }

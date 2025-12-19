@@ -489,8 +489,8 @@ export const productVariants = [
 ];
 
 export const productImages = [
-  { id: 1, product_id: 1, url: "/.webp", is_primary: true },
-  { id: 2, product_id: 1, url: "/products/alfanar-2.webp", is_primary: false },
+  { id: 1, product_id: 1, url: "/dairy..webp", is_primary: true },
+  { id: 2, product_id: 1, url: "/alfanar.webp", is_primary: false },
 
   { id: 3, product_id: 2, url: "/products/oil.webp", is_primary: true },
 
@@ -511,4 +511,14 @@ export const brands = [
   { id: 10, name: "Sony", slug: "sony" },
   { id: 11, name: "Nivea", slug: "nivea" },
   { id: 12, name: "Huggies", slug: "huggies" }
+];
+export const customers = [
+  { id: 1, name: "Ahmed Ali", phone: "0622000001" },
+  { id: 2, name: "Amina Noor", phone: "0622000002" },
+  { id: 3, name: "Hodan Yusuf", phone: "0619000123" },
+  { id: 4, name: "Mohamed Hassan", phone: "0622000456" },
+  { id: 5, name: "Fatima Omar", phone: "0615557788" },
+  { id: 6, name: "Abdiqani Mohamed", phone: "0627003344" },
+  { id: 7, name: "Khadra Aden", phone: "0612223344" },
+  { id: 8, name: "Sahra Ismail", phone: "0626112233" },
 ];

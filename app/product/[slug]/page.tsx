@@ -1,9 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AddToCartButton from "@/components/AddToCartButton";
 import CartIcon from "@/components/CartIcon";
-import { useCart } from "@/context/CartContext";
 
 import { products, productVariants, productImages, subcategories } from "@/data/store";
 import ProductClient from "./product-client";
@@ -24,26 +22,28 @@ export default async function ProductPage({
   if (!product) return notFound();
 
   const variants = productVariants.filter((v) => v.product_id === product.id);
+
   const images = productImages
     .filter((img) => img.product_id === product.id)
-    .sort((a, b) => Number(b.is_primary) - Number(a.is_primary));
+    .sort((a, b) => Number(!!b.is_primary) - Number(!!a.is_primary));
 
   const sub = subcategories.find((s) => s.id === product.subcategory_id);
 
-  // Simple related: same subcategory, not same product
   const related = products
     .filter((p) => p.subcategory_id === product.subcategory_id && p.id !== product.id)
     .slice(0, 10);
 
-  // Base price shown if no variants exist
   const basePrice = product.base_price ?? 0;
 
   return (
     <main className="min-h-screen bg-[#F4F6F8] pb-16">
-      {/* ===== TOP BLUE HEADER (like JioMart) ===== */}
+      {/* ===== TOP BLUE HEADER ===== */}
       <header className="sticky top-0 z-50 bg-[#0B6EA9]">
         <div className="mx-auto max-w-md px-3 py-2 flex items-center gap-2">
-          <Link href="/" className="h-10 w-10 grid place-items-center rounded-full bg-[#0A5F91] text-white">
+          <Link
+            href="/"
+            className="h-10 w-10 grid place-items-center rounded-full bg-[#0A5F91] text-white"
+          >
             ←
           </Link>
 
@@ -51,13 +51,13 @@ export default async function ProductPage({
             🔎 Search JioMart
           </div>
 
-<CartIcon />
-
+          <CartIcon />
         </div>
 
         <div className="bg-white border-t">
           <div className="mx-auto max-w-md px-4 py-2 text-sm text-gray-800 flex items-center gap-2">
-            📍 <span className="font-medium">Amin Ambulance Taleh</span> <span className="text-gray-500">▾</span>
+            📍 <span className="font-medium">Amin Ambulance Taleh</span>{" "}
+            <span className="text-gray-500">▾</span>
           </div>
         </div>
       </header>
@@ -90,33 +90,13 @@ export default async function ProductPage({
           </div>
         </div>
 
-        {/* Image area */}
-        <div className="px-4 py-4">
-          <div className="relative bg-gray-50 rounded-2xl border overflow-hidden">
-            <div className="relative h-[360px] w-full">
-              <Image
-                src={images[0]?.url || "/example.png"}
-                alt={product.name}
-                fill
-                className="object-contain p-6"
-                priority
-              />
-            </div>
-
-            {/* dots */}
-            <div className="pb-3 flex justify-center gap-2">
-              {Array.from({ length: Math.max(1, Math.min(images.length, 6)) }).map((_, i) => (
-                <span key={i} className={`h-1.5 w-1.5 rounded-full ${i === 0 ? "bg-[#0B6EA9]" : "bg-gray-300"}`} />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Buy box (client: variant selection + add) */}
+        {/* ✅ ProductClient owns slideshow + variants + qty */}
         <ProductClient
           productId={product.id}
+          productName={product.name}
           basePrice={basePrice}
           variants={variants}
+          images={images}
         />
       </section>
 
@@ -141,11 +121,13 @@ export default async function ProductPage({
             <div className="text-sm font-semibold text-gray-900">Article ID</div>
             <div className="text-sm text-gray-600">PVKJTWVCE1</div>
           </div>
-          <button className="h-10 w-10 rounded-xl border bg-white grid place-items-center">📋</button>
+          <button className="h-10 w-10 rounded-xl border bg-white grid place-items-center">
+            📋
+          </button>
         </div>
       </section>
 
-      {/* ===== YOU MAY ALSO LIKE (horizontal) ===== */}
+      {/* ===== YOU MAY ALSO LIKE ===== */}
       <section className="mx-auto max-w-md bg-white mt-2 border-t border-b">
         <div className="px-4 py-4 flex items-center justify-between">
           <div className="text-base font-semibold text-gray-900">You may also like</div>
@@ -154,9 +136,10 @@ export default async function ProductPage({
         <div className="px-4 pb-4 overflow-x-auto">
           <div className="flex gap-3">
             {related.map((p) => {
-              const img = productImages.find((im) => im.product_id === p.id && im.is_primary)?.url
-                || productImages.find((im) => im.product_id === p.id)?.url
-                || "/example.png";
+              const img =
+                productImages.find((im) => im.product_id === p.id && im.is_primary)?.url ||
+                productImages.find((im) => im.product_id === p.id)?.url ||
+                "/example.png";
 
               const vars = productVariants.filter((v) => v.product_id === p.id);
               const best = vars.length
@@ -168,11 +151,19 @@ export default async function ProductPage({
               const offPct = mrp ? Math.round(((mrp - price) / mrp) * 100) : null;
 
               return (
-                <div key={p.id} className="min-w-[155px] bg-white border rounded-2xl overflow-hidden shadow-sm">
+                <div
+                  key={p.id}
+                  className="min-w-[155px] bg-white border rounded-2xl overflow-hidden shadow-sm"
+                >
                   <div className="p-2 flex justify-end text-gray-500">♡</div>
 
                   <Link href={`/product/${p.slug}`} className="block px-3">
-                    <Image src={img} alt={p.name} width={160} height={160} className="mx-auto h-28 w-auto object-contain" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={img}
+                      alt={p.name}
+                      className="mx-auto h-28 w-auto object-contain"
+                    />
                   </Link>
 
                   <div className="px-3 pb-3">
@@ -183,7 +174,9 @@ export default async function ProductPage({
 
                     <div className="mt-1 flex items-end gap-2">
                       <div className="font-extrabold text-gray-900 text-sm">{money(price)}</div>
-                      {mrp ? <div className="text-[11px] text-gray-400 line-through">{money(mrp)}</div> : null}
+                      {mrp ? (
+                        <div className="text-[11px] text-gray-400 line-through">{money(mrp)}</div>
+                      ) : null}
                     </div>
 
                     {offPct ? (
@@ -192,8 +185,7 @@ export default async function ProductPage({
                       <div className="h-[14px]" />
                     )}
 
-<AddToCartButton productId={p.id} />
-
+                    <AddToCartButton productId={p.id} />
                   </div>
                 </div>
               );
@@ -206,7 +198,7 @@ export default async function ProductPage({
         </div>
       </section>
 
-<BottomNav />
+      <BottomNav />
     </main>
   );
 }

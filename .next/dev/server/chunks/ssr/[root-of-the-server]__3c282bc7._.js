@@ -22,20 +22,20 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 const CartContext = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["createContext"])(null);
 function CartProvider({ children }) {
     const [items, setItems] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
-    /* ===== LOAD FROM LOCAL STORAGE ===== */ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const stored = localStorage.getItem("cart");
         if (stored) setItems(JSON.parse(stored));
     }, []);
-    /* ===== SAVE TO LOCAL STORAGE ===== */ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         localStorage.setItem("cart", JSON.stringify(items));
     }, [
         items
     ]);
-    /* ===== ACTIONS ===== */ function addItem(productId, qty = 1) {
+    function addItem(productId, variantId, qty = 1) {
         setItems((prev)=>{
-            const existing = prev.find((i)=>i.productId === productId);
+            const existing = prev.find((i)=>i.productId === productId && i.variantId === variantId);
             if (existing) {
-                return prev.map((i)=>i.productId === productId ? {
+                return prev.map((i)=>i.productId === productId && i.variantId === variantId ? {
                         ...i,
                         qty: i.qty + qty
                     } : i);
@@ -44,23 +44,24 @@ function CartProvider({ children }) {
                 ...prev,
                 {
                     productId,
+                    variantId,
                     qty
                 }
             ];
         });
     }
-    function setQty(productId, qty) {
+    function setQty(productId, variantId, qty) {
         if (qty <= 0) {
-            removeItem(productId);
+            removeItem(productId, variantId);
             return;
         }
-        setItems((prev)=>prev.map((i)=>i.productId === productId ? {
+        setItems((prev)=>prev.map((i)=>i.productId === productId && i.variantId === variantId ? {
                     ...i,
                     qty
                 } : i));
     }
-    function removeItem(productId) {
-        setItems((prev)=>prev.filter((i)=>i.productId !== productId));
+    function removeItem(productId, variantId) {
+        setItems((prev)=>prev.filter((i)=>!(i.productId === productId && i.variantId === variantId)));
     }
     function clearCart() {
         setItems([]);
@@ -76,15 +77,13 @@ function CartProvider({ children }) {
         children: children
     }, void 0, false, {
         fileName: "[project]/context/CartContext.tsx",
-        lineNumber: 66,
+        lineNumber: 72,
         columnNumber: 5
     }, this);
 }
 function useCart() {
     const ctx = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useContext"])(CartContext);
-    if (!ctx) {
-        throw new Error("useCart must be used inside CartProvider");
-    }
+    if (!ctx) throw new Error("useCart must be used inside CartProvider");
     return ctx;
 }
 }),

@@ -1,2 +1,1429 @@
-[00:00:00.511] Server  LOG      ✓ Ready in 364ms
-[00:00:02.873] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:00.514] Server  LOG      ✓ Ready in 367ms
+[00:00:03.479] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:18.698] Browser WARN    Image with src "/hero2.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:18.698] Browser WARN    Image with src "/pick.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/hero1.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:18.698] Browser WARN    Image with src "/frozen.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/tea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/fruit.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/drink.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/bakery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/oil.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/hero3.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:18.698] Browser WARN    Image with src "/baby.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/babycream.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/nuna.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/bath.webp.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/babyfeeding.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/shampoo.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/oralcare.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/nivea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/groom.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/cutlery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/cleaner.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/storage.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.698] Browser WARN    Image with src "/laundry.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.740] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:00:18.741] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:00:18.742] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:00:18.743] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:00:18.743] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:00:18.747] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:00:18.802] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:00:18.803] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:00:18.804] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:00:18.815] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:00:18.854] Browser WARN    Image with src "/decor.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:22.449] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:00:22.449] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:00:22.450] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:00:22.451] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:00:22.452] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:00:22.455] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:00:22.496] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:00:22.496] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:00:22.497] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:00:22.497] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:00:23.360] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:00:23.364] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/oil.webp" "received" null
+[00:00:26.852] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:00:48.223] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:00:48.228] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:00:48.229] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:00:48.286] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:00:48.307] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:00:48.321] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:00:48.321] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:00:48.334] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:00:48.337] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:00:48.348] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:01:24.699] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:38.414] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:01:38.448] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:01:38.450] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:01:38.503] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:01:38.546] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:01:38.554] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:01:38.564] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:01:38.586] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:01:38.597] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:01:38.606] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:01:38.669] Browser WARN    Image with src "/hero1.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:01:38.669] Browser WARN    Image with src "/fruit.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/drink.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/tea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/pick.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/bakery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/frozen.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/oil.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/hero2.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:01:38.669] Browser WARN    Image with src "/hero3.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:01:38.669] Browser WARN    Image with src "/baby.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/nuna.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/babycream.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/babyfeeding.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/bath.webp.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/shampoo.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/oralcare.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/nivea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/groom.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/cutlery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/cleaner.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/storage.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/laundry.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:38.669] Browser WARN    Image with src "/decor.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:39.662] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:01:39.662] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/oil.webp" "received" null
+[00:01:41.645] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:02:29.926] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:02:29.933] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:02:29.969] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:02:30.000] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:02:30.003] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:02:30.033] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:02:30.033] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:02:30.044] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:02:30.048] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:02:30.060] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:02:31.126] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:02:32.107] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:02:32.107] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:02:32.108] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:02:32.109] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:02:32.110] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:02:32.116] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:02:32.171] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:02:32.172] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:02:32.172] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:02:32.174] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:02:34.332] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:02:58.484] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:02:58.502] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:02:58.502] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:02:58.519] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:02:58.523] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:02:58.527] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:02:58.562] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:02:58.566] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:02:58.567] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:02:58.569] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:09:47.669] Server  LOG      ✓ Compiled in 78ms
+[00:09:47.843] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:09:47.971] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:09:47.972] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:09:47.973] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:09:48.041] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:09:48.063] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:09:48.090] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:09:48.116] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:09:48.126] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:09:48.156] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:09:48.159] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:09:48.406] Browser WARN    Image with src "/hero1.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:09:48.406] Browser WARN    Image with src "/hero2.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:09:48.406] Browser WARN    Image with src "/hero3.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:09:48.406] Browser WARN    Image with src "/fruit.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/bakery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/oil.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/pick.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/frozen.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/drink.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/tea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/baby.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/nuna.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/babycream.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/babyfeeding.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/bath.webp.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/shampoo.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/oralcare.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/nivea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/groom.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/cutlery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/cleaner.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/storage.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/laundry.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:48.406] Browser WARN    Image with src "/decor.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:51.766] Browser WARN    Image with src "/hero1.webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:09:53.999] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:09:54.017] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:09:54.020] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:09:54.035] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:09:54.058] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:09:54.076] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:09:54.128] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:09:54.139] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:09:54.150] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:09:54.154] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:09:54.169] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:09:54.170] Browser WARN    Image with src "/hero1.webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:09:54.170] Browser WARN    Image with src "/hero1.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:09:54.170] Browser WARN    Image with src "/hero2.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:09:54.170] Browser WARN    Image with src "/hero3.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:09:54.170] Browser WARN    Image with src "/fruit.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/bakery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/oil.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/pick.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/frozen.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/drink.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/tea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/baby.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/nuna.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/babycream.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/babyfeeding.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/bath.webp.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/shampoo.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/oralcare.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/nivea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/groom.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/cutlery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/cleaner.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/storage.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/laundry.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:54.170] Browser WARN    Image with src "/decor.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:09:56.393] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:11:19.085] Server  LOG      ✓ Compiled in 13ms
+[00:11:19.104] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:12:35.918] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:12:35.963] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:12:35.967] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:12:36.009] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:12:36.023] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:12:36.037] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:12:36.047] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:12:36.058] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:12:36.071] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:12:36.073] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:12:38.665] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:12:38.670] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:12:38.671] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:12:38.714] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:12:38.718] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:12:38.726] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:12:38.754] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:12:38.754] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:12:38.782] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:12:38.795] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:12:38.800] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:12:38.824] Browser WARN    Image with src "/hero1.webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:12:38.824] Browser WARN    Image with src "/hero1.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:12:38.824] Browser WARN    Image with src "/hero2.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:12:38.824] Browser WARN    Image with src "/hero3.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:12:38.824] Browser WARN    Image with src "/fruit.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/bakery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/oil.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/pick.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/frozen.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/drink.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/tea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/baby.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/nuna.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/babycream.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/babyfeeding.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/bath.webp.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/shampoo.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/oralcare.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/nivea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/groom.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/cutlery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/cleaner.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/storage.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/laundry.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:38.824] Browser WARN    Image with src "/decor.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:12:41.416] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:12:45.124] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:12:45.125] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:12:45.140] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:12:45.144] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:12:45.154] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:12:45.157] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:12:45.200] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:12:45.201] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:12:45.205] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:12:45.218] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:17:33.494] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:17:34.724] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:17:34.724] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:17:34.728] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:17:34.743] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:17:34.763] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:17:34.766] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:17:34.804] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:17:34.805] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:17:34.806] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:17:34.808] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:17:35.740] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:20:06.216] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./context/OrderModeContext.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:20:06.274] Server  LOG      ✓ Compiled in 12ms
+[00:20:06.402] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:06.526] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:20:08.000] Browser WARN    Image with src "/dairy..webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:20:25.195] Server  LOG      ✓ Compiled in 37ms
+[00:20:25.241] Server  ERROR    ⨯ Error: useOrderMode must be used inside OrderModeProvider
+[00:20:25.361] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:26.406] Browser ERROR   uncaughtError: Error: useOrderMode must be used inside OrderModeProvider
+[00:20:44.659] Server  ERROR    ⨯ Error: useOrderMode must be used inside OrderModeProvider
+[00:20:44.666] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:20:44.678] Server  ERROR    ⨯ Error: useOrderMode must be used inside OrderModeProvider
+[00:20:44.783] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:45.407] Browser ERROR   uncaughtError: Error: useOrderMode must be used inside OrderModeProvider
+[00:21:06.220] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:21:06.408] Server  ERROR    ⨯ ReferenceError: Geist is not defined
+[00:21:06.495] Server  ERROR    ⨯ ReferenceError: Geist is not defined
+[00:21:06.602] Server  ERROR    ⨯ ReferenceError: Geist is not defined
+[00:21:06.720] Server  ERROR    ⨯ ReferenceError: Geist is not defined
+[00:21:06.721] Server  LOG      ✓ Compiled in 0ms
+[00:21:06.724] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:21:06.958] Browser ERROR   uncaughtError: ReferenceError: Geist is not defined
+[00:21:35.683] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:21:35.742] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:21:37.134] Browser WARN    Image with src "/dairy..webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:21:39.007] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:21:39.037] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:21:39.037] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:21:39.109] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:21:39.117] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:21:39.161] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:21:39.161] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:21:39.181] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:21:39.204] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:21:39.207] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:21:39.267] Browser WARN    Image with src "/hero1.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:21:39.267] Browser WARN    Image with src "/hero2.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:21:39.267] Browser WARN    Image with src "/frozen.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/oil.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/drink.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/tea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/pick.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/bakery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/fruit.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/hero3.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:21:39.267] Browser WARN    Image with src "/baby.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/nuna.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/babycream.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/babyfeeding.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/bath.webp.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/shampoo.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/oralcare.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/nivea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/cleaner.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/groom.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/cutlery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/storage.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/laundry.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:39.267] Browser WARN    Image with src "/decor.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:40.265] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:22:16.520] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:22:16.536] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:22:16.537] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:22:16.549] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:22:16.553] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:22:16.557] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:22:16.591] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:22:16.596] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:22:16.596] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:22:16.598] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:22:36.468] Server  LOG      ✓ Compiled in 16ms
+[00:23:19.309] Server  LOG      ✓ Compiled in 20ms
+[00:23:29.514] Server  LOG      ✓ Compiled in 12ms
+[00:23:30.404] Browser ERROR   ./app/page.tsx:202:1
+Parsing ecmascript source code failed
+  200 |     </main>
+  201 |   );
+> 202 | }
+      | ^
+  203 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[00:23:45.272] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:23:45.273] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:23:45.277] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:23:46.782] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:23:46.785] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/a15-front.jpg" "received" null
+[00:23:49.665] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:23:49.668] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:23:50.767] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:23:50.767] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:23:50.768] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:23:50.769] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:23:50.770] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:23:50.774] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:23:50.812] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:23:50.812] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:23:50.813] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:23:50.815] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:23:53.423] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:23:53.423] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:23:54.802] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:23:54.803] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:23:54.804] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:23:54.805] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:23:54.806] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:23:54.812] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:23:54.867] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:23:54.868] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:23:54.869] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:23:54.870] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:23:56.629] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:23:56.629] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:27:48.282] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./app/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:27:48.346] Server  LOG      ✓ Compiled in 20ms
+[00:27:48.419] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:27:48.491] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:27:48.494] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:27:49.306] Browser WARN    Image with src "/dairy..webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:27:50.797] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:27:50.870] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:27:50.873] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:27:50.995] Browser WARN    Image with src "/dairy..webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:27:51.717] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:27:51.720] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:27:56.150] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:27:56.158] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:28:02.555] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./app/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:28:02.610] Server  LOG      ✓ Compiled in 12ms
+[00:28:02.675] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:28:02.741] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:28:02.741] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:28:07.727] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:28:07.730] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:28:07.740] Server  LOG      ✓ Compiled in 15ms
+[00:28:08.465] Browser WARN    Image with src "/dairy..webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:28:09.763] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:28:09.784] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:28:09.810] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:28:09.874] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:28:09.897] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:28:09.902] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:28:09.903] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:28:09.927] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:28:09.929] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:28:09.954] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:28:10.008] Browser WARN    Image with src "/hero1.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:28:10.008] Browser WARN    Image with src "/hero2.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:28:10.008] Browser WARN    Image with src "/pick.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/oil.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/drink.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/tea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/fruit.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/frozen.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/bakery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/baby.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/hero3.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:28:10.008] Browser WARN    Image with src "/babycream.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/nuna.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/babyfeeding.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/bath.webp.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/shampoo.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/oralcare.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/nivea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/groom.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/cutlery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/cleaner.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/storage.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/laundry.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:10.008] Browser WARN    Image with src "/decor.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:13.555] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:28:13.557] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:28:19.002] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:28:19.006] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:28:20.182] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:28:20.224] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:28:20.228] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:28:20.264] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:28:20.276] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:28:20.295] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:28:20.310] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:28:20.332] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:28:20.337] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:28:20.348] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:28:22.461] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:28:22.465] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:28:24.182] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:28:24.183] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:28:24.184] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:28:24.185] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:28:24.186] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:28:24.187] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:28:24.226] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:28:24.227] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:28:24.227] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:28:24.228] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:28:28.396] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:28:35.415] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:28:35.415] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:28:35.439] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:28:35.453] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:28:35.457] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:28:35.460] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:28:35.490] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:28:35.490] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:28:35.500] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:28:35.502] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:28:38.256] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:28:38.257] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:28:38.257] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:28:38.258] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:28:38.259] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:28:38.282] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:28:38.321] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:28:38.322] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:28:38.322] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:28:38.323] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:28:41.042] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:28:41.045] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/oil.webp" "received" null
+[00:28:42.207] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:28:53.282] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:28:53.298] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:28:53.303] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:28:53.359] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:28:53.362] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:28:53.375] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:28:53.392] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:28:53.410] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:28:53.423] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:28:53.433] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:28:54.257] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:28:54.260] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:28:54.262] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:28:55.145] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:28:55.145] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:28:55.146] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:28:55.147] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:28:55.147] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:28:55.151] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:28:55.190] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:28:55.190] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:28:55.191] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:28:55.193] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:38:30.355] Server  LOG      ✓ Compiled in 30ms
+[00:39:27.001] Server  LOG      ✓ Compiled in 22ms
+[00:39:27.266] Browser ERROR   uncaughtError: ReferenceError: TopNavbar is not defined
+[00:39:37.363] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:39:37.462] Server  LOG      ✓ Compiled in 28ms
+[00:39:37.564] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:39:37.580] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:39:37.584] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:39:37.587] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:39:37.700] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:39:37.728] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:39:37.747] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:39:37.770] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:39:37.884] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:39:37.889] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:39:37.913] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:39:37.927] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:39:37.932] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:39:37.946] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:39:37.959] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:39:38.269] Browser WARN    Image with src "/hero1.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:39:38.269] Browser WARN    Image with src "/hero2.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:39:38.269] Browser WARN    Image with src "/hero3.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:39:38.269] Browser WARN    Image with src "/fruit.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.269] Browser WARN    Image with src "/bakery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.269] Browser WARN    Image with src "/oil.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.269] Browser WARN    Image with src "/pick.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.269] Browser WARN    Image with src "/frozen.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.269] Browser WARN    Image with src "/drink.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.269] Browser WARN    Image with src "/tea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.269] Browser WARN    Image with src "/baby.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.269] Browser WARN    Image with src "/nuna.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.269] Browser WARN    Image with src "/babycream.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.269] Browser WARN    Image with src "/bath.webp.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.269] Browser WARN    Image with src "/babyfeeding.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.269] Browser WARN    Image with src "/oralcare.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.269] Browser WARN    Image with src "/nivea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.269] Browser WARN    Image with src "/shampoo.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.270] Browser WARN    Image with src "/groom.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.270] Browser WARN    Image with src "/cutlery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.270] Browser WARN    Image with src "/cleaner.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.270] Browser WARN    Image with src "/storage.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.270] Browser WARN    Image with src "/laundry.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:38.270] Browser WARN    Image with src "/decor.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:39:39.022] Browser WARN    Image with src "/hero1.webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:39:40.286] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:39:40.286] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:39:40.287] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:39:41.345] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:39:41.345] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:39:41.346] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:39:41.347] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:39:41.347] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:39:41.352] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:39:41.391] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:39:41.391] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:39:41.391] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:39:41.392] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:39:43.511] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:39:43.511] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:39:43.515] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:39:45.162] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:39:45.162] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:39:45.163] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:39:45.164] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:39:45.165] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:39:45.169] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:39:45.209] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:39:45.210] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:39:45.210] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:39:45.211] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:39:45.898] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:39:45.900] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:39:46.994] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:39:46.994] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:39:46.996] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:39:46.996] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:39:46.997] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:39:47.004] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:39:47.044] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:39:47.045] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:39:47.045] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:39:47.046] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:39:48.479] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:39:48.481] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:39:49.587] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:39:49.588] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:39:49.589] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:39:49.590] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:39:49.590] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:39:49.594] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:39:49.666] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:39:49.667] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:39:49.667] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:39:49.668] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:39:51.708] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:39:53.558] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:59:06.830] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:59:06.834] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:59:06.839] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:59:06.894] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:59:06.894] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:59:06.899] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:59:06.928] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:59:06.931] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:59:06.934] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:59:06.944] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:59:07.399] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:59:07.399] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:59:07.403] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:59:08.768] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:59:08.769] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:59:08.770] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:59:08.770] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:59:08.771] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:59:08.772] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:59:08.811] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:59:08.811] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:59:08.812] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:59:08.815] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:59:47.807] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[00:59:47.809] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:59:48.932] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:59:48.951] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:59:48.978] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:59:49.007] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:59:49.010] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:59:49.037] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:59:49.046] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:59:49.050] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:59:49.052] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:59:49.063] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:59:51.645] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:59:51.645] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:59:51.646] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:59:51.647] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:59:51.647] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:59:51.650] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:59:51.686] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:59:51.686] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:59:51.687] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:59:51.688] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:59:54.613] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:59:56.503] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[00:59:59.003] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:59:59.014] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:59:59.015] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[00:59:59.019] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[00:59:59.031] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[00:59:59.035] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[00:59:59.069] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[00:59:59.069] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[00:59:59.070] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[00:59:59.073] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[01:00:01.473] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[04:06:40.050] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[04:06:40.113] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[04:06:40.230] Browser WARN    Image with src "/example.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[04:06:41.390] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:06:41.390] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:06:41.391] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:06:41.466] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:06:41.473] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:06:41.474] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:06:41.480] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:06:41.525] Browser WARN    Image with src "/hero1.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[04:06:41.525] Browser WARN    Image with src "/hero2.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[04:06:41.525] Browser WARN    Image with src "/hero3.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[04:06:41.525] Browser WARN    Image with src "/fruit.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/bakery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/oil.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/drink.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/pick.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/tea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/frozen.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/baby.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/nuna.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/babycream.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/babyfeeding.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/bath.webp.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/shampoo.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/oralcare.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/nivea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/groom.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/cutlery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/cleaner.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/storage.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/laundry.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.525] Browser WARN    Image with src "/decor.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:06:41.527] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:06:41.539] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:06:41.542] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:06:43.370] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[04:06:47.060] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:06:47.060] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:06:47.061] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:06:47.062] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:06:47.063] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:06:47.063] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:06:47.102] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:06:47.103] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:06:47.103] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:06:47.105] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:06:48.949] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[04:06:51.249] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[04:06:51.920] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:06:51.921] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:06:51.921] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:06:51.921] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:06:51.922] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:06:51.926] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:06:51.964] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:06:51.964] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:06:51.964] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:06:51.965] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:06:55.647] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[04:07:24.629] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:07:24.632] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:07:24.669] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:07:24.714] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:07:24.728] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:07:24.742] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:07:24.757] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:07:24.768] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:07:24.781] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:07:24.783] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:07:24.848] Browser WARN    Image with src "/frozen.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/pick.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/oil.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/hero1.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[04:07:24.848] Browser WARN    Image with src "/tea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/hero2.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[04:07:24.848] Browser WARN    Image with src "/bakery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/fruit.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/drink.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/babycream.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/nuna.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/hero3.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[04:07:24.848] Browser WARN    Image with src "/baby.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/babyfeeding.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/bath.webp.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/shampoo.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/oralcare.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/nivea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/groom.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/cutlery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/cleaner.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/storage.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/laundry.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:24.848] Browser WARN    Image with src "/decor.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:07:26.562] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[04:07:27.703] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:07:27.730] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:07:27.732] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:07:27.766] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:07:27.807] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:07:27.807] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:07:27.808] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:07:27.815] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:07:27.830] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:07:27.846] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:07:36.275] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:07:36.287] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:07:36.290] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:07:36.436] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[04:07:36.438] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[04:07:37.504] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[04:07:37.504] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[04:07:37.728] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:07:37.729] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:07:37.729] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:07:38.315] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[04:07:38.316] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/a15-front.jpg" "received" null
+[04:07:38.320] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[04:07:46.523] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[04:07:46.527] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/a15-front.jpg" "received" null
+[04:07:58.302] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:07:58.302] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:07:58.323] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:07:58.334] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:07:58.338] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:07:58.341] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:07:58.369] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:07:58.369] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:07:58.380] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:07:58.383] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:07:59.427] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:07:59.427] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:07:59.431] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:08:01.189] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[04:08:01.189] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/a15-front.jpg" "received" null
+[04:08:01.192] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[04:08:04.456] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/a15-front.jpg" "received" null
+[04:08:17.242] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[04:08:20.195] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:08:20.221] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:08:20.223] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:08:20.283] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:08:20.289] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:08:20.331] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:08:20.344] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:08:20.345] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:08:20.349] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:08:20.361] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:08:20.449] Browser WARN    Image with src "/hero1.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[04:08:20.449] Browser WARN    Image with src "/hero2.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[04:08:20.449] Browser WARN    Image with src "/drink.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/oil.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/tea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/pick.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/bakery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/fruit.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/frozen.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/hero3.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[04:08:20.449] Browser WARN    Image with src "/baby.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/nuna.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/babycream.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/babyfeeding.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/bath.webp.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/shampoo.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/oralcare.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/nivea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/groom.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/cutlery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/cleaner.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/storage.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/laundry.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:20.449] Browser WARN    Image with src "/decor.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:21.192] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:08:21.193] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:08:21.194] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:08:22.986] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[04:08:22.994] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:08:23.020] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:08:23.035] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:08:23.036] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:08:23.042] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:08:23.065] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:08:23.088] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:08:23.094] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:08:23.104] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:08:23.107] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:08:23.147] Browser WARN    Image with src "/hero1.webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[04:08:23.147] Browser WARN    Image with src "/hero1.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[04:08:23.147] Browser WARN    Image with src "/hero2.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[04:08:23.147] Browser WARN    Image with src "/hero3.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[04:08:23.147] Browser WARN    Image with src "/fruit.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/bakery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/oil.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/pick.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/frozen.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/drink.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/tea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/baby.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/nuna.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/babycream.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/babyfeeding.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/bath.webp.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/shampoo.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/oralcare.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/nivea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/groom.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/cutlery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/cleaner.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/storage.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/laundry.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:23.147] Browser WARN    Image with src "/decor.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:08:24.764] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[04:08:24.769] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/oil.webp" "received" null
+[04:08:28.498] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[04:09:56.079] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:09:56.095] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:09:56.122] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:09:56.146] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:09:56.176] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:09:56.180] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:09:56.183] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:09:56.203] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:09:56.203] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:09:56.227] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:17:32.089] Server  LOG      ✓ Compiled in 15ms
+[04:18:23.348] Server  LOG      ✓ Compiled in 16ms
+[04:18:27.282] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:18:27.282] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:18:27.286] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:18:28.794] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:18:28.795] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:18:28.796] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:18:28.797] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:18:28.800] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:18:28.804] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:18:28.840] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:18:28.840] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:18:28.841] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:18:28.841] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:18:33.425] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:18:33.425] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:18:33.426] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:18:33.427] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:18:33.428] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:18:33.446] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:18:33.482] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:18:33.482] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:18:33.482] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:18:33.484] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:18:35.979] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:18:35.980] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:18:35.980] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:18:35.981] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:18:35.982] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:18:35.983] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:18:36.023] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:18:36.024] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:18:36.024] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:18:36.025] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:19:29.222] Server  LOG      ✓ Compiled in 8ms
+[04:21:26.508] Server  ERROR    ⨯ ./app/cart/page.tsx:7:1
+Module not found: Can't resolve '@/components/TopNavbar'
+   5 | import { useEffect, useMemo, useState } from "react";
+   6 |
+>  7 | import TopNavbar from "@/components/TopNavbar";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { useCart } from "@/context/CartContext";
+   9 | import { useOrderMode } from "@/context/OrderModeContext";
+  10 |
+
+Import map: aliased to relative './components/TopNavbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/cart/page.tsx [Client Component Browser]
+    ./app/cart/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/cart/page.tsx [Client Component SSR]
+    ./app/cart/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[04:21:26.510] Server  ERROR    ⨯ ./app/cart/page.tsx:7:1
+Module not found: Can't resolve '@/components/TopNavbar'
+   5 | import { useEffect, useMemo, useState } from "react";
+   6 |
+>  7 | import TopNavbar from "@/components/TopNavbar";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { useCart } from "@/context/CartContext";
+   9 | import { useOrderMode } from "@/context/OrderModeContext";
+  10 |
+
+Import map: aliased to relative './components/TopNavbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/cart/page.tsx [Client Component Browser]
+    ./app/cart/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/cart/page.tsx [Client Component SSR]
+    ./app/cart/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[04:21:26.512] Server  ERROR    ⨯ ./app/cart/page.tsx:7:1
+Module not found: Can't resolve '@/components/TopNavbar'
+   5 | import { useEffect, useMemo, useState } from "react";
+   6 |
+>  7 | import TopNavbar from "@/components/TopNavbar";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { useCart } from "@/context/CartContext";
+   9 | import { useOrderMode } from "@/context/OrderModeContext";
+  10 |
+
+Import map: aliased to relative './components/TopNavbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/cart/page.tsx [Client Component Browser]
+    ./app/cart/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/cart/page.tsx [Client Component SSR]
+    ./app/cart/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[04:21:26.514] Server  ERROR    ⨯ ./app/cart/page.tsx:7:1
+Module not found: Can't resolve '@/components/TopNavbar'
+   5 | import { useEffect, useMemo, useState } from "react";
+   6 |
+>  7 | import TopNavbar from "@/components/TopNavbar";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { useCart } from "@/context/CartContext";
+   9 | import { useOrderMode } from "@/context/OrderModeContext";
+  10 |
+
+Import map: aliased to relative './components/TopNavbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/cart/page.tsx [Client Component Browser]
+    ./app/cart/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/cart/page.tsx [Client Component SSR]
+    ./app/cart/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[04:21:26.516] Server  ERROR    ⨯ ./app/cart/page.tsx:7:1
+Module not found: Can't resolve '@/components/TopNavbar'
+   5 | import { useEffect, useMemo, useState } from "react";
+   6 |
+>  7 | import TopNavbar from "@/components/TopNavbar";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { useCart } from "@/context/CartContext";
+   9 | import { useOrderMode } from "@/context/OrderModeContext";
+  10 |
+
+Import map: aliased to relative './components/TopNavbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/cart/page.tsx [Client Component Browser]
+    ./app/cart/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/cart/page.tsx [Client Component SSR]
+    ./app/cart/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[04:21:26.517] Server  ERROR    ⨯ ./app/cart/page.tsx:7:1
+Module not found: Can't resolve '@/components/TopNavbar'
+   5 | import { useEffect, useMemo, useState } from "react";
+   6 |
+>  7 | import TopNavbar from "@/components/TopNavbar";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { useCart } from "@/context/CartContext";
+   9 | import { useOrderMode } from "@/context/OrderModeContext";
+  10 |
+
+Import map: aliased to relative './components/TopNavbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/cart/page.tsx [Client Component Browser]
+    ./app/cart/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/cart/page.tsx [Client Component SSR]
+    ./app/cart/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[04:21:26.518] Server  ERROR    ⨯ ./app/cart/page.tsx:7:1
+Module not found: Can't resolve '@/components/TopNavbar'
+   5 | import { useEffect, useMemo, useState } from "react";
+   6 |
+>  7 | import TopNavbar from "@/components/TopNavbar";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { useCart } from "@/context/CartContext";
+   9 | import { useOrderMode } from "@/context/OrderModeContext";
+  10 |
+
+Import map: aliased to relative './components/TopNavbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/cart/page.tsx [Client Component Browser]
+    ./app/cart/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/cart/page.tsx [Client Component SSR]
+    ./app/cart/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[04:21:26.519] Server  ERROR    ⨯ ./app/cart/page.tsx:7:1
+Module not found: Can't resolve '@/components/TopNavbar'
+   5 | import { useEffect, useMemo, useState } from "react";
+   6 |
+>  7 | import TopNavbar from "@/components/TopNavbar";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { useCart } from "@/context/CartContext";
+   9 | import { useOrderMode } from "@/context/OrderModeContext";
+  10 |
+
+Import map: aliased to relative './components/TopNavbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/cart/page.tsx [Client Component Browser]
+    ./app/cart/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/cart/page.tsx [Client Component SSR]
+    ./app/cart/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[04:21:26.521] Server  ERROR    ⨯ ./app/cart/page.tsx:7:1
+Module not found: Can't resolve '@/components/TopNavbar'
+   5 | import { useEffect, useMemo, useState } from "react";
+   6 |
+>  7 | import TopNavbar from "@/components/TopNavbar";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { useCart } from "@/context/CartContext";
+   9 | import { useOrderMode } from "@/context/OrderModeContext";
+  10 |
+
+Import map: aliased to relative './components/TopNavbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/cart/page.tsx [Client Component Browser]
+    ./app/cart/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/cart/page.tsx [Client Component SSR]
+    ./app/cart/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[04:21:26.522] Server  ERROR    ⨯ ./app/cart/page.tsx:7:1
+Module not found: Can't resolve '@/components/TopNavbar'
+   5 | import { useEffect, useMemo, useState } from "react";
+   6 |
+>  7 | import TopNavbar from "@/components/TopNavbar";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { useCart } from "@/context/CartContext";
+   9 | import { useOrderMode } from "@/context/OrderModeContext";
+  10 |
+
+Import map: aliased to relative './components/TopNavbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/cart/page.tsx [Client Component Browser]
+    ./app/cart/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/cart/page.tsx [Client Component SSR]
+    ./app/cart/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[04:21:26.523] Server  ERROR    ⨯ ./app/cart/page.tsx:7:1
+Module not found: Can't resolve '@/components/TopNavbar'
+   5 | import { useEffect, useMemo, useState } from "react";
+   6 |
+>  7 | import TopNavbar from "@/components/TopNavbar";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { useCart } from "@/context/CartContext";
+   9 | import { useOrderMode } from "@/context/OrderModeContext";
+  10 |
+
+Import map: aliased to relative './components/TopNavbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/cart/page.tsx [Client Component Browser]
+    ./app/cart/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/cart/page.tsx [Client Component SSR]
+    ./app/cart/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[04:21:26.526] Server  ERROR    ⨯ ./app/cart/page.tsx:7:1
+Module not found: Can't resolve '@/components/TopNavbar'
+   5 | import { useEffect, useMemo, useState } from "react";
+   6 |
+>  7 | import TopNavbar from "@/components/TopNavbar";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { useCart } from "@/context/CartContext";
+   9 | import { useOrderMode } from "@/context/OrderModeContext";
+  10 |
+
+Import map: aliased to relative './components/TopNavbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/cart/page.tsx [Client Component Browser]
+    ./app/cart/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/cart/page.tsx [Client Component SSR]
+    ./app/cart/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[04:21:26.540] Server  LOG      ✓ Compiled in 19ms
+[04:21:27.153] Browser ERROR   ./app/cart/page.tsx:7:1
+Module not found: Can't resolve '@/components/TopNavbar'
+   5 | import { useEffect, useMemo, useState } from "react";
+   6 |
+>  7 | import TopNavbar from "@/components/TopNavbar";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { useCart } from "@/context/CartContext";
+   9 | import { useOrderMode } from "@/context/OrderModeContext";
+  10 |
+
+Import map: aliased to relative './components/TopNavbar' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./app/cart/page.tsx [Client Component Browser]
+    ./app/cart/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/cart/page.tsx [Client Component SSR]
+    ./app/cart/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[04:22:35.425] Server  LOG      ✓ Compiled in 12ms
+[04:22:39.683] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[04:22:39.758] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:22:39.759] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:22:39.771] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:22:39.794] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:22:39.801] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:22:39.860] Browser WARN    Image with src "/hero1.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[04:22:39.860] Browser WARN    Image with src "/hero2.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[04:22:39.860] Browser WARN    Image with src "/hero3.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[04:22:39.860] Browser WARN    Image with src "/fruit.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/bakery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/oil.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/pick.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/frozen.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/drink.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/tea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/baby.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/nuna.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/babycream.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/babyfeeding.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/bath.webp.jpeg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/shampoo.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/oralcare.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/nivea.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/groom.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/cutlery.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/cleaner.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/storage.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/laundry.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.860] Browser WARN    Image with src "/decor.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[04:22:39.861] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:22:39.861] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:22:39.868] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:22:39.868] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:22:39.884] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:22:41.876] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:22:41.876] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:22:41.877] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:22:43.213] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:22:43.213] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:22:43.214] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:22:43.215] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:22:43.215] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:22:43.218] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:22:43.256] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:22:43.256] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:22:43.257] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:22:43.261] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:22:49.334] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:22:49.345] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:22:49.345] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:22:49.352] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:22:49.361] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:22:49.365] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:22:49.401] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:22:49.401] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:22:49.403] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:22:49.406] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:22:53.544] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:22:53.544] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:22:53.545] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:22:53.546] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:22:53.547] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:22:53.549] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:22:53.586] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:22:53.587] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:22:53.588] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:22:53.588] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:22:55.934] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:22:55.935] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:22:55.935] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:22:55.936] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:22:55.937] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:22:55.941] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:22:56.023] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:22:56.023] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:22:56.024] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:22:56.026] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:22:56.817] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/a15-front.jpg" "received" null
+[04:22:58.981] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/a15-front.jpg" "received" null
+[04:23:05.000] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:23:05.001] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:23:05.004] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:23:05.016] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:23:05.029] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:23:05.031] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:23:05.065] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:23:05.066] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:23:05.068] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:23:05.070] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:24:12.497] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/a15-front.jpg" "received" null
+[04:24:14.586] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:24:14.587] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:24:14.587] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:24:14.600] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:24:14.604] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:24:14.608] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:24:14.648] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:24:14.649] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:24:14.652] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:24:14.654] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:41:19.541] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:41:19.547] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:41:19.548] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:41:19.595] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:41:19.599] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:41:19.633] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:41:19.635] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:41:19.638] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:41:19.639] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:41:19.650] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:41:21.095] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[04:41:21.096] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/oil.webp" "received" null
+[04:41:22.458] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:41:22.458] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:41:22.459] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:41:22.460] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:41:22.462] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:41:22.467] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:41:22.530] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:41:22.531] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:41:22.534] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:41:22.534] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:41:24.104] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:41:24.104] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:41:24.106] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:41:24.609] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[04:41:24.609] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/a15-front.jpg" "received" null
+[04:41:24.611] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/dairy..webp" "received" null
+[04:41:27.338] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/a15-front.jpg" "received" null
+[04:41:31.074] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:41:31.075] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:41:31.088] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:41:31.098] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[04:41:31.102] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[04:41:31.105] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[04:41:31.134] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[04:41:31.144] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[04:41:31.146] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[04:41:31.149] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[04:41:35.377] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[04:41:37.818] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/example.png" "received" null
+[06:02:09.491] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[06:02:09.528] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[06:02:09.529] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
+[06:02:09.564] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/device.webp" "received" null
+[06:02:09.596] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/cleaning.webp" "received" null
+[06:02:09.597] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/baby.webp" "received" null
+[06:02:09.601] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/beauty.webp" "received" null
+[06:02:09.623] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/health.webp" "received" null
+[06:02:09.624] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/men.webp" "received" null
+[06:02:09.636] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/products/stationery.webp" "received" null
