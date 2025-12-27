@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///Users/a./mato1/app/fast/page.tsx"],"sourcesContent":["export default function ShopFastPage() {\n  return (\n    <main className=\"min-h-screen bg-white text-black p-4\">\n      <h1 className=\"text-xl font-extrabold\">Shop Fast</h1>\n      <p className=\"mt-2 text-sm text-gray-600\">Coming soon…</p>\n    </main>\n  );\n}\n"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACtB,qBACE,8OAAC;QAAK,WAAU;;0BACd,8OAAC;gBAAG,WAAU;0BAAyB;;;;;;0BACvC,8OAAC;gBAAE,WAAU;0BAA6B;;;;;;;;;;;;AAGhD"}}]
-}

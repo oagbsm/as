@@ -14,7 +14,6 @@ import {
   fetchProductsBySubcategoryId,
   fetchVariantsByProductIds,
   fetchImagesByProductIds,
-  fetchBrandsByIds,
 } from "@/lib/db";
 
 /** ===== helpers ===== */
@@ -65,10 +64,6 @@ export default function SubcategoryPage() {
   const [images, setImages] = useState<any[]>([]);
 
   const [activeSS, setActiveSS] = useState<string | null>(null);
-  const [activeBrandId, setActiveBrandId] = useState<number | null>(null);
-  const [brandsById, setBrandsById] = useState<
-    Record<number, { id: number; name: string; slug?: string }>
-  >({});
   const [selectedVariantByProduct, setSelectedVariantByProduct] = useState<
     Record<number, number | null>
   >({});
@@ -77,7 +72,6 @@ export default function SubcategoryPage() {
   useEffect(() => {
     setLoading(true);
     setActiveSS(null);
-    setActiveBrandId(null);
     (async () => {
       const sub = await fetchSubcategoryBySlug(String(slug));
       if (!sub) {
@@ -91,46 +85,19 @@ export default function SubcategoryPage() {
       }
 
       const prods = await fetchProductsBySubcategoryId(sub.id);
-      // DEMO: Add dummy concept product for testing
-      prods.push({
-        id: -1,
-        name: "Cheetos Crunchy (Concept)",
-        slug: "cheetos-concept",
-        base_price: 0,
-        brand_id: null,
-        is_concept: true,
-      });
       const ids = prods.map((p: any) => p.id);
 
-      const brandIds = Array.from(
-        new Set(
-          (prods || [])
-            .map((p: any) => p.brand_id)
-            .filter((x: any) => typeof x === "number")
-        )
-      );
-
-      const [sss, vars, imgs, brs] = await Promise.all([
+      const [sss, vars, imgs] = await Promise.all([
         fetchSubSubcategoriesBySubcategoryId(sub.id),
         fetchVariantsByProductIds(ids),
         fetchImagesByProductIds(ids),
-        fetchBrandsByIds(brandIds),
       ]);
-
-      const map: Record<number, { id: number; name: string; slug?: string }> = {};
-      for (const b of brs || []) {
-        const id = Number((b as any).id);
-        const name = String((b as any).name ?? "").trim();
-        if (!Number.isFinite(id) || !name) continue;
-        map[id] = { id, name, slug: (b as any).slug };
-      }
 
       setCurrentSub(sub);
       setSsList(sss);
       setProducts(prods);
       setVariants(vars);
       setImages(imgs);
-      setBrandsById(map);
 
       setLoading(false);
     })();
@@ -212,14 +179,8 @@ export default function SubcategoryPage() {
       });
     }
 
-    if (activeBrandId != null) {
-      list = list.filter(
-        (p: any) => Number(p.brand_id) === activeBrandId
-      );
-    }
-
     return list;
-  }, [activeSS, activeBrandId, baseList, ssList]);
+  }, [activeSS, baseList, ssList]);
 
   useEffect(() => {
     setSelectedVariantByProduct((prev) => {
@@ -233,18 +194,6 @@ export default function SubcategoryPage() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtered.length, variants.length]);
-
-  const brands = useMemo(() => {
-    const ids = new Set<number>();
-    for (const p of baseList as any[]) {
-      const id = Number(p.brand_id);
-      if (Number.isFinite(id)) ids.add(id);
-    }
-    return Array.from(ids)
-      .map((id) => brandsById[id])
-      .filter(Boolean)
-      .sort((a, b) => a.name.localeCompare(b.name));
-  }, [baseList, brandsById]);
 
 const activeObj = activeSS
   ? ssList.find((x: any) => x.slug === activeSS)
@@ -262,19 +211,7 @@ const seoLine =
     ? `Ka hel ${titlePrimary} (${titleSecondary}) online MatoMart – raashin iyo alaabooyin tayo leh oo lagu keeno gudaha Soomaaliya.`
     : `Shop ${titleSecondary} (${titlePrimary}) online in Somalia with MatoMart – quality groceries and essentials delivered fast.`;
 
-  // hide brand filters for fresh fruit/veg style subcategories
-  const hideBrandFilter = useMemo(() => {
-    const slugStr = String((currentSub as any)?.slug ?? "");
-    const key = slugStr.toLowerCase();
-    return [
-      "fresh-vegtables",
-      "fresh-vegetables",
-      "fruits-vegetables",
-      "fruit-vegetables",
-      "fruits",
-      "vegetables",
-    ].includes(key);
-  }, [currentSub]);
+  // (brand filter UI removed)
 
   const cartTotals = useMemo(() => {
     let total = 0;
@@ -306,10 +243,6 @@ const seoLine =
         : undefined;
 
       const items = (baseList as any[]).map((p, index) => {
-        const brandName =
-          p.brand_id && brandsById[p.brand_id]
-            ? brandsById[p.brand_id].name
-            : undefined;
         const prodUrl = origin
           ? `${origin}/product/${p.slug}`
           : `/product/${p.slug}`;
@@ -320,10 +253,6 @@ const seoLine =
           name: p.name,
           url: prodUrl,
         };
-
-        if (brandName) {
-          entry.brand = { "@type": "Brand", name: brandName };
-        }
 
         return entry;
       });
@@ -346,7 +275,7 @@ const seoLine =
     } catch {
       return "";
     }
-  }, [slug, baseList, brandsById, titlePrimary, seoLine]);
+  }, [slug, baseList, titlePrimary, seoLine]);
 
   if (!loading && !currentSub) {
     return (
@@ -440,42 +369,7 @@ const seoLine =
             <div className="w-8" />
           </div>
 
-          <div className="mx-auto max-w-md px-4 pb-2 space-y-1.5">
-            {/* brand filter row – hidden for fruit/veg style slugs */}
-            {!hideBrandFilter && brands.length > 0 && (
-              <div className="flex gap-2 overflow-x-auto">
-                <button
-                  onClick={() => setActiveBrandId(null)}
-                  className={`h-8 px-3 rounded-full border text-xs whitespace-nowrap ${
-                    activeBrandId === null
-                      ? "border-[#0B6EA9] bg-[#EAF4FB] text-[#0B6EA9] font-semibold"
-                      : "bg-white text-gray-700"
-                  }`}
-                >
-                  {lang === "en"
-                    ? "All Brands"
-                    : "Dhammaan Summadaha"}
-                </button>
-
-                {brands.map((b) => {
-                  const isActive = b.id === activeBrandId;
-                  return (
-                    <button
-                      key={b.id}
-                      onClick={() => setActiveBrandId(b.id)}
-                      className={`h-8 px-3 rounded-full border text-xs whitespace-nowrap ${
-                        isActive
-                          ? "border-[#0B6EA9] bg-[#EAF4FB] text-[#0B6EA9] font-semibold"
-                          : "bg-white text-gray-700"
-                      }`}
-                    >
-                      {b.name}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          <div className="mx-auto max-w-md px-4 pb-2 space-y-1.5"></div>
         </section>
 
         {/* MAIN */}
@@ -629,12 +523,7 @@ const seoLine =
                           <div className="text-[13px] font-semibold text-gray-900 line-clamp-2 min-h-[32px]">
                             {p.name}
                           </div>
-                          {p.brand_id &&
-                          brandsById[p.brand_id] ? (
-                            <div className="text-[11px] text-gray-500 mt-0.5 leading-snug">
-                              {brandsById[p.brand_id].name}
-                            </div>
-                          ) : null}
+
 
                           {hasVariants ? (
                             <div className="mt-1 flex flex-wrap gap-1.5">

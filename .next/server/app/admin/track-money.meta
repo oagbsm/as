@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/admin/layout,_N_T_/admin/track-money/layout,_N_T_/admin/track-money/page,_N_T_/admin/track-money"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/admin/track-money/__PAGE__",
+    "/admin/track-money",
+    "/admin",
+    "/_index",
+    "/_head"
+  ]
+}

@@ -47,7 +47,15 @@ export async function POST(req: Request) {
         lineTotal: price * qty,
       };
     })
-    .filter(Boolean);
+    .filter(
+      (r): r is {
+        productId: number;
+        variantId: number | null;
+        qty: number;
+        priceAtPurchase: number;
+        lineTotal: number;
+      } => r !== null
+    );
 
   const subtotal = rows.reduce((sum: number, r: any) => sum + r.lineTotal, 0);
   const deliveryFee = subtotal > 0 ? 1.99 : 0;

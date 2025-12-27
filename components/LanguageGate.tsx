@@ -6,15 +6,14 @@ import { getLangCookie } from "@/lib/langCookie";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function LanguageGate() {
-  const { setLang, ready } = useLanguage();
+  const { setLang } = useLanguage();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (!ready) return;
     const saved = getLangCookie();
     // if no cookie => show the picker
     setOpen(!saved);
-  }, [ready]);
+  }, []);
 
   const choose = (l: Lang) => {
     setLang(l);
