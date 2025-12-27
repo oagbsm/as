@@ -696,7 +696,9 @@ const products = [
         is_discounted: true,
         base_price: 18.5,
         tags: [
-            "rice"
+            "rice",
+            "bariis",
+            "kilo bariisß"
         ]
     },
     {
@@ -710,7 +712,9 @@ const products = [
         is_discounted: false,
         base_price: 11,
         tags: [
-            "cooking-oil"
+            "cooking-oil",
+            "Saliid",
+            "saliid"
         ]
     },
     {
@@ -724,7 +728,8 @@ const products = [
         is_discounted: false,
         base_price: 1.8,
         tags: [
-            "bananas"
+            "bananas",
+            "moos"
         ]
     },
     {

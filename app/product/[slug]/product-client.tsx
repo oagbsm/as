@@ -27,6 +27,15 @@ function money(n: number) {
   return `₹${Number(n ?? 0).toFixed(0)}`;
 }
 
+// ✅ prevents Next/Image crash
+function safeImg(src: any) {
+  const s = String(src ?? "").trim();
+  if (!s) return "/example.png";
+  if (s.startsWith("/")) return s;
+  if (s.startsWith("http://") || s.startsWith("https://")) return s;
+  return "/example.png";
+}
+
 export default function ProductClient({
   productId,
   productName,
@@ -78,8 +87,10 @@ export default function ProductClient({
     setSlide(0);
   }, [selected?.id, slideImages.length]);
 
-  const activeUrl =
+  const activeUrlRaw =
     slideImages[Math.min(slide, slideImages.length - 1)]?.url ?? "/example.png";
+
+  const activeUrl = safeImg(activeUrlRaw);
 
   const maxStock = selected?.stock ?? 999999;
   const canDec = qty > 1;
@@ -101,7 +112,7 @@ export default function ProductClient({
 
   return (
     <div className="px-4 pb-4">
-      {/* ✅ SLIDESHOW (one image only) */}
+      {/* ✅ SLIDESHOW */}
       <div className="py-4">
         <div className="relative bg-gray-50 rounded-2xl border overflow-hidden">
           <div className="relative h-[360px] w-full">

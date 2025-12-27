@@ -1,189 +1,33 @@
-export const categories = [
-  { id: 1, name: "Groceries", slug: "groceries", img: "/groceries.webp" },
+// store.ts
+// Minimal “mock DB” for frontend + early checkout tables (orders/orderItems/payments)
 
-  { id: 2, name: " Beverages", slug: "beverages", img: "/drink.webp" },
+// --------------------
+// Types
+// --------------------
+export type Category = {
+  id: number;
+  slug: string;
+  img: string;
+  name_so: string;
+  name_en: string;
+};
 
-  { id: 3, name: "Baby Care", slug: "baby-care", img: "/baby.webp" },
-
-  { id: 4, name: " Personal Care", slug: "personal-care", img: "/personal.webp" },
-
-  { id: 5, name: " Home & Kitchen", slug: "home-kitchen", img: "/home.webp" },
-
-  { id: 6, name: " Fashion", slug: "fashion", img: "/products/baby.webp" },
-
-  // Daily-use electronics (NOT phones)
-  { id: 7, name: "Daily Electronics", slug: "daily-electronics", img: "/products/health.webp" },
-
-  { id: 8, name: "Stationery", slug: "stationery", img: "/products/stationery.webp" },
-];
-
-
-export const subcategories = [
-  /* =========================
-     🛒 GROCERIES (category_id: 1)
-  ========================= */
-  { id: 101, category_id: 1, name: "Fruits & Vegetables", slug: "fruits-vegetables", img: "/fruit.webp" },
-  { id: 102, category_id: 1, name: "Dairy & Bakery", slug: "dairy-bakery", img: "/bakery.webp" },
-  { id: 103, category_id: 1, name: "Staples (Atta, Rice, Dal & Oil)", slug: "staples-atta-rice-dal-oil", img: "/oil.webp" },
-  { id: 104, category_id: 1, name: "Snacks & Branded Foods", slug: "snacks-branded-foods", img: "/bakery.webp" },
-  { id: 105, category_id: 1, name: "Sweets, Dry Fruits & Dates", slug: "sweets-dry-fruits-dates", img: "/pick.webp" },
-  { id: 106, category_id: 1, name: "Frozen & Ready Foods", slug: "frozen-ready-foods", img: "/frozen.webp" },
-
-  /* =========================
-     🥤 BEVERAGES (category_id: 2)
-  ========================= */
-  { id: 201, category_id: 2, name: "Soft Drinks & Juices", slug: "soft-drinks-juices", img: "/drink.webp" },
-  { id: 202, category_id: 2, name: "Tea, Coffee & Health Drinks", slug: "tea-coffee-health-drinks", img: "/tea.webp" },
-
-  /* =========================
-     👶 BABY CARE (category_id: 3)
-  ========================= */
-  { id: 301, category_id: 3, name: "Baby Food", slug: "baby-food", img: "/baby.webp" },
-  { id: 302, category_id: 3, name: "Diapers & Wipes", slug: "diapers-wipes", img: "/nuna.webp" },
-  { id: 303, category_id: 3, name: "Baby Bath & Skin Care", slug: "baby-bath-skin-care", img: "/babycream.jpeg" },
-  { id: 304, category_id: 3, name: "Baby Feeding Essentials", slug: "baby-feeding-essentials", img: "/babyfeeding.webp" },
-
-  /* =========================
-     💄 PERSONAL CARE (category_id: 4)
-  ========================= */
-  { id: 401, category_id: 4, name: "Bath & Body", slug: "bath-body", img: "/bath.webp.jpeg" },
-  { id: 402, category_id: 4, name: "Hair Care", slug: "hair-care", img: "/shampoo.jpg" },
-  { id: 403, category_id: 4, name: "Oral Care", slug: "oral-care", img: "/oralcare.webp" },
-  { id: 404, category_id: 4, name: "Skin Care", slug: "skin-care", img: "/nivea.webp" },
-  { id: 405, category_id: 4, name: "Grooming & Hygiene", slug: "grooming-hygiene", img: "/groom.webp" },
-
-  /* =========================
-     🏠 HOME & KITCHEN (category_id: 5)
-  ========================= */
-  { id: 501, category_id: 5, name: "Kitchen & Dining", slug: "kitchen-dining", img: "/cutlery.webp" },
-  { id: 502, category_id: 5, name: "Household Essentials", slug: "household-essentials", img: "/cleaner.webp" },
-  { id: 503, category_id: 5, name: "Home Appliances", slug: "home-appliances", img: "/products/device.webp" },
-
-  // Extra (still JioMart-style and useful)
-  { id: 504, category_id: 5, name: "Storage & Containers", slug: "storage-containers", img: "/storage.webp" },
-  { id: 505, category_id: 5, name: "Cleaning Supplies", slug: "cleaning-supplies", img: "/products/cleaning.webp" },
-  { id: 506, category_id: 5, name: "Laundry Essentials", slug: "laundry-essentials", img: "/laundry.webp" },
-
-  /* =========================
-     👕 FASHION (category_id: 6)
-  ========================= */
-  { id: 601, category_id: 6, name: "Men’s Clothing", slug: "mens-clothing", img: "/products/baby.webp" },
-  { id: 602, category_id: 6, name: "Women’s Clothing", slug: "womens-clothing", img: "/products/beauty.webp" },
-  { id: 603, category_id: 6, name: "Kids Wear", slug: "kids-wear", img: "/products/baby.webp" },
-  { id: 604, category_id: 6, name: "Footwear", slug: "footwear", img: "/products/health.webp" },
-  { id: 605, category_id: 6, name: "Innerwear", slug: "innerwear", img: "/products/men.webp" },
-
-  /* =========================
-     🔌 DAILY ELECTRONICS (category_id: 7)
-     (no mobiles/phones)
-  ========================= */
-  { id: 701, category_id: 7, name: "LED Bulbs & Lights", slug: "led-bulbs-lights", img: "/decor.webp" },
-  { id: 702, category_id: 7, name: "Extension Boards & Plugs", slug: "extension-boards-plugs", img: "/products/device.webp" },
-  { id: 703, category_id: 7, name: "Chargers & Adapters", slug: "chargers-adapters", img: "/products/device.webp" },
-  { id: 704, category_id: 7, name: "Batteries & Cells", slug: "batteries-cells", img: "/products/health.webp" },
-  { id: 705, category_id: 7, name: "Emergency Lights", slug: "emergency-lights", img: "/decor.webp" },
-  { id: 706, category_id: 7, name: "Switches & Electricals", slug: "switches-electricals", img: "/products/device.webp" },
-
-  /* =========================
-     ✏️ STATIONERY (category_id: 8)
-  ========================= */
-  { id: 801, category_id: 8, name: "Notebooks & Registers", slug: "notebooks-registers", img: "/products/stationery.webp" },
-  { id: 802, category_id: 8, name: "Pens & Writing", slug: "pens-writing", img: "/products/stationery.webp" },
-  { id: 803, category_id: 8, name: "School Supplies", slug: "school-supplies", img: "/products/stationery.webp" },
-  { id: 804, category_id: 8, name: "Office Supplies", slug: "office-supplies", img: "/products/stationery.webp" },
-  { id: 805, category_id: 8, name: "Art & Craft", slug: "art-craft", img: "/products/stationery.webp" },
-];
+export type Subcategory = {
+  id: number;
+  category_id: number;
+  slug: string;
+  img: string;
+  name_so: string;
+  name_en: string;
+};
 
 export type SubSubcategory = {
   id: number;
-  subcategory_id: number; // parent subcategory (e.g. 202 = Tea/Coffee)
-  name: string;
+  subcategory_id: number;
+  name_so: string;
+  name_en: string;
   slug: string;
 };
-
-export const subsubcategories: SubSubcategory[] = [
-  /* =========================
-     🥤 BEVERAGES → Soft Drinks & Juices (subcategory_id: 201)
-  ========================= */
-  { id: 10101, subcategory_id: 101, name: "Bananas", slug: "bananas" },
-
-  { id: 20101, subcategory_id: 201, name: "Cola & Soda", slug: "cola-soda" },
-  { id: 20102, subcategory_id: 201, name: "Juices", slug: "juices" },
-  { id: 20103, subcategory_id: 201, name: "Energy Drinks", slug: "energy-drinks" },
-  { id: 20104, subcategory_id: 201, name: "Flavoured Water", slug: "flavoured-water" },
-  { id: 20105, subcategory_id: 201, name: "Mixers & Tonic", slug: "mixers-tonic" },
-
-  /* =========================
-     🥤 BEVERAGES → Tea, Coffee & Health Drinks (subcategory_id: 202)
-     (your example becomes REAL here)
-  ========================= */
-  { id: 20201, subcategory_id: 202, name: "Instant Coffee", slug: "instant-coffee" },
-  { id: 20202, subcategory_id: 202, name: "Ground Coffee", slug: "ground-coffee" },
-  { id: 20203, subcategory_id: 202, name: "Coffee Beans", slug: "coffee-beans" },
-  { id: 20204, subcategory_id: 202, name: "Tea Bags", slug: "tea-bags" },
-  { id: 20205, subcategory_id: 202, name: "Green Tea", slug: "green-tea" },
-  { id: 20206, subcategory_id: 202, name: "Herbal & Exotic Tea", slug: "herbal-exotic-tea" },
-  { id: 20207, subcategory_id: 202, name: "Gourmet / Premium Tea", slug: "gourmet-premium-tea" },
-  { id: 20208, subcategory_id: 202, name: "Health Drinks", slug: "health-drinks" },
-
-  /* =========================
-     👶 BABY CARE
-  ========================= */
-  { id: 30101, subcategory_id: 301, name: "Cereals & Purees", slug: "cereals-purees" },
-  { id: 30102, subcategory_id: 301, name: "Formula", slug: "formula" },
-  { id: 30103, subcategory_id: 301, name: "Snacks for Babies", slug: "baby-snacks" },
-
-  { id: 30201, subcategory_id: 302, name: "Tape Diapers", slug: "tape-diapers" },
-  { id: 30202, subcategory_id: 302, name: "Pants Diapers", slug: "pants-diapers" },
-  { id: 30203, subcategory_id: 302, name: "Baby Wipes", slug: "baby-wipes" },
-  { id: 30204, subcategory_id: 302, name: "Diaper Rash Cream", slug: "diaper-rash-cream" },
-
-  { id: 30301, subcategory_id: 303, name: "Baby Soap & Wash", slug: "baby-soap-wash" },
-  { id: 30302, subcategory_id: 303, name: "Baby Shampoo", slug: "baby-shampoo" },
-  { id: 30303, subcategory_id: 303, name: "Baby Lotion & Oil", slug: "baby-lotion-oil" },
-
-  { id: 30401, subcategory_id: 304, name: "Bottles", slug: "bottles" },
-  { id: 30402, subcategory_id: 304, name: "Feeding Accessories", slug: "feeding-accessories" },
-  { id: 30403, subcategory_id: 304, name: "Sippers & Cups", slug: "sippers-cups" },
-
-  /* =========================
-     💄 PERSONAL CARE
-  ========================= */
-  { id: 40101, subcategory_id: 401, name: "Soaps", slug: "soaps" },
-  { id: 40102, subcategory_id: 401, name: "Body Wash", slug: "body-wash" },
-  { id: 40103, subcategory_id: 401, name: "Deodorants", slug: "deodorants" },
-
-  { id: 40201, subcategory_id: 402, name: "Shampoo", slug: "shampoo" },
-  { id: 40202, subcategory_id: 402, name: "Conditioner", slug: "conditioner" },
-  { id: 40203, subcategory_id: 402, name: "Hair Oil", slug: "hair-oil" },
-
-  { id: 40301, subcategory_id: 403, name: "Toothpaste", slug: "toothpaste" },
-  { id: 40302, subcategory_id: 403, name: "Toothbrushes", slug: "toothbrushes" },
-  { id: 40303, subcategory_id: 403, name: "Mouthwash", slug: "mouthwash" },
-
-  { id: 40401, subcategory_id: 404, name: "Face Wash", slug: "face-wash" },
-  { id: 40402, subcategory_id: 404, name: "Moisturisers", slug: "moisturisers" },
-  { id: 40403, subcategory_id: 404, name: "Sunscreen", slug: "sunscreen" },
-
-  { id: 40501, subcategory_id: 405, name: "Sanitary & Hygiene", slug: "sanitary-hygiene" },
-  { id: 40502, subcategory_id: 405, name: "Shaving & Grooming", slug: "shaving-grooming" },
-  { id: 40503, subcategory_id: 405, name: "Hand Wash & Sanitiser", slug: "handwash-sanitiser" },
-
-  /* =========================
-     🏠 HOME & KITCHEN
-  ========================= */
-  { id: 50101, subcategory_id: 501, name: "Cookware", slug: "cookware" },
-  { id: 50102, subcategory_id: 501, name: "Dinnerware", slug: "dinnerware" },
-  { id: 50103, subcategory_id: 501, name: "Kitchen Tools", slug: "kitchen-tools" },
-
-  { id: 50201, subcategory_id: 502, name: "Cleaning Liquids", slug: "cleaning-liquids" },
-  { id: 50202, subcategory_id: 502, name: "Tissues & Wipes", slug: "tissues-wipes" },
-  { id: 50203, subcategory_id: 502, name: "Garbage Bags", slug: "garbage-bags" },
-
-  { id: 50301, subcategory_id: 503, name: "Small Appliances", slug: "small-appliances" },
-  { id: 50302, subcategory_id: 503, name: "Irons", slug: "irons" },
-  { id: 50303, subcategory_id: 503, name: "Kettles", slug: "kettles" },
-];
 
 export type Product = {
   id: number;
@@ -194,12 +38,196 @@ export type Product = {
   subcategory_id: number;
   brand_id: number;
   is_discounted: boolean;
-  base_price: number;
-  tags?: string[]; // ✅ NEW
+  base_price: number; // keep for now (but UI should prefer variant.price)
+  tags?: string[];
 };
 
+export type ProductVariant = {
+  id: number;
+  product_id: number;
+  label: string;
+  sku: string;
+  price: number;
+  mrp: number;
+  stock: number;
+};
+
+export type ProductImage = {
+  id: number;
+  product_id: number;
+  url: string;
+  is_primary: boolean;
+};
+
+export type Brand = {
+  id: number;
+  name: string;
+  slug: string;
+};
+
+export type Customer = {
+  id: number;
+  name: string;
+  phone: string;
+};
+
+// --------------------
+// “Checkout DB tables” (arrays)
+// --------------------
+export type OrderStatus = "PENDING" | "PAID" | "CANCELLED" | "DELIVERED";
+
+export type Order = {
+  id: number;
+  customer_id: number | null; // allow guest checkout
+  total_amount: number;
+  status: OrderStatus;
+  created_at: string; // ISO string
+};
+
+export type OrderItem = {
+  id: number;
+  order_id: number;
+  variant_id: number;
+  quantity: number;
+  price_at_purchase: number;
+};
+
+export type PaymentMethod = "EVC" | "CASH" | "MERCHANT";
+export type PaymentStatus = "PENDING" | "SUCCESS" | "FAILED" | "REFUNDED";
+
+export type Payment = {
+  id: number;
+  order_id: number;
+  method: PaymentMethod;
+  amount: number;
+  status: PaymentStatus;
+  created_at: string; // ISO string
+  reference?: string; // optional txn id
+};
+
+// --------------------
+// Data
+// --------------------
+export const categories: Category[] = [
+  { id: 1, slug: "groceries", img: "/groceries.webp", name_so: "Raashin", name_en: "Groceries" },
+  { id: 2, slug: "beverages", img: "/drink.webp", name_so: "Cabitaan", name_en: "Beverages" },
+  { id: 3, slug: "baby-care", img: "/baby.webp", name_so: "Ilmo", name_en: "Baby Care" },
+  { id: 4, slug: "personal-care", img: "/personal.webp", name_so: "Nadaafad", name_en: "Personal Care" },
+  { id: 5, slug: "home-kitchen", img: "/home.webp", name_so: "Guri & Jikada", name_en: "Home & Kitchen" },
+  { id: 6, slug: "fashion", img: "/products/baby.webp", name_so: "Dharka", name_en: "Fashion" },
+  { id: 7, slug: "daily-electronics", img: "/products/health.webp", name_so: "Koronto & Qalab", name_en: "Daily Electronics" },
+  { id: 8, slug: "stationery", img: "/products/stationery.webp", name_so: "Qalinka & Buugaag", name_en: "Stationery" },
+];
+
+export const subcategories: Subcategory[] = [
+  // GROCERIES
+  { id: 101, category_id: 1, slug: "fruits-vegetables", img: "/fruit.webp", name_so: "Miraha & Khudaarta", name_en: "Fruits & Vegetables" },
+  { id: 102, category_id: 1, slug: "dairy-bakery", img: "/bakery.webp", name_so: "Caano & Rooti", name_en: "Dairy & Bakery" },
+  { id: 103, category_id: 1, slug: "staples-atta-rice-dal-oil", img: "/oil.webp", name_so: "Raashin Asaasi", name_en: "Staples (Atta, Rice, Dal & Oil)" },
+  { id: 104, category_id: 1, slug: "snacks-branded-foods", img: "/bakery.webp", name_so: "Cunto Fudud", name_en: "Snacks & Branded Foods" },
+  { id: 105, category_id: 1, slug: "sweets-dry-fruits-dates", img: "/pick.webp", name_so: "Macmacaan & Timir", name_en: "Sweets, Dry Fruits & Dates" },
+  { id: 106, category_id: 1, slug: "frozen-ready-foods", img: "/frozen.webp", name_so: "Cunto Qabow/Diyaarsan", name_en: "Frozen & Ready Foods" },
+
+  // BEVERAGES
+  { id: 201, category_id: 2, slug: "soft-drinks-juices", img: "/drink.webp", name_so: "Cabbitaan Fudud & Casiir", name_en: "Soft Drinks & Juices" },
+  { id: 202, category_id: 2, slug: "tea-coffee-health-drinks", img: "/tea.webp", name_so: "Shaah & Kafee", name_en: "Tea, Coffee & Health Drinks" },
+
+  // BABY
+  { id: 301, category_id: 3, slug: "baby-food", img: "/baby.webp", name_so: "Cuntada Ilmaha", name_en: "Baby Food" },
+  { id: 302, category_id: 3, slug: "diapers-wipes", img: "/nuna.webp", name_so: "Xafaayad & Tirtire", name_en: "Diapers & Wipes" },
+  { id: 303, category_id: 3, slug: "baby-bath-skin-care", img: "/babycream.jpeg", name_so: "Qubays & Daryeel Maqaarka", name_en: "Baby Bath & Skin Care" },
+  { id: 304, category_id: 3, slug: "baby-feeding-essentials", img: "/babyfeeding.webp", name_so: "Qalabka Quudinta", name_en: "Baby Feeding Essentials" },
+
+  // PERSONAL CARE
+  { id: 401, category_id: 4, slug: "bath-body", img: "/bath.webp.jpeg", name_so: "Qubays & Jirka", name_en: "Bath & Body" },
+  { id: 402, category_id: 4, slug: "hair-care", img: "/shampoo.jpg", name_so: "Daryeel Timaha", name_en: "Hair Care" },
+  { id: 403, category_id: 4, slug: "oral-care", img: "/oralcare.webp", name_so: "Daryeel Afka", name_en: "Oral Care" },
+  { id: 404, category_id: 4, slug: "skin-care", img: "/nivea.webp", name_so: "Daryeel Maqaarka", name_en: "Skin Care" },
+  { id: 405, category_id: 4, slug: "grooming-hygiene", img: "/groom.webp", name_so: "Nadaafad & Isqurxin", name_en: "Grooming & Hygiene" },
+
+  // HOME & KITCHEN
+  { id: 501, category_id: 5, slug: "kitchen-dining", img: "/cutlery.webp", name_so: "Jikada & Cuntada", name_en: "Kitchen & Dining" },
+  { id: 502, category_id: 5, slug: "household-essentials", img: "/cleaner.webp", name_so: "Baahida Guriga", name_en: "Household Essentials" },
+  { id: 503, category_id: 5, slug: "home-appliances", img: "/products/device.webp", name_so: "Qalabka Guriga", name_en: "Home Appliances" },
+  { id: 504, category_id: 5, slug: "storage-containers", img: "/storage.webp", name_so: "Kayd & Weelal", name_en: "Storage & Containers" },
+  { id: 505, category_id: 5, slug: "cleaning-supplies", img: "/products/cleaning.webp", name_so: "Qalabka Nadiifinta", name_en: "Cleaning Supplies" },
+  { id: 506, category_id: 5, slug: "laundry-essentials", img: "/laundry.webp", name_so: "Dharka & Dhaqid", name_en: "Laundry Essentials" },
+
+  // FASHION
+  { id: 601, category_id: 6, slug: "mens-clothing", img: "/products/baby.webp", name_so: "Dharka Ragga", name_en: "Men’s Clothing" },
+  { id: 602, category_id: 6, slug: "womens-clothing", img: "/products/beauty.webp", name_so: "Dharka Dumarka", name_en: "Women’s Clothing" },
+  { id: 603, category_id: 6, slug: "kids-wear", img: "/products/baby.webp", name_so: "Dharka Carruurta", name_en: "Kids Wear" },
+  { id: 604, category_id: 6, slug: "footwear", img: "/products/health.webp", name_so: "Kabo", name_en: "Footwear" },
+  { id: 605, category_id: 6, slug: "innerwear", img: "/products/men.webp", name_so: "Dharka Hoose", name_en: "Innerwear" },
+
+  // DAILY ELECTRONICS
+  { id: 701, category_id: 7, slug: "led-bulbs-lights", img: "/decor.webp", name_so: "Nalal & Bulbo", name_en: "LED Bulbs & Lights" },
+  { id: 702, category_id: 7, slug: "extension-boards-plugs", img: "/products/device.webp", name_so: "Kordhin & Fiyuus", name_en: "Extension Boards & Plugs" },
+  { id: 703, category_id: 7, slug: "chargers-adapters", img: "/products/device.webp", name_so: "Charger & Adapter", name_en: "Chargers & Adapters" },
+  { id: 704, category_id: 7, slug: "batteries-cells", img: "/products/health.webp", name_so: "Baytari", name_en: "Batteries & Cells" },
+  { id: 705, category_id: 7, slug: "emergency-lights", img: "/decor.webp", name_so: "Nalal Degdeg", name_en: "Emergency Lights" },
+  { id: 706, category_id: 7, slug: "switches-electricals", img: "/products/device.webp", name_so: "Switch & Koronto", name_en: "Switches & Electricals" },
+
+  // STATIONERY
+  { id: 801, category_id: 8, slug: "notebooks-registers", img: "/products/stationery.webp", name_so: "Buugaag & Diiwaan", name_en: "Notebooks & Registers" },
+  { id: 802, category_id: 8, slug: "pens-writing", img: "/products/stationery.webp", name_so: "Qalin & Qoris", name_en: "Pens & Writing" },
+  { id: 803, category_id: 8, slug: "school-supplies", img: "/products/stationery.webp", name_so: "Qalabka Dugsiga", name_en: "School Supplies" },
+  { id: 804, category_id: 8, slug: "office-supplies", img: "/products/stationery.webp", name_so: "Qalabka Xafiiska", name_en: "Office Supplies" },
+  { id: 805, category_id: 8, slug: "art-craft", img: "/products/stationery.webp", name_so: "Farshaxan & Gacan", name_en: "Art & Craft" },
+];
+
+export const subsubcategories: SubSubcategory[] = [
+  // Fruits & Vegetables
+  { id: 10101, subcategory_id: 101, slug: "bananas", name_so: "Moos", name_en: "Bananas" },
+
+  // Staples
+  { id: 10301, subcategory_id: 103, slug: "rice", name_so: "Bariis", name_en: "Rice" },
+  { id: 10302, subcategory_id: 103, slug: "flour", name_so: "Bur", name_en: "Flour" },
+  { id: 10303, subcategory_id: 103, slug: "cooking-oil", name_so: "Saliid", name_en: "Cooking Oil" },
+
+  // Soft Drinks & Juices
+  { id: 20101, subcategory_id: 201, slug: "cola-soda", name_so: "Kola & Soda", name_en: "Cola & Soda" },
+  { id: 20102, subcategory_id: 201, slug: "juices", name_so: "Casiir", name_en: "Juices" },
+  { id: 20103, subcategory_id: 201, slug: "energy-drinks", name_so: "Cabitaan Tamareed", name_en: "Energy Drinks" },
+  { id: 20104, subcategory_id: 201, slug: "flavoured-water", name_so: "Biyo Dhadhan Leh", name_en: "Flavoured Water" },
+  { id: 20105, subcategory_id: 201, slug: "mixers-tonic", name_so: "Tonic & Mixers", name_en: "Mixers & Tonic" },
+
+  // Tea & Coffee
+  { id: 20201, subcategory_id: 202, slug: "instant-coffee", name_so: "Kafee Degdeg", name_en: "Instant Coffee" },
+  { id: 20202, subcategory_id: 202, slug: "ground-coffee", name_so: "Kafee Shiidan", name_en: "Ground Coffee" },
+  { id: 20203, subcategory_id: 202, slug: "coffee-beans", name_so: "Buun Kafee", name_en: "Coffee Beans" },
+  { id: 20204, subcategory_id: 202, slug: "tea-bags", name_so: "Bacaha Shaaha", name_en: "Tea Bags" },
+  { id: 20205, subcategory_id: 202, slug: "green-tea", name_so: "Shaah Cagaaran", name_en: "Green Tea" },
+  { id: 20206, subcategory_id: 202, slug: "herbal-exotic-tea", name_so: "Shaah Dhir", name_en: "Herbal & Exotic Tea" },
+  { id: 20207, subcategory_id: 202, slug: "gourmet-premium-tea", name_so: "Shaah Premium", name_en: "Gourmet / Premium Tea" },
+  { id: 20208, subcategory_id: 202, slug: "health-drinks", name_so: "Cabitaan Caafimaad", name_en: "Health Drinks" },
+
+  // Baby
+  { id: 30101, subcategory_id: 301, slug: "cereals-purees", name_so: "Boorash & Puree", name_en: "Cereals & Purees" },
+  { id: 30102, subcategory_id: 301, slug: "formula", name_so: "Caano Formula", name_en: "Formula" },
+  { id: 30103, subcategory_id: 301, slug: "baby-snacks", name_so: "Cunto Fudud Ilmo", name_en: "Snacks for Babies" },
+
+  { id: 30201, subcategory_id: 302, slug: "tape-diapers", name_so: "Xafaayad (Tape)", name_en: "Tape Diapers" },
+  { id: 30202, subcategory_id: 302, slug: "pants-diapers", name_so: "Xafaayad (Pants)", name_en: "Pants Diapers" },
+  { id: 30203, subcategory_id: 302, slug: "baby-wipes", name_so: "Tirtire Ilmo", name_en: "Baby Wipes" },
+  { id: 30204, subcategory_id: 302, slug: "diaper-rash-cream", name_so: "Kareem Finan", name_en: "Diaper Rash Cream" },
+
+  // Personal Care
+  { id: 40101, subcategory_id: 401, slug: "soaps", name_so: "Saabuun", name_en: "Soaps" },
+  { id: 40102, subcategory_id: 401, slug: "body-wash", name_so: "Body Wash", name_en: "Body Wash" },
+  { id: 40103, subcategory_id: 401, slug: "deodorants", name_so: "Deodorant", name_en: "Deodorants" },
+
+  { id: 40201, subcategory_id: 402, slug: "shampoo", name_so: "Shaambo", name_en: "Shampoo" },
+  { id: 40202, subcategory_id: 402, slug: "conditioner", name_so: "Conditioner", name_en: "Conditioner" },
+  { id: 40203, subcategory_id: 402, slug: "hair-oil", name_so: "Saliidda Timaha", name_en: "Hair Oil" },
+
+  // Home & Kitchen
+  { id: 50101, subcategory_id: 501, slug: "cookware", name_so: "Cookware", name_en: "Cookware" },
+  { id: 50102, subcategory_id: 501, slug: "dinnerware", name_so: "Weel Cunto", name_en: "Dinnerware" },
+  { id: 50103, subcategory_id: 501, slug: "kitchen-tools", name_so: "Qalabka Jikada", name_en: "Kitchen Tools" },
+];
+
 export const products: Product[] = [
-  // Groceries
   {
     id: 1,
     name: "Basmati Rice 5kg",
@@ -210,7 +238,7 @@ export const products: Product[] = [
     brand_id: 6,
     is_discounted: true,
     base_price: 18.5,
-    tags: ["rice"], // optional
+    tags: ["rice", "bariis", "kilo-bariis"],
   },
   {
     id: 2,
@@ -222,7 +250,7 @@ export const products: Product[] = [
     brand_id: 1,
     is_discounted: false,
     base_price: 11,
-    tags: ["cooking-oil"],
+    tags: ["cooking-oil", "saliid"],
   },
   {
     id: 3,
@@ -234,7 +262,7 @@ export const products: Product[] = [
     brand_id: 6,
     is_discounted: false,
     base_price: 1.8,
-    tags: ["bananas"], // ✅ matches subsubcategories slug
+    tags: ["bananas", "moos"],
   },
   {
     id: 4,
@@ -246,7 +274,7 @@ export const products: Product[] = [
     brand_id: 7,
     is_discounted: true,
     base_price: 2.2,
-    tags: ["biscuits"],
+    tags: ["biscuits", "buskud"],
   },
 
   // Beverages
@@ -260,7 +288,7 @@ export const products: Product[] = [
     brand_id: 7,
     is_discounted: false,
     base_price: 2.5,
-    tags: ["juices"], // ✅
+    tags: ["juices"],
   },
   {
     id: 6,
@@ -272,7 +300,7 @@ export const products: Product[] = [
     brand_id: 7,
     is_discounted: false,
     base_price: 3.4,
-    tags: ["gourmet-premium-tea"], // ✅ or "tea-bags"/"green-tea" etc
+    tags: ["gourmet-premium-tea"],
   },
 
   // Baby
@@ -286,7 +314,7 @@ export const products: Product[] = [
     brand_id: 12,
     is_discounted: true,
     base_price: 9.9,
-    tags: ["tape-diapers"], // ✅
+    tags: ["tape-diapers"],
   },
 
   // Personal Care
@@ -300,7 +328,7 @@ export const products: Product[] = [
     brand_id: 8,
     is_discounted: false,
     base_price: 3.0,
-    tags: ["body-wash"], // ✅
+    tags: ["body-wash"],
   },
 
   // Home & Kitchen
@@ -314,7 +342,7 @@ export const products: Product[] = [
     brand_id: 8,
     is_discounted: false,
     base_price: 7.5,
-    tags: ["cookware"], // ✅
+    tags: ["cookware"],
   },
   {
     id: 10,
@@ -326,7 +354,7 @@ export const products: Product[] = [
     brand_id: 8,
     is_discounted: true,
     base_price: 5.9,
-    tags: ["laundry"], // optional
+    tags: ["laundry"],
   },
 
   // Electronics
@@ -340,7 +368,7 @@ export const products: Product[] = [
     brand_id: 9,
     is_discounted: false,
     base_price: 1.2,
-    tags: ["bulbs"], // optional
+    tags: ["bulbs"],
   },
   {
     id: 12,
@@ -352,7 +380,7 @@ export const products: Product[] = [
     brand_id: 9,
     is_discounted: false,
     base_price: 4.5,
-    tags: ["extension-boards"], // optional
+    tags: ["extension-boards"],
   },
 
   // Stationery
@@ -366,139 +394,67 @@ export const products: Product[] = [
     brand_id: 6,
     is_discounted: false,
     base_price: 1.0,
-    tags: ["notebooks"], // optional
+    tags: ["notebooks"],
   },
 ];
 
+// ✅ Updated: ensure EVERY product has at least 1 variant.
+// Kept your existing variants, and added default variants for missing product IDs.
+export const productVariants: ProductVariant[] = [
+  // Existing (from your paste)
+  { id: 1, product_id: 1, label: "5 kg", sku: "RICE-BAS-5KG", price: 18.5, mrp: 20, stock: 120 },
+  { id: 2, product_id: 1, label: "10 kg", sku: "RICE-BAS-10KG", price: 35, mrp: 38, stock: 80 },
 
+  { id: 3, product_id: 2, label: "1 L", sku: "OIL-SUN-1L", price: 4.2, mrp: 4.8, stock: 200 },
+  { id: 4, product_id: 2, label: "3 L", sku: "OIL-SUN-3L", price: 11, mrp: 12, stock: 150 },
 
-export const productVariants = [
-  {
-    id: 1,
-    product_id: 1, // Basmati Rice
-    label: "5 kg",
-    sku: "RICE-BAS-5KG",
-    price: 18.5,
-    mrp: 20,
-    stock: 120,
-  },
-  {
-    id: 2,
-    product_id: 1,
-    label: "10 kg",
-    sku: "RICE-BAS-10KG",
-    price: 35,
-    mrp: 38,
-    stock: 80,
-  },
+  { id: 5, product_id: 5, label: "500 ml", sku: "JUICE-ORG-500", price: 1.4, mrp: 1.6, stock: 90 },
+  { id: 6, product_id: 5, label: "1 L", sku: "JUICE-ORG-1L", price: 2.5, mrp: 2.8, stock: 120 },
 
-  {
-    id: 3,
-    product_id: 2, // Sunflower Oil
-    label: "1 L",
-    sku: "OIL-SUN-1L",
-    price: 4.2,
-    mrp: 4.8,
-    stock: 200,
-  },
-  {
-    id: 4,
-    product_id: 2,
-    label: "3 L",
-    sku: "OIL-SUN-3L",
-    price: 11,
-    mrp: 12,
-    stock: 150,
-  },
+  { id: 7, product_id: 7, label: "Medium (30 pcs)", sku: "DIAPER-M-30", price: 9.9, mrp: 11, stock: 60 },
+  { id: 8, product_id: 7, label: "Large (30 pcs)", sku: "DIAPER-L-30", price: 10.5, mrp: 12, stock: 55 },
 
-  {
-    id: 5,
-    product_id: 5, // Orange Juice
-    label: "500 ml",
-    sku: "JUICE-ORG-500",
-    price: 1.4,
-    mrp: 1.6,
-    stock: 90,
-  },
-  {
-    id: 6,
-    product_id: 5,
-    label: "1 L",
-    sku: "JUICE-ORG-1L",
-    price: 2.5,
-    mrp: 2.8,
-    stock: 120,
-  },
+  { id: 9, product_id: 11, label: "9W", sku: "LED-9W", price: 0.9, mrp: 1.1, stock: 300 },
+  { id: 10, product_id: 11, label: "12W", sku: "LED-12W", price: 1.2, mrp: 1.5, stock: 250 },
 
-  {
-    id: 7,
-    product_id: 7, // Baby Diapers
-    label: "Medium (30 pcs)",
-    sku: "DIAPER-M-30",
-    price: 9.9,
-    mrp: 11,
-    stock: 60,
-  },
-  {
-    id: 8,
-    product_id: 7,
-    label: "Large (30 pcs)",
-    sku: "DIAPER-L-30",
-    price: 10.5,
-    mrp: 12,
-    stock: 55,
-  },
+  { id: 11, product_id: 13, label: "100 pages", sku: "NOTE-100", price: 0.6, mrp: 0.8, stock: 400 },
+  { id: 12, product_id: 13, label: "200 pages", sku: "NOTE-200", price: 1.0, mrp: 1.3, stock: 300 },
 
-  {
-    id: 9,
-    product_id: 11, // LED Bulb
-    label: "9W",
-    sku: "LED-9W",
-    price: 0.9,
-    mrp: 1.1,
-    stock: 300,
-  },
-  {
-    id: 10,
-    product_id: 11,
-    label: "12W",
-    sku: "LED-12W",
-    price: 1.2,
-    mrp: 1.5,
-    stock: 250,
-  },
-
-  {
-    id: 11,
-    product_id: 13, // Notebook
-    label: "100 pages",
-    sku: "NOTE-100",
-    price: 0.6,
-    mrp: 0.8,
-    stock: 400,
-  },
-  {
-    id: 12,
-    product_id: 13,
-    label: "200 pages",
-    sku: "NOTE-200",
-    price: 1.0,
-    mrp: 1.3,
-    stock: 300,
-  },
+  // Added defaults for products that had no variants: 3,4,6,8,9,10,12
+  { id: 13, product_id: 3, label: "1 kg", sku: "BANANA-1KG", price: 1.8, mrp: 2.0, stock: 120 },
+  { id: 14, product_id: 4, label: "1 pack", sku: "BISCUIT-MIX-1PK", price: 2.2, mrp: 2.6, stock: 90 },
+  { id: 15, product_id: 6, label: "500 g", sku: "TEA-BLK-500G", price: 3.4, mrp: 3.9, stock: 70 },
+  { id: 16, product_id: 8, label: "500 ml", sku: "BODYWASH-500ML", price: 3.0, mrp: 3.5, stock: 80 },
+  { id: 17, product_id: 9, label: "1 pc", sku: "PAN-NONSTICK-1PC", price: 7.5, mrp: 8.5, stock: 40 },
+  { id: 18, product_id: 10, label: "2 kg", sku: "DETERGENT-2KG", price: 5.9, mrp: 6.5, stock: 65 },
+  { id: 19, product_id: 12, label: "4-socket", sku: "EXT-4SOCKET", price: 4.5, mrp: 5.0, stock: 50 },
 ];
 
-export const productImages = [
-  { id: 1, product_id: 1, url: "/dairy..webp", is_primary: true },
+export const productImages: ProductImage[] = [
+  // Fixed: removed double dot in "/dairy..webp" -> "/dairy.webp"
+  { id: 1, product_id: 1, url: "/dairy.webp", is_primary: true },
   { id: 2, product_id: 1, url: "/alfanar.webp", is_primary: false },
 
   { id: 3, product_id: 2, url: "/products/oil.webp", is_primary: true },
 
+  // Your paste had these for product_id 3 (kept)
   { id: 4, product_id: 3, url: "/products/a15-front.jpg", is_primary: true },
-  { id: 5, product_id: 3, url: "/products/a15-back.jpg", is_primary: false }
+  { id: 5, product_id: 3, url: "/products/a15-back.jpg", is_primary: false },
+
+  // Added minimal images so UI doesn’t look empty
+  { id: 6, product_id: 4, url: "/bakery.webp", is_primary: true },
+  { id: 7, product_id: 5, url: "/drink.webp", is_primary: true },
+  { id: 8, product_id: 6, url: "/tea.webp", is_primary: true },
+  { id: 9, product_id: 7, url: "/nuna.webp", is_primary: true },
+  { id: 10, product_id: 8, url: "/bath.webp.jpeg", is_primary: true },
+  { id: 11, product_id: 9, url: "/cutlery.webp", is_primary: true },
+  { id: 12, product_id: 10, url: "/laundry.webp", is_primary: true },
+  { id: 13, product_id: 11, url: "/decor.webp", is_primary: true },
+  { id: 14, product_id: 12, url: "/products/device.webp", is_primary: true },
+  { id: 15, product_id: 13, url: "/products/stationery.webp", is_primary: true },
 ];
 
-export const brands = [
+export const brands: Brand[] = [
   { id: 1, name: "Baraka", slug: "baraka" },
   { id: 2, name: "Samsung", slug: "samsung" },
   { id: 3, name: "Apple", slug: "apple" },
@@ -510,9 +466,10 @@ export const brands = [
   { id: 9, name: "LG", slug: "lg" },
   { id: 10, name: "Sony", slug: "sony" },
   { id: 11, name: "Nivea", slug: "nivea" },
-  { id: 12, name: "Huggies", slug: "huggies" }
+  { id: 12, name: "Huggies", slug: "huggies" },
 ];
-export const customers = [
+
+export const customers: Customer[] = [
   { id: 1, name: "Ahmed Ali", phone: "0622000001" },
   { id: 2, name: "Amina Noor", phone: "0622000002" },
   { id: 3, name: "Hodan Yusuf", phone: "0619000123" },
@@ -522,3 +479,36 @@ export const customers = [
   { id: 7, name: "Khadra Aden", phone: "0612223344" },
   { id: 8, name: "Sahra Ismail", phone: "0626112233" },
 ];
+
+// --------------------
+// NEW: Orders tables (keep empty or add sample orders)
+// --------------------
+export const orders: Order[] = [
+  // Example (optional):
+  // { id: 1, customer_id: 1, total_amount: 22.7, status: "PAID", created_at: new Date().toISOString() },
+];
+
+export const orderItems: OrderItem[] = [
+  // Example (optional):
+  // { id: 1, order_id: 1, variant_id: 1, quantity: 1, price_at_purchase: 18.5 },
+  // { id: 2, order_id: 1, variant_id: 3, quantity: 1, price_at_purchase: 4.2 },
+];
+
+export const payments: Payment[] = [
+  // Example (optional):
+  // { id: 1, order_id: 1, method: "EVC", amount: 22.7, status: "SUCCESS", created_at: new Date().toISOString(), reference: "EVC-123" },
+];
+
+// --------------------
+// Optional helpers (nice for frontend)
+// --------------------
+export const getProductBySlug = (slug: string) => products.find((p) => p.slug === slug);
+
+export const getVariantsByProductId = (product_id: number) =>
+  productVariants.filter((v) => v.product_id === product_id);
+
+export const getPrimaryImageByProductId = (product_id: number) =>
+  productImages.find((img) => img.product_id === product_id && img.is_primary) ||
+  productImages.find((img) => img.product_id === product_id);
+
+export const getBrandById = (brand_id: number) => brands.find((b) => b.id === brand_id);

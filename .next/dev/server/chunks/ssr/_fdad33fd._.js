@@ -2,6 +2,11 @@ module.exports = [
 "[project]/data/store.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
+// store.ts
+// Minimal “mock DB” for frontend + early checkout tables (orders/orderItems/payments)
+// --------------------
+// Types
+// --------------------
 __turbopack_context__.s([
     "brands",
     ()=>brands,
@@ -9,6 +14,20 @@ __turbopack_context__.s([
     ()=>categories,
     "customers",
     ()=>customers,
+    "getBrandById",
+    ()=>getBrandById,
+    "getPrimaryImageByProductId",
+    ()=>getPrimaryImageByProductId,
+    "getProductBySlug",
+    ()=>getProductBySlug,
+    "getVariantsByProductId",
+    ()=>getVariantsByProductId,
+    "orderItems",
+    ()=>orderItems,
+    "orders",
+    ()=>orders,
+    "payments",
+    ()=>payments,
     "productImages",
     ()=>productImages,
     "productVariants",
@@ -23,668 +42,624 @@ __turbopack_context__.s([
 const categories = [
     {
         id: 1,
-        name: "Groceries",
         slug: "groceries",
-        img: "/groceries.webp"
+        img: "/groceries.webp",
+        name_so: "Raashin",
+        name_en: "Groceries"
     },
     {
         id: 2,
-        name: " Beverages",
         slug: "beverages",
-        img: "/drink.webp"
+        img: "/drink.webp",
+        name_so: "Cabitaan",
+        name_en: "Beverages"
     },
     {
         id: 3,
-        name: "Baby Care",
         slug: "baby-care",
-        img: "/baby.webp"
+        img: "/baby.webp",
+        name_so: "Ilmo",
+        name_en: "Baby Care"
     },
     {
         id: 4,
-        name: " Personal Care",
         slug: "personal-care",
-        img: "/personal.webp"
+        img: "/personal.webp",
+        name_so: "Nadaafad",
+        name_en: "Personal Care"
     },
     {
         id: 5,
-        name: " Home & Kitchen",
         slug: "home-kitchen",
-        img: "/home.webp"
+        img: "/home.webp",
+        name_so: "Guri & Jikada",
+        name_en: "Home & Kitchen"
     },
     {
         id: 6,
-        name: " Fashion",
         slug: "fashion",
-        img: "/products/baby.webp"
+        img: "/products/baby.webp",
+        name_so: "Dharka",
+        name_en: "Fashion"
     },
-    // Daily-use electronics (NOT phones)
     {
         id: 7,
-        name: "Daily Electronics",
         slug: "daily-electronics",
-        img: "/products/health.webp"
+        img: "/products/health.webp",
+        name_so: "Koronto & Qalab",
+        name_en: "Daily Electronics"
     },
     {
         id: 8,
-        name: "Stationery",
         slug: "stationery",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Qalinka & Buugaag",
+        name_en: "Stationery"
     }
 ];
 const subcategories = [
-    /* =========================
-     🛒 GROCERIES (category_id: 1)
-  ========================= */ {
+    // GROCERIES
+    {
         id: 101,
         category_id: 1,
-        name: "Fruits & Vegetables",
         slug: "fruits-vegetables",
-        img: "/fruit.webp"
+        img: "/fruit.webp",
+        name_so: "Miraha & Khudaarta",
+        name_en: "Fruits & Vegetables"
     },
     {
         id: 102,
         category_id: 1,
-        name: "Dairy & Bakery",
         slug: "dairy-bakery",
-        img: "/bakery.webp"
+        img: "/bakery.webp",
+        name_so: "Caano & Rooti",
+        name_en: "Dairy & Bakery"
     },
     {
         id: 103,
         category_id: 1,
-        name: "Staples (Atta, Rice, Dal & Oil)",
         slug: "staples-atta-rice-dal-oil",
-        img: "/oil.webp"
+        img: "/oil.webp",
+        name_so: "Raashin Asaasi",
+        name_en: "Staples (Atta, Rice, Dal & Oil)"
     },
     {
         id: 104,
         category_id: 1,
-        name: "Snacks & Branded Foods",
         slug: "snacks-branded-foods",
-        img: "/bakery.webp"
+        img: "/bakery.webp",
+        name_so: "Cunto Fudud",
+        name_en: "Snacks & Branded Foods"
     },
     {
         id: 105,
         category_id: 1,
-        name: "Sweets, Dry Fruits & Dates",
         slug: "sweets-dry-fruits-dates",
-        img: "/pick.webp"
+        img: "/pick.webp",
+        name_so: "Macmacaan & Timir",
+        name_en: "Sweets, Dry Fruits & Dates"
     },
     {
         id: 106,
         category_id: 1,
-        name: "Frozen & Ready Foods",
         slug: "frozen-ready-foods",
-        img: "/frozen.webp"
+        img: "/frozen.webp",
+        name_so: "Cunto Qabow/Diyaarsan",
+        name_en: "Frozen & Ready Foods"
     },
-    /* =========================
-     🥤 BEVERAGES (category_id: 2)
-  ========================= */ {
+    // BEVERAGES
+    {
         id: 201,
         category_id: 2,
-        name: "Soft Drinks & Juices",
         slug: "soft-drinks-juices",
-        img: "/drink.webp"
+        img: "/drink.webp",
+        name_so: "Cabbitaan Fudud & Casiir",
+        name_en: "Soft Drinks & Juices"
     },
     {
         id: 202,
         category_id: 2,
-        name: "Tea, Coffee & Health Drinks",
         slug: "tea-coffee-health-drinks",
-        img: "/tea.webp"
+        img: "/tea.webp",
+        name_so: "Shaah & Kafee",
+        name_en: "Tea, Coffee & Health Drinks"
     },
-    /* =========================
-     👶 BABY CARE (category_id: 3)
-  ========================= */ {
+    // BABY
+    {
         id: 301,
         category_id: 3,
-        name: "Baby Food",
         slug: "baby-food",
-        img: "/baby.webp"
+        img: "/baby.webp",
+        name_so: "Cuntada Ilmaha",
+        name_en: "Baby Food"
     },
     {
         id: 302,
         category_id: 3,
-        name: "Diapers & Wipes",
         slug: "diapers-wipes",
-        img: "/nuna.webp"
+        img: "/nuna.webp",
+        name_so: "Xafaayad & Tirtire",
+        name_en: "Diapers & Wipes"
     },
     {
         id: 303,
         category_id: 3,
-        name: "Baby Bath & Skin Care",
         slug: "baby-bath-skin-care",
-        img: "/babycream.jpeg"
+        img: "/babycream.jpeg",
+        name_so: "Qubays & Daryeel Maqaarka",
+        name_en: "Baby Bath & Skin Care"
     },
     {
         id: 304,
         category_id: 3,
-        name: "Baby Feeding Essentials",
         slug: "baby-feeding-essentials",
-        img: "/babyfeeding.webp"
+        img: "/babyfeeding.webp",
+        name_so: "Qalabka Quudinta",
+        name_en: "Baby Feeding Essentials"
     },
-    /* =========================
-     💄 PERSONAL CARE (category_id: 4)
-  ========================= */ {
+    // PERSONAL CARE
+    {
         id: 401,
         category_id: 4,
-        name: "Bath & Body",
         slug: "bath-body",
-        img: "/bath.webp.jpeg"
+        img: "/bath.webp.jpeg",
+        name_so: "Qubays & Jirka",
+        name_en: "Bath & Body"
     },
     {
         id: 402,
         category_id: 4,
-        name: "Hair Care",
         slug: "hair-care",
-        img: "/shampoo.jpg"
+        img: "/shampoo.jpg",
+        name_so: "Daryeel Timaha",
+        name_en: "Hair Care"
     },
     {
         id: 403,
         category_id: 4,
-        name: "Oral Care",
         slug: "oral-care",
-        img: "/oralcare.webp"
+        img: "/oralcare.webp",
+        name_so: "Daryeel Afka",
+        name_en: "Oral Care"
     },
     {
         id: 404,
         category_id: 4,
-        name: "Skin Care",
         slug: "skin-care",
-        img: "/nivea.webp"
+        img: "/nivea.webp",
+        name_so: "Daryeel Maqaarka",
+        name_en: "Skin Care"
     },
     {
         id: 405,
         category_id: 4,
-        name: "Grooming & Hygiene",
         slug: "grooming-hygiene",
-        img: "/groom.webp"
+        img: "/groom.webp",
+        name_so: "Nadaafad & Isqurxin",
+        name_en: "Grooming & Hygiene"
     },
-    /* =========================
-     🏠 HOME & KITCHEN (category_id: 5)
-  ========================= */ {
+    // HOME & KITCHEN
+    {
         id: 501,
         category_id: 5,
-        name: "Kitchen & Dining",
         slug: "kitchen-dining",
-        img: "/cutlery.webp"
+        img: "/cutlery.webp",
+        name_so: "Jikada & Cuntada",
+        name_en: "Kitchen & Dining"
     },
     {
         id: 502,
         category_id: 5,
-        name: "Household Essentials",
         slug: "household-essentials",
-        img: "/cleaner.webp"
+        img: "/cleaner.webp",
+        name_so: "Baahida Guriga",
+        name_en: "Household Essentials"
     },
     {
         id: 503,
         category_id: 5,
-        name: "Home Appliances",
         slug: "home-appliances",
-        img: "/products/device.webp"
+        img: "/products/device.webp",
+        name_so: "Qalabka Guriga",
+        name_en: "Home Appliances"
     },
-    // Extra (still JioMart-style and useful)
     {
         id: 504,
         category_id: 5,
-        name: "Storage & Containers",
         slug: "storage-containers",
-        img: "/storage.webp"
+        img: "/storage.webp",
+        name_so: "Kayd & Weelal",
+        name_en: "Storage & Containers"
     },
     {
         id: 505,
         category_id: 5,
-        name: "Cleaning Supplies",
         slug: "cleaning-supplies",
-        img: "/products/cleaning.webp"
+        img: "/products/cleaning.webp",
+        name_so: "Qalabka Nadiifinta",
+        name_en: "Cleaning Supplies"
     },
     {
         id: 506,
         category_id: 5,
-        name: "Laundry Essentials",
         slug: "laundry-essentials",
-        img: "/laundry.webp"
+        img: "/laundry.webp",
+        name_so: "Dharka & Dhaqid",
+        name_en: "Laundry Essentials"
     },
-    /* =========================
-     👕 FASHION (category_id: 6)
-  ========================= */ {
+    // FASHION
+    {
         id: 601,
         category_id: 6,
-        name: "Men’s Clothing",
         slug: "mens-clothing",
-        img: "/products/baby.webp"
+        img: "/products/baby.webp",
+        name_so: "Dharka Ragga",
+        name_en: "Men’s Clothing"
     },
     {
         id: 602,
         category_id: 6,
-        name: "Women’s Clothing",
         slug: "womens-clothing",
-        img: "/products/beauty.webp"
+        img: "/products/beauty.webp",
+        name_so: "Dharka Dumarka",
+        name_en: "Women’s Clothing"
     },
     {
         id: 603,
         category_id: 6,
-        name: "Kids Wear",
         slug: "kids-wear",
-        img: "/products/baby.webp"
+        img: "/products/baby.webp",
+        name_so: "Dharka Carruurta",
+        name_en: "Kids Wear"
     },
     {
         id: 604,
         category_id: 6,
-        name: "Footwear",
         slug: "footwear",
-        img: "/products/health.webp"
+        img: "/products/health.webp",
+        name_so: "Kabo",
+        name_en: "Footwear"
     },
     {
         id: 605,
         category_id: 6,
-        name: "Innerwear",
         slug: "innerwear",
-        img: "/products/men.webp"
+        img: "/products/men.webp",
+        name_so: "Dharka Hoose",
+        name_en: "Innerwear"
     },
-    /* =========================
-     🔌 DAILY ELECTRONICS (category_id: 7)
-     (no mobiles/phones)
-  ========================= */ {
+    // DAILY ELECTRONICS
+    {
         id: 701,
         category_id: 7,
-        name: "LED Bulbs & Lights",
         slug: "led-bulbs-lights",
-        img: "/decor.webp"
+        img: "/decor.webp",
+        name_so: "Nalal & Bulbo",
+        name_en: "LED Bulbs & Lights"
     },
     {
         id: 702,
         category_id: 7,
-        name: "Extension Boards & Plugs",
         slug: "extension-boards-plugs",
-        img: "/products/device.webp"
+        img: "/products/device.webp",
+        name_so: "Kordhin & Fiyuus",
+        name_en: "Extension Boards & Plugs"
     },
     {
         id: 703,
         category_id: 7,
-        name: "Chargers & Adapters",
         slug: "chargers-adapters",
-        img: "/products/device.webp"
+        img: "/products/device.webp",
+        name_so: "Charger & Adapter",
+        name_en: "Chargers & Adapters"
     },
     {
         id: 704,
         category_id: 7,
-        name: "Batteries & Cells",
         slug: "batteries-cells",
-        img: "/products/health.webp"
+        img: "/products/health.webp",
+        name_so: "Baytari",
+        name_en: "Batteries & Cells"
     },
     {
         id: 705,
         category_id: 7,
-        name: "Emergency Lights",
         slug: "emergency-lights",
-        img: "/decor.webp"
+        img: "/decor.webp",
+        name_so: "Nalal Degdeg",
+        name_en: "Emergency Lights"
     },
     {
         id: 706,
         category_id: 7,
-        name: "Switches & Electricals",
         slug: "switches-electricals",
-        img: "/products/device.webp"
+        img: "/products/device.webp",
+        name_so: "Switch & Koronto",
+        name_en: "Switches & Electricals"
     },
-    /* =========================
-     ✏️ STATIONERY (category_id: 8)
-  ========================= */ {
+    // STATIONERY
+    {
         id: 801,
         category_id: 8,
-        name: "Notebooks & Registers",
         slug: "notebooks-registers",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Buugaag & Diiwaan",
+        name_en: "Notebooks & Registers"
     },
     {
         id: 802,
         category_id: 8,
-        name: "Pens & Writing",
         slug: "pens-writing",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Qalin & Qoris",
+        name_en: "Pens & Writing"
     },
     {
         id: 803,
         category_id: 8,
-        name: "School Supplies",
         slug: "school-supplies",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Qalabka Dugsiga",
+        name_en: "School Supplies"
     },
     {
         id: 804,
         category_id: 8,
-        name: "Office Supplies",
         slug: "office-supplies",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Qalabka Xafiiska",
+        name_en: "Office Supplies"
     },
     {
         id: 805,
         category_id: 8,
-        name: "Art & Craft",
         slug: "art-craft",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Farshaxan & Gacan",
+        name_en: "Art & Craft"
     }
 ];
 const subsubcategories = [
-    /* =========================
-     🥤 BEVERAGES → Soft Drinks & Juices (subcategory_id: 201)
-  ========================= */ {
+    // Fruits & Vegetables
+    {
         id: 10101,
         subcategory_id: 101,
-        name: "Bananas",
-        slug: "bananas"
+        slug: "bananas",
+        name_so: "Moos",
+        name_en: "Bananas"
     },
+    // Staples
+    {
+        id: 10301,
+        subcategory_id: 103,
+        slug: "rice",
+        name_so: "Bariis",
+        name_en: "Rice"
+    },
+    {
+        id: 10302,
+        subcategory_id: 103,
+        slug: "flour",
+        name_so: "Bur",
+        name_en: "Flour"
+    },
+    {
+        id: 10303,
+        subcategory_id: 103,
+        slug: "cooking-oil",
+        name_so: "Saliid",
+        name_en: "Cooking Oil"
+    },
+    // Soft Drinks & Juices
     {
         id: 20101,
         subcategory_id: 201,
-        name: "Cola & Soda",
-        slug: "cola-soda"
+        slug: "cola-soda",
+        name_so: "Kola & Soda",
+        name_en: "Cola & Soda"
     },
     {
         id: 20102,
         subcategory_id: 201,
-        name: "Juices",
-        slug: "juices"
+        slug: "juices",
+        name_so: "Casiir",
+        name_en: "Juices"
     },
     {
         id: 20103,
         subcategory_id: 201,
-        name: "Energy Drinks",
-        slug: "energy-drinks"
+        slug: "energy-drinks",
+        name_so: "Cabitaan Tamareed",
+        name_en: "Energy Drinks"
     },
     {
         id: 20104,
         subcategory_id: 201,
-        name: "Flavoured Water",
-        slug: "flavoured-water"
+        slug: "flavoured-water",
+        name_so: "Biyo Dhadhan Leh",
+        name_en: "Flavoured Water"
     },
     {
         id: 20105,
         subcategory_id: 201,
-        name: "Mixers & Tonic",
-        slug: "mixers-tonic"
+        slug: "mixers-tonic",
+        name_so: "Tonic & Mixers",
+        name_en: "Mixers & Tonic"
     },
-    /* =========================
-     🥤 BEVERAGES → Tea, Coffee & Health Drinks (subcategory_id: 202)
-     (your example becomes REAL here)
-  ========================= */ {
+    // Tea & Coffee
+    {
         id: 20201,
         subcategory_id: 202,
-        name: "Instant Coffee",
-        slug: "instant-coffee"
+        slug: "instant-coffee",
+        name_so: "Kafee Degdeg",
+        name_en: "Instant Coffee"
     },
     {
         id: 20202,
         subcategory_id: 202,
-        name: "Ground Coffee",
-        slug: "ground-coffee"
+        slug: "ground-coffee",
+        name_so: "Kafee Shiidan",
+        name_en: "Ground Coffee"
     },
     {
         id: 20203,
         subcategory_id: 202,
-        name: "Coffee Beans",
-        slug: "coffee-beans"
+        slug: "coffee-beans",
+        name_so: "Buun Kafee",
+        name_en: "Coffee Beans"
     },
     {
         id: 20204,
         subcategory_id: 202,
-        name: "Tea Bags",
-        slug: "tea-bags"
+        slug: "tea-bags",
+        name_so: "Bacaha Shaaha",
+        name_en: "Tea Bags"
     },
     {
         id: 20205,
         subcategory_id: 202,
-        name: "Green Tea",
-        slug: "green-tea"
+        slug: "green-tea",
+        name_so: "Shaah Cagaaran",
+        name_en: "Green Tea"
     },
     {
         id: 20206,
         subcategory_id: 202,
-        name: "Herbal & Exotic Tea",
-        slug: "herbal-exotic-tea"
+        slug: "herbal-exotic-tea",
+        name_so: "Shaah Dhir",
+        name_en: "Herbal & Exotic Tea"
     },
     {
         id: 20207,
         subcategory_id: 202,
-        name: "Gourmet / Premium Tea",
-        slug: "gourmet-premium-tea"
+        slug: "gourmet-premium-tea",
+        name_so: "Shaah Premium",
+        name_en: "Gourmet / Premium Tea"
     },
     {
         id: 20208,
         subcategory_id: 202,
-        name: "Health Drinks",
-        slug: "health-drinks"
+        slug: "health-drinks",
+        name_so: "Cabitaan Caafimaad",
+        name_en: "Health Drinks"
     },
-    /* =========================
-     👶 BABY CARE
-  ========================= */ {
+    // Baby
+    {
         id: 30101,
         subcategory_id: 301,
-        name: "Cereals & Purees",
-        slug: "cereals-purees"
+        slug: "cereals-purees",
+        name_so: "Boorash & Puree",
+        name_en: "Cereals & Purees"
     },
     {
         id: 30102,
         subcategory_id: 301,
-        name: "Formula",
-        slug: "formula"
+        slug: "formula",
+        name_so: "Caano Formula",
+        name_en: "Formula"
     },
     {
         id: 30103,
         subcategory_id: 301,
-        name: "Snacks for Babies",
-        slug: "baby-snacks"
+        slug: "baby-snacks",
+        name_so: "Cunto Fudud Ilmo",
+        name_en: "Snacks for Babies"
     },
     {
         id: 30201,
         subcategory_id: 302,
-        name: "Tape Diapers",
-        slug: "tape-diapers"
+        slug: "tape-diapers",
+        name_so: "Xafaayad (Tape)",
+        name_en: "Tape Diapers"
     },
     {
         id: 30202,
         subcategory_id: 302,
-        name: "Pants Diapers",
-        slug: "pants-diapers"
+        slug: "pants-diapers",
+        name_so: "Xafaayad (Pants)",
+        name_en: "Pants Diapers"
     },
     {
         id: 30203,
         subcategory_id: 302,
-        name: "Baby Wipes",
-        slug: "baby-wipes"
+        slug: "baby-wipes",
+        name_so: "Tirtire Ilmo",
+        name_en: "Baby Wipes"
     },
     {
         id: 30204,
         subcategory_id: 302,
-        name: "Diaper Rash Cream",
-        slug: "diaper-rash-cream"
+        slug: "diaper-rash-cream",
+        name_so: "Kareem Finan",
+        name_en: "Diaper Rash Cream"
     },
+    // Personal Care
     {
-        id: 30301,
-        subcategory_id: 303,
-        name: "Baby Soap & Wash",
-        slug: "baby-soap-wash"
-    },
-    {
-        id: 30302,
-        subcategory_id: 303,
-        name: "Baby Shampoo",
-        slug: "baby-shampoo"
-    },
-    {
-        id: 30303,
-        subcategory_id: 303,
-        name: "Baby Lotion & Oil",
-        slug: "baby-lotion-oil"
-    },
-    {
-        id: 30401,
-        subcategory_id: 304,
-        name: "Bottles",
-        slug: "bottles"
-    },
-    {
-        id: 30402,
-        subcategory_id: 304,
-        name: "Feeding Accessories",
-        slug: "feeding-accessories"
-    },
-    {
-        id: 30403,
-        subcategory_id: 304,
-        name: "Sippers & Cups",
-        slug: "sippers-cups"
-    },
-    /* =========================
-     💄 PERSONAL CARE
-  ========================= */ {
         id: 40101,
         subcategory_id: 401,
-        name: "Soaps",
-        slug: "soaps"
+        slug: "soaps",
+        name_so: "Saabuun",
+        name_en: "Soaps"
     },
     {
         id: 40102,
         subcategory_id: 401,
-        name: "Body Wash",
-        slug: "body-wash"
+        slug: "body-wash",
+        name_so: "Body Wash",
+        name_en: "Body Wash"
     },
     {
         id: 40103,
         subcategory_id: 401,
-        name: "Deodorants",
-        slug: "deodorants"
+        slug: "deodorants",
+        name_so: "Deodorant",
+        name_en: "Deodorants"
     },
     {
         id: 40201,
         subcategory_id: 402,
-        name: "Shampoo",
-        slug: "shampoo"
+        slug: "shampoo",
+        name_so: "Shaambo",
+        name_en: "Shampoo"
     },
     {
         id: 40202,
         subcategory_id: 402,
-        name: "Conditioner",
-        slug: "conditioner"
+        slug: "conditioner",
+        name_so: "Conditioner",
+        name_en: "Conditioner"
     },
     {
         id: 40203,
         subcategory_id: 402,
-        name: "Hair Oil",
-        slug: "hair-oil"
+        slug: "hair-oil",
+        name_so: "Saliidda Timaha",
+        name_en: "Hair Oil"
     },
+    // Home & Kitchen
     {
-        id: 40301,
-        subcategory_id: 403,
-        name: "Toothpaste",
-        slug: "toothpaste"
-    },
-    {
-        id: 40302,
-        subcategory_id: 403,
-        name: "Toothbrushes",
-        slug: "toothbrushes"
-    },
-    {
-        id: 40303,
-        subcategory_id: 403,
-        name: "Mouthwash",
-        slug: "mouthwash"
-    },
-    {
-        id: 40401,
-        subcategory_id: 404,
-        name: "Face Wash",
-        slug: "face-wash"
-    },
-    {
-        id: 40402,
-        subcategory_id: 404,
-        name: "Moisturisers",
-        slug: "moisturisers"
-    },
-    {
-        id: 40403,
-        subcategory_id: 404,
-        name: "Sunscreen",
-        slug: "sunscreen"
-    },
-    {
-        id: 40501,
-        subcategory_id: 405,
-        name: "Sanitary & Hygiene",
-        slug: "sanitary-hygiene"
-    },
-    {
-        id: 40502,
-        subcategory_id: 405,
-        name: "Shaving & Grooming",
-        slug: "shaving-grooming"
-    },
-    {
-        id: 40503,
-        subcategory_id: 405,
-        name: "Hand Wash & Sanitiser",
-        slug: "handwash-sanitiser"
-    },
-    /* =========================
-     🏠 HOME & KITCHEN
-  ========================= */ {
         id: 50101,
         subcategory_id: 501,
-        name: "Cookware",
-        slug: "cookware"
+        slug: "cookware",
+        name_so: "Cookware",
+        name_en: "Cookware"
     },
     {
         id: 50102,
         subcategory_id: 501,
-        name: "Dinnerware",
-        slug: "dinnerware"
+        slug: "dinnerware",
+        name_so: "Weel Cunto",
+        name_en: "Dinnerware"
     },
     {
         id: 50103,
         subcategory_id: 501,
-        name: "Kitchen Tools",
-        slug: "kitchen-tools"
-    },
-    {
-        id: 50201,
-        subcategory_id: 502,
-        name: "Cleaning Liquids",
-        slug: "cleaning-liquids"
-    },
-    {
-        id: 50202,
-        subcategory_id: 502,
-        name: "Tissues & Wipes",
-        slug: "tissues-wipes"
-    },
-    {
-        id: 50203,
-        subcategory_id: 502,
-        name: "Garbage Bags",
-        slug: "garbage-bags"
-    },
-    {
-        id: 50301,
-        subcategory_id: 503,
-        name: "Small Appliances",
-        slug: "small-appliances"
-    },
-    {
-        id: 50302,
-        subcategory_id: 503,
-        name: "Irons",
-        slug: "irons"
-    },
-    {
-        id: 50303,
-        subcategory_id: 503,
-        name: "Kettles",
-        slug: "kettles"
+        slug: "kitchen-tools",
+        name_so: "Qalabka Jikada",
+        name_en: "Kitchen Tools"
     }
 ];
 const products = [
-    // Groceries
     {
         id: 1,
         name: "Basmati Rice 5kg",
@@ -696,7 +671,9 @@ const products = [
         is_discounted: true,
         base_price: 18.5,
         tags: [
-            "rice"
+            "rice",
+            "bariis",
+            "kilo-bariis"
         ]
     },
     {
@@ -710,7 +687,8 @@ const products = [
         is_discounted: false,
         base_price: 11,
         tags: [
-            "cooking-oil"
+            "cooking-oil",
+            "saliid"
         ]
     },
     {
@@ -724,7 +702,8 @@ const products = [
         is_discounted: false,
         base_price: 1.8,
         tags: [
-            "bananas"
+            "bananas",
+            "moos"
         ]
     },
     {
@@ -738,7 +717,8 @@ const products = [
         is_discounted: true,
         base_price: 2.2,
         tags: [
-            "biscuits"
+            "biscuits",
+            "buskud"
         ]
     },
     // Beverages
@@ -875,6 +855,7 @@ const products = [
     }
 ];
 const productVariants = [
+    // Existing (from your paste)
     {
         id: 1,
         product_id: 1,
@@ -982,13 +963,78 @@ const productVariants = [
         price: 1.0,
         mrp: 1.3,
         stock: 300
+    },
+    // Added defaults for products that had no variants: 3,4,6,8,9,10,12
+    {
+        id: 13,
+        product_id: 3,
+        label: "1 kg",
+        sku: "BANANA-1KG",
+        price: 1.8,
+        mrp: 2.0,
+        stock: 120
+    },
+    {
+        id: 14,
+        product_id: 4,
+        label: "1 pack",
+        sku: "BISCUIT-MIX-1PK",
+        price: 2.2,
+        mrp: 2.6,
+        stock: 90
+    },
+    {
+        id: 15,
+        product_id: 6,
+        label: "500 g",
+        sku: "TEA-BLK-500G",
+        price: 3.4,
+        mrp: 3.9,
+        stock: 70
+    },
+    {
+        id: 16,
+        product_id: 8,
+        label: "500 ml",
+        sku: "BODYWASH-500ML",
+        price: 3.0,
+        mrp: 3.5,
+        stock: 80
+    },
+    {
+        id: 17,
+        product_id: 9,
+        label: "1 pc",
+        sku: "PAN-NONSTICK-1PC",
+        price: 7.5,
+        mrp: 8.5,
+        stock: 40
+    },
+    {
+        id: 18,
+        product_id: 10,
+        label: "2 kg",
+        sku: "DETERGENT-2KG",
+        price: 5.9,
+        mrp: 6.5,
+        stock: 65
+    },
+    {
+        id: 19,
+        product_id: 12,
+        label: "4-socket",
+        sku: "EXT-4SOCKET",
+        price: 4.5,
+        mrp: 5.0,
+        stock: 50
     }
 ];
 const productImages = [
+    // Fixed: removed double dot in "/dairy..webp" -> "/dairy.webp"
     {
         id: 1,
         product_id: 1,
-        url: "/dairy..webp",
+        url: "/dairy.webp",
         is_primary: true
     },
     {
@@ -1003,6 +1049,7 @@ const productImages = [
         url: "/products/oil.webp",
         is_primary: true
     },
+    // Your paste had these for product_id 3 (kept)
     {
         id: 4,
         product_id: 3,
@@ -1014,6 +1061,67 @@ const productImages = [
         product_id: 3,
         url: "/products/a15-back.jpg",
         is_primary: false
+    },
+    // Added minimal images so UI doesn’t look empty
+    {
+        id: 6,
+        product_id: 4,
+        url: "/bakery.webp",
+        is_primary: true
+    },
+    {
+        id: 7,
+        product_id: 5,
+        url: "/drink.webp",
+        is_primary: true
+    },
+    {
+        id: 8,
+        product_id: 6,
+        url: "/tea.webp",
+        is_primary: true
+    },
+    {
+        id: 9,
+        product_id: 7,
+        url: "/nuna.webp",
+        is_primary: true
+    },
+    {
+        id: 10,
+        product_id: 8,
+        url: "/bath.webp.jpeg",
+        is_primary: true
+    },
+    {
+        id: 11,
+        product_id: 9,
+        url: "/cutlery.webp",
+        is_primary: true
+    },
+    {
+        id: 12,
+        product_id: 10,
+        url: "/laundry.webp",
+        is_primary: true
+    },
+    {
+        id: 13,
+        product_id: 11,
+        url: "/decor.webp",
+        is_primary: true
+    },
+    {
+        id: 14,
+        product_id: 12,
+        url: "/products/device.webp",
+        is_primary: true
+    },
+    {
+        id: 15,
+        product_id: 13,
+        url: "/products/stationery.webp",
+        is_primary: true
     }
 ];
 const brands = [
@@ -1120,6 +1228,13 @@ const customers = [
         phone: "0626112233"
     }
 ];
+const orders = [];
+const orderItems = [];
+const payments = [];
+const getProductBySlug = (slug)=>products.find((p)=>p.slug === slug);
+const getVariantsByProductId = (product_id)=>productVariants.filter((v)=>v.product_id === product_id);
+const getPrimaryImageByProductId = (product_id)=>productImages.find((img)=>img.product_id === product_id && img.is_primary) || productImages.find((img)=>img.product_id === product_id);
+const getBrandById = (brand_id)=>brands.find((b)=>b.id === brand_id);
 }),
 "[project]/lib/localOrders.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
@@ -1282,18 +1397,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
-(()=>{
-    const e = new Error("Cannot find module '@/components/TopNavbar'");
-    e.code = 'MODULE_NOT_FOUND';
-    throw e;
-})();
 var __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$CartContext$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/context/CartContext.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$OrderModeContext$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/context/OrderModeContext.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/data/store.ts [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$localOrders$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/localOrders.ts [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$payments$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/payments.ts [app-ssr] (ecmascript)");
 "use client";
-;
 ;
 ;
 ;
@@ -1486,15 +1595,6 @@ function CartPage() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
         className: "min-h-screen bg-white text-black",
         children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(TopNavbar, {
-                showBack: true,
-                backHref: "/",
-                locationText: "Mini-mart / Delivery"
-            }, void 0, false, {
-                fileName: "[project]/app/cart/page.tsx",
-                lineNumber: 234,
-                columnNumber: 7
-            }, this),
             mode === "local" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "max-w-6xl mx-auto px-4 pt-4",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1508,7 +1608,7 @@ function CartPage() {
                                     children: "Credits due"
                                 }, void 0, false, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 241,
+                                    lineNumber: 240,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1516,13 +1616,13 @@ function CartPage() {
                                     children: formatGBP(creditDue)
                                 }, void 0, false, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 242,
+                                    lineNumber: 241,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/cart/page.tsx",
-                            lineNumber: 240,
+                            lineNumber: 239,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1536,7 +1636,7 @@ function CartPage() {
                                             children: "Customer (type name or phone)"
                                         }, void 0, false, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 247,
+                                            lineNumber: 246,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1549,7 +1649,7 @@ function CartPage() {
                                             className: "mt-1 w-full border rounded-xl px-3 py-2"
                                         }, void 0, false, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 248,
+                                            lineNumber: 247,
                                             columnNumber: 17
                                         }, this),
                                         !selectedCustomer && suggestions.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1566,7 +1666,7 @@ function CartPage() {
                                                             children: c.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/cart/page.tsx",
-                                                            lineNumber: 273,
+                                                            lineNumber: 272,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1574,18 +1674,18 @@ function CartPage() {
                                                             children: c.phone
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/cart/page.tsx",
-                                                            lineNumber: 274,
+                                                            lineNumber: 273,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, c.id, true, {
                                                     fileName: "[project]/app/cart/page.tsx",
-                                                    lineNumber: 265,
+                                                    lineNumber: 264,
                                                     columnNumber: 23
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 263,
+                                            lineNumber: 262,
                                             columnNumber: 19
                                         }, this) : null,
                                         selectedCustomer ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1597,20 +1697,20 @@ function CartPage() {
                                             children: "Change customer"
                                         }, void 0, false, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 281,
+                                            lineNumber: 280,
                                             columnNumber: 19
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "mt-2 text-xs text-gray-500",
                                             children: "Optional: walk-in (not for credit)."
                                         }, void 0, false, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 291,
+                                            lineNumber: 290,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 246,
+                                    lineNumber: 245,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1620,7 +1720,7 @@ function CartPage() {
                                             children: "Staff note (optional)"
                                         }, void 0, false, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 296,
+                                            lineNumber: 297,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1630,7 +1730,7 @@ function CartPage() {
                                             placeholder: "e.g. delivery later"
                                         }, void 0, false, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 297,
+                                            lineNumber: 298,
                                             columnNumber: 17
                                         }, this),
                                         savedMsg ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1638,13 +1738,13 @@ function CartPage() {
                                             children: savedMsg
                                         }, void 0, false, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 304,
+                                            lineNumber: 305,
                                             columnNumber: 19
                                         }, this) : null
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 295,
+                                    lineNumber: 296,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1657,7 +1757,7 @@ function CartPage() {
                                                     children: "Credit"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/cart/page.tsx",
-                                                    lineNumber: 310,
+                                                    lineNumber: 311,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1665,13 +1765,13 @@ function CartPage() {
                                                     children: "Tick if customer pays later (requires customer selected)."
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/cart/page.tsx",
-                                                    lineNumber: 311,
+                                                    lineNumber: 312,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 309,
+                                            lineNumber: 310,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1680,13 +1780,13 @@ function CartPage() {
                                             children: isCredit ? "Credit: ON" : "Credit: OFF"
                                         }, void 0, false, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 316,
+                                            lineNumber: 317,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 308,
+                                    lineNumber: 309,
                                     columnNumber: 15
                                 }, this),
                                 !isCredit ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1697,7 +1797,7 @@ function CartPage() {
                                             children: "Payment method"
                                         }, void 0, false, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 328,
+                                            lineNumber: 329,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1711,7 +1811,7 @@ function CartPage() {
                                                         children: labelPM(m)
                                                     }, m, false, {
                                                         fileName: "[project]/app/cart/page.tsx",
-                                                        lineNumber: 334,
+                                                        lineNumber: 335,
                                                         columnNumber: 25
                                                     }, this);
                                                 }),
@@ -1721,7 +1821,7 @@ function CartPage() {
                                                     children: showMorePayments ? "Show less" : "Show more"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/cart/page.tsx",
-                                                    lineNumber: 346,
+                                                    lineNumber: 347,
                                                     columnNumber: 21
                                                 }, this),
                                                 showMorePayments ? MORE_METHODS.map((m)=>{
@@ -1732,26 +1832,26 @@ function CartPage() {
                                                         children: labelPM(m)
                                                     }, m, false, {
                                                         fileName: "[project]/app/cart/page.tsx",
-                                                        lineNumber: 357,
+                                                        lineNumber: 358,
                                                         columnNumber: 29
                                                     }, this);
                                                 }) : null
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 330,
+                                            lineNumber: 331,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 327,
+                                    lineNumber: 328,
                                     columnNumber: 17
                                 }, this) : null
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/cart/page.tsx",
-                            lineNumber: 245,
+                            lineNumber: 244,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1763,7 +1863,7 @@ function CartPage() {
                                     children: "Orders"
                                 }, void 0, false, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 376,
+                                    lineNumber: 377,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1772,7 +1872,7 @@ function CartPage() {
                                     children: "Payments"
                                 }, void 0, false, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 382,
+                                    lineNumber: 383,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1781,24 +1881,24 @@ function CartPage() {
                                     children: "Credits"
                                 }, void 0, false, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 388,
+                                    lineNumber: 389,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/cart/page.tsx",
-                            lineNumber: 375,
+                            lineNumber: 376,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/cart/page.tsx",
-                    lineNumber: 239,
+                    lineNumber: 238,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/cart/page.tsx",
-                lineNumber: 238,
+                lineNumber: 237,
                 columnNumber: 9
             }, this) : null,
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1814,7 +1914,7 @@ function CartPage() {
                                     children: "Your cart is empty"
                                 }, void 0, false, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 404,
+                                    lineNumber: 405,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1822,7 +1922,7 @@ function CartPage() {
                                     children: "Add items to checkout."
                                 }, void 0, false, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 405,
+                                    lineNumber: 406,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1831,13 +1931,13 @@ function CartPage() {
                                     children: "Start shopping"
                                 }, void 0, false, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 406,
+                                    lineNumber: 407,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/cart/page.tsx",
-                            lineNumber: 403,
+                            lineNumber: 404,
                             columnNumber: 13
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "space-y-4",
@@ -1857,12 +1957,12 @@ function CartPage() {
                                                         className: "w-full h-full object-cover"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/cart/page.tsx",
-                                                        lineNumber: 419,
+                                                        lineNumber: 420,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/cart/page.tsx",
-                                                    lineNumber: 418,
+                                                    lineNumber: 419,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1879,7 +1979,7 @@ function CartPage() {
                                                                             children: name ?? "Item"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/cart/page.tsx",
-                                                                            lineNumber: 431,
+                                                                            lineNumber: 432,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1887,13 +1987,13 @@ function CartPage() {
                                                                             children: formatGBP(price)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/cart/page.tsx",
-                                                                            lineNumber: 432,
+                                                                            lineNumber: 433,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/cart/page.tsx",
-                                                                    lineNumber: 430,
+                                                                    lineNumber: 431,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1903,13 +2003,13 @@ function CartPage() {
                                                                     children: "✕"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/cart/page.tsx",
-                                                                    lineNumber: 435,
+                                                                    lineNumber: 436,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/cart/page.tsx",
-                                                            lineNumber: 429,
+                                                            lineNumber: 430,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1924,7 +2024,7 @@ function CartPage() {
                                                                             children: "−"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/cart/page.tsx",
-                                                                            lineNumber: 446,
+                                                                            lineNumber: 447,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1932,7 +2032,7 @@ function CartPage() {
                                                                             children: qty
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/cart/page.tsx",
-                                                                            lineNumber: 454,
+                                                                            lineNumber: 455,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1941,13 +2041,13 @@ function CartPage() {
                                                                             children: "+"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/cart/page.tsx",
-                                                                            lineNumber: 455,
+                                                                            lineNumber: 456,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/cart/page.tsx",
-                                                                    lineNumber: 445,
+                                                                    lineNumber: 446,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1955,30 +2055,30 @@ function CartPage() {
                                                                     children: formatGBP(lineTotal)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/cart/page.tsx",
-                                                                    lineNumber: 463,
+                                                                    lineNumber: 464,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/cart/page.tsx",
-                                                            lineNumber: 444,
+                                                            lineNumber: 445,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/cart/page.tsx",
-                                                    lineNumber: 428,
+                                                    lineNumber: 429,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 417,
+                                            lineNumber: 418,
                                             columnNumber: 19
                                         }, this)
                                     }, key, false, {
                                         fileName: "[project]/app/cart/page.tsx",
-                                        lineNumber: 416,
+                                        lineNumber: 417,
                                         columnNumber: 17
                                     }, this)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1989,23 +2089,23 @@ function CartPage() {
                                         children: "Clear cart"
                                     }, void 0, false, {
                                         fileName: "[project]/app/cart/page.tsx",
-                                        lineNumber: 471,
+                                        lineNumber: 472,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 470,
+                                    lineNumber: 471,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/cart/page.tsx",
-                            lineNumber: 414,
+                            lineNumber: 415,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/cart/page.tsx",
-                        lineNumber: 401,
+                        lineNumber: 402,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
@@ -2021,14 +2121,14 @@ function CartPage() {
                                             children: "🧾"
                                         }, void 0, false, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 485,
+                                            lineNumber: 486,
                                             columnNumber: 15
                                         }, this),
                                         " Summary"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 484,
+                                    lineNumber: 485,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2042,7 +2142,7 @@ function CartPage() {
                                                     children: "Subtotal"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/cart/page.tsx",
-                                                    lineNumber: 490,
+                                                    lineNumber: 491,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2050,13 +2150,13 @@ function CartPage() {
                                                     children: formatGBP(subtotal)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/cart/page.tsx",
-                                                    lineNumber: 491,
+                                                    lineNumber: 492,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 489,
+                                            lineNumber: 490,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2067,7 +2167,7 @@ function CartPage() {
                                                     children: "Delivery"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/cart/page.tsx",
-                                                    lineNumber: 494,
+                                                    lineNumber: 495,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2075,13 +2175,13 @@ function CartPage() {
                                                     children: formatGBP(deliveryFee)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/cart/page.tsx",
-                                                    lineNumber: 495,
+                                                    lineNumber: 496,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 493,
+                                            lineNumber: 494,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2092,7 +2192,7 @@ function CartPage() {
                                                     children: "Total"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/cart/page.tsx",
-                                                    lineNumber: 498,
+                                                    lineNumber: 499,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2100,19 +2200,19 @@ function CartPage() {
                                                     children: formatGBP(total)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/cart/page.tsx",
-                                                    lineNumber: 499,
+                                                    lineNumber: 500,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/cart/page.tsx",
-                                            lineNumber: 497,
+                                            lineNumber: 498,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 488,
+                                    lineNumber: 489,
                                     columnNumber: 13
                                 }, this),
                                 mode === "local" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2122,7 +2222,7 @@ function CartPage() {
                                     children: isCredit ? "Save Credit Order" : `Checkout (Paid: ${labelPM(paymentMethod)})`
                                 }, void 0, false, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 504,
+                                    lineNumber: 505,
                                     columnNumber: 15
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                     href: "/checkout",
@@ -2130,7 +2230,7 @@ function CartPage() {
                                     children: "Checkout (Online)"
                                 }, void 0, false, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 514,
+                                    lineNumber: 517,
                                     columnNumber: 15
                                 }, this),
                                 mode === "local" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2138,37 +2238,37 @@ function CartPage() {
                                     children: "Local paid checkouts appear in Payments."
                                 }, void 0, false, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 525,
+                                    lineNumber: 530,
                                     columnNumber: 15
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     className: "text-xs text-gray-500 mt-3",
                                     children: "Online checkout uses your normal flow."
                                 }, void 0, false, {
                                     fileName: "[project]/app/cart/page.tsx",
-                                    lineNumber: 529,
+                                    lineNumber: 532,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/cart/page.tsx",
-                            lineNumber: 483,
+                            lineNumber: 484,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/cart/page.tsx",
-                        lineNumber: 482,
+                        lineNumber: 483,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/cart/page.tsx",
-                lineNumber: 400,
+                lineNumber: 401,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/cart/page.tsx",
-        lineNumber: 233,
+        lineNumber: 232,
         columnNumber: 5
     }, this);
 }

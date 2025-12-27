@@ -2,11 +2,32 @@
 "[project]/data/store.ts [app-client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
+// store.ts
+// Minimal “mock DB” for frontend + early checkout tables (orders/orderItems/payments)
+// --------------------
+// Types
+// --------------------
 __turbopack_context__.s([
     "brands",
     ()=>brands,
     "categories",
     ()=>categories,
+    "customers",
+    ()=>customers,
+    "getBrandById",
+    ()=>getBrandById,
+    "getPrimaryImageByProductId",
+    ()=>getPrimaryImageByProductId,
+    "getProductBySlug",
+    ()=>getProductBySlug,
+    "getVariantsByProductId",
+    ()=>getVariantsByProductId,
+    "orderItems",
+    ()=>orderItems,
+    "orders",
+    ()=>orders,
+    "payments",
+    ()=>payments,
     "productImages",
     ()=>productImages,
     "productVariants",
@@ -21,668 +42,624 @@ __turbopack_context__.s([
 const categories = [
     {
         id: 1,
-        name: "Groceries",
         slug: "groceries",
-        img: "/groceries.webp"
+        img: "/groceries.webp",
+        name_so: "Raashin",
+        name_en: "Groceries"
     },
     {
         id: 2,
-        name: " Beverages",
         slug: "beverages",
-        img: "/drink.webp"
+        img: "/drink.webp",
+        name_so: "Cabitaan",
+        name_en: "Beverages"
     },
     {
         id: 3,
-        name: "Baby Care",
         slug: "baby-care",
-        img: "/baby.webp"
+        img: "/baby.webp",
+        name_so: "Ilmo",
+        name_en: "Baby Care"
     },
     {
         id: 4,
-        name: " Personal Care",
         slug: "personal-care",
-        img: "/personal.webp"
+        img: "/personal.webp",
+        name_so: "Nadaafad",
+        name_en: "Personal Care"
     },
     {
         id: 5,
-        name: " Home & Kitchen",
         slug: "home-kitchen",
-        img: "/home.webp"
+        img: "/home.webp",
+        name_so: "Guri & Jikada",
+        name_en: "Home & Kitchen"
     },
     {
         id: 6,
-        name: " Fashion",
         slug: "fashion",
-        img: "/products/baby.webp"
+        img: "/products/baby.webp",
+        name_so: "Dharka",
+        name_en: "Fashion"
     },
-    // Daily-use electronics (NOT phones)
     {
         id: 7,
-        name: "Daily Electronics",
         slug: "daily-electronics",
-        img: "/products/health.webp"
+        img: "/products/health.webp",
+        name_so: "Koronto & Qalab",
+        name_en: "Daily Electronics"
     },
     {
         id: 8,
-        name: "Stationery",
         slug: "stationery",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Qalinka & Buugaag",
+        name_en: "Stationery"
     }
 ];
 const subcategories = [
-    /* =========================
-     🛒 GROCERIES (category_id: 1)
-  ========================= */ {
+    // GROCERIES
+    {
         id: 101,
         category_id: 1,
-        name: "Fruits & Vegetables",
         slug: "fruits-vegetables",
-        img: "/fruit.webp"
+        img: "/fruit.webp",
+        name_so: "Miraha & Khudaarta",
+        name_en: "Fruits & Vegetables"
     },
     {
         id: 102,
         category_id: 1,
-        name: "Dairy & Bakery",
         slug: "dairy-bakery",
-        img: "/bakery.webp"
+        img: "/bakery.webp",
+        name_so: "Caano & Rooti",
+        name_en: "Dairy & Bakery"
     },
     {
         id: 103,
         category_id: 1,
-        name: "Staples (Atta, Rice, Dal & Oil)",
         slug: "staples-atta-rice-dal-oil",
-        img: "/oil.webp"
+        img: "/oil.webp",
+        name_so: "Raashin Asaasi",
+        name_en: "Staples (Atta, Rice, Dal & Oil)"
     },
     {
         id: 104,
         category_id: 1,
-        name: "Snacks & Branded Foods",
         slug: "snacks-branded-foods",
-        img: "/bakery.webp"
+        img: "/bakery.webp",
+        name_so: "Cunto Fudud",
+        name_en: "Snacks & Branded Foods"
     },
     {
         id: 105,
         category_id: 1,
-        name: "Sweets, Dry Fruits & Dates",
         slug: "sweets-dry-fruits-dates",
-        img: "/pick.webp"
+        img: "/pick.webp",
+        name_so: "Macmacaan & Timir",
+        name_en: "Sweets, Dry Fruits & Dates"
     },
     {
         id: 106,
         category_id: 1,
-        name: "Frozen & Ready Foods",
         slug: "frozen-ready-foods",
-        img: "/frozen.webp"
+        img: "/frozen.webp",
+        name_so: "Cunto Qabow/Diyaarsan",
+        name_en: "Frozen & Ready Foods"
     },
-    /* =========================
-     🥤 BEVERAGES (category_id: 2)
-  ========================= */ {
+    // BEVERAGES
+    {
         id: 201,
         category_id: 2,
-        name: "Soft Drinks & Juices",
         slug: "soft-drinks-juices",
-        img: "/drink.webp"
+        img: "/drink.webp",
+        name_so: "Cabbitaan Fudud & Casiir",
+        name_en: "Soft Drinks & Juices"
     },
     {
         id: 202,
         category_id: 2,
-        name: "Tea, Coffee & Health Drinks",
         slug: "tea-coffee-health-drinks",
-        img: "/tea.webp"
+        img: "/tea.webp",
+        name_so: "Shaah & Kafee",
+        name_en: "Tea, Coffee & Health Drinks"
     },
-    /* =========================
-     👶 BABY CARE (category_id: 3)
-  ========================= */ {
+    // BABY
+    {
         id: 301,
         category_id: 3,
-        name: "Baby Food",
         slug: "baby-food",
-        img: "/baby.webp"
+        img: "/baby.webp",
+        name_so: "Cuntada Ilmaha",
+        name_en: "Baby Food"
     },
     {
         id: 302,
         category_id: 3,
-        name: "Diapers & Wipes",
         slug: "diapers-wipes",
-        img: "/nuna.webp"
+        img: "/nuna.webp",
+        name_so: "Xafaayad & Tirtire",
+        name_en: "Diapers & Wipes"
     },
     {
         id: 303,
         category_id: 3,
-        name: "Baby Bath & Skin Care",
         slug: "baby-bath-skin-care",
-        img: "/babycream.jpeg"
+        img: "/babycream.jpeg",
+        name_so: "Qubays & Daryeel Maqaarka",
+        name_en: "Baby Bath & Skin Care"
     },
     {
         id: 304,
         category_id: 3,
-        name: "Baby Feeding Essentials",
         slug: "baby-feeding-essentials",
-        img: "/babyfeeding.webp"
+        img: "/babyfeeding.webp",
+        name_so: "Qalabka Quudinta",
+        name_en: "Baby Feeding Essentials"
     },
-    /* =========================
-     💄 PERSONAL CARE (category_id: 4)
-  ========================= */ {
+    // PERSONAL CARE
+    {
         id: 401,
         category_id: 4,
-        name: "Bath & Body",
         slug: "bath-body",
-        img: "/bath.webp.jpeg"
+        img: "/bath.webp.jpeg",
+        name_so: "Qubays & Jirka",
+        name_en: "Bath & Body"
     },
     {
         id: 402,
         category_id: 4,
-        name: "Hair Care",
         slug: "hair-care",
-        img: "/shampoo.jpg"
+        img: "/shampoo.jpg",
+        name_so: "Daryeel Timaha",
+        name_en: "Hair Care"
     },
     {
         id: 403,
         category_id: 4,
-        name: "Oral Care",
         slug: "oral-care",
-        img: "/oralcare.webp"
+        img: "/oralcare.webp",
+        name_so: "Daryeel Afka",
+        name_en: "Oral Care"
     },
     {
         id: 404,
         category_id: 4,
-        name: "Skin Care",
         slug: "skin-care",
-        img: "/nivea.webp"
+        img: "/nivea.webp",
+        name_so: "Daryeel Maqaarka",
+        name_en: "Skin Care"
     },
     {
         id: 405,
         category_id: 4,
-        name: "Grooming & Hygiene",
         slug: "grooming-hygiene",
-        img: "/groom.webp"
+        img: "/groom.webp",
+        name_so: "Nadaafad & Isqurxin",
+        name_en: "Grooming & Hygiene"
     },
-    /* =========================
-     🏠 HOME & KITCHEN (category_id: 5)
-  ========================= */ {
+    // HOME & KITCHEN
+    {
         id: 501,
         category_id: 5,
-        name: "Kitchen & Dining",
         slug: "kitchen-dining",
-        img: "/cutlery.webp"
+        img: "/cutlery.webp",
+        name_so: "Jikada & Cuntada",
+        name_en: "Kitchen & Dining"
     },
     {
         id: 502,
         category_id: 5,
-        name: "Household Essentials",
         slug: "household-essentials",
-        img: "/cleaner.webp"
+        img: "/cleaner.webp",
+        name_so: "Baahida Guriga",
+        name_en: "Household Essentials"
     },
     {
         id: 503,
         category_id: 5,
-        name: "Home Appliances",
         slug: "home-appliances",
-        img: "/products/device.webp"
+        img: "/products/device.webp",
+        name_so: "Qalabka Guriga",
+        name_en: "Home Appliances"
     },
-    // Extra (still JioMart-style and useful)
     {
         id: 504,
         category_id: 5,
-        name: "Storage & Containers",
         slug: "storage-containers",
-        img: "/storage.webp"
+        img: "/storage.webp",
+        name_so: "Kayd & Weelal",
+        name_en: "Storage & Containers"
     },
     {
         id: 505,
         category_id: 5,
-        name: "Cleaning Supplies",
         slug: "cleaning-supplies",
-        img: "/products/cleaning.webp"
+        img: "/products/cleaning.webp",
+        name_so: "Qalabka Nadiifinta",
+        name_en: "Cleaning Supplies"
     },
     {
         id: 506,
         category_id: 5,
-        name: "Laundry Essentials",
         slug: "laundry-essentials",
-        img: "/laundry.webp"
+        img: "/laundry.webp",
+        name_so: "Dharka & Dhaqid",
+        name_en: "Laundry Essentials"
     },
-    /* =========================
-     👕 FASHION (category_id: 6)
-  ========================= */ {
+    // FASHION
+    {
         id: 601,
         category_id: 6,
-        name: "Men’s Clothing",
         slug: "mens-clothing",
-        img: "/products/baby.webp"
+        img: "/products/baby.webp",
+        name_so: "Dharka Ragga",
+        name_en: "Men’s Clothing"
     },
     {
         id: 602,
         category_id: 6,
-        name: "Women’s Clothing",
         slug: "womens-clothing",
-        img: "/products/beauty.webp"
+        img: "/products/beauty.webp",
+        name_so: "Dharka Dumarka",
+        name_en: "Women’s Clothing"
     },
     {
         id: 603,
         category_id: 6,
-        name: "Kids Wear",
         slug: "kids-wear",
-        img: "/products/baby.webp"
+        img: "/products/baby.webp",
+        name_so: "Dharka Carruurta",
+        name_en: "Kids Wear"
     },
     {
         id: 604,
         category_id: 6,
-        name: "Footwear",
         slug: "footwear",
-        img: "/products/health.webp"
+        img: "/products/health.webp",
+        name_so: "Kabo",
+        name_en: "Footwear"
     },
     {
         id: 605,
         category_id: 6,
-        name: "Innerwear",
         slug: "innerwear",
-        img: "/products/men.webp"
+        img: "/products/men.webp",
+        name_so: "Dharka Hoose",
+        name_en: "Innerwear"
     },
-    /* =========================
-     🔌 DAILY ELECTRONICS (category_id: 7)
-     (no mobiles/phones)
-  ========================= */ {
+    // DAILY ELECTRONICS
+    {
         id: 701,
         category_id: 7,
-        name: "LED Bulbs & Lights",
         slug: "led-bulbs-lights",
-        img: "/decor.webp"
+        img: "/decor.webp",
+        name_so: "Nalal & Bulbo",
+        name_en: "LED Bulbs & Lights"
     },
     {
         id: 702,
         category_id: 7,
-        name: "Extension Boards & Plugs",
         slug: "extension-boards-plugs",
-        img: "/products/device.webp"
+        img: "/products/device.webp",
+        name_so: "Kordhin & Fiyuus",
+        name_en: "Extension Boards & Plugs"
     },
     {
         id: 703,
         category_id: 7,
-        name: "Chargers & Adapters",
         slug: "chargers-adapters",
-        img: "/products/device.webp"
+        img: "/products/device.webp",
+        name_so: "Charger & Adapter",
+        name_en: "Chargers & Adapters"
     },
     {
         id: 704,
         category_id: 7,
-        name: "Batteries & Cells",
         slug: "batteries-cells",
-        img: "/products/health.webp"
+        img: "/products/health.webp",
+        name_so: "Baytari",
+        name_en: "Batteries & Cells"
     },
     {
         id: 705,
         category_id: 7,
-        name: "Emergency Lights",
         slug: "emergency-lights",
-        img: "/decor.webp"
+        img: "/decor.webp",
+        name_so: "Nalal Degdeg",
+        name_en: "Emergency Lights"
     },
     {
         id: 706,
         category_id: 7,
-        name: "Switches & Electricals",
         slug: "switches-electricals",
-        img: "/products/device.webp"
+        img: "/products/device.webp",
+        name_so: "Switch & Koronto",
+        name_en: "Switches & Electricals"
     },
-    /* =========================
-     ✏️ STATIONERY (category_id: 8)
-  ========================= */ {
+    // STATIONERY
+    {
         id: 801,
         category_id: 8,
-        name: "Notebooks & Registers",
         slug: "notebooks-registers",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Buugaag & Diiwaan",
+        name_en: "Notebooks & Registers"
     },
     {
         id: 802,
         category_id: 8,
-        name: "Pens & Writing",
         slug: "pens-writing",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Qalin & Qoris",
+        name_en: "Pens & Writing"
     },
     {
         id: 803,
         category_id: 8,
-        name: "School Supplies",
         slug: "school-supplies",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Qalabka Dugsiga",
+        name_en: "School Supplies"
     },
     {
         id: 804,
         category_id: 8,
-        name: "Office Supplies",
         slug: "office-supplies",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Qalabka Xafiiska",
+        name_en: "Office Supplies"
     },
     {
         id: 805,
         category_id: 8,
-        name: "Art & Craft",
         slug: "art-craft",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Farshaxan & Gacan",
+        name_en: "Art & Craft"
     }
 ];
 const subsubcategories = [
-    /* =========================
-     🥤 BEVERAGES → Soft Drinks & Juices (subcategory_id: 201)
-  ========================= */ {
+    // Fruits & Vegetables
+    {
         id: 10101,
         subcategory_id: 101,
-        name: "Bananas",
-        slug: "bananas"
+        slug: "bananas",
+        name_so: "Moos",
+        name_en: "Bananas"
     },
+    // Staples
+    {
+        id: 10301,
+        subcategory_id: 103,
+        slug: "rice",
+        name_so: "Bariis",
+        name_en: "Rice"
+    },
+    {
+        id: 10302,
+        subcategory_id: 103,
+        slug: "flour",
+        name_so: "Bur",
+        name_en: "Flour"
+    },
+    {
+        id: 10303,
+        subcategory_id: 103,
+        slug: "cooking-oil",
+        name_so: "Saliid",
+        name_en: "Cooking Oil"
+    },
+    // Soft Drinks & Juices
     {
         id: 20101,
         subcategory_id: 201,
-        name: "Cola & Soda",
-        slug: "cola-soda"
+        slug: "cola-soda",
+        name_so: "Kola & Soda",
+        name_en: "Cola & Soda"
     },
     {
         id: 20102,
         subcategory_id: 201,
-        name: "Juices",
-        slug: "juices"
+        slug: "juices",
+        name_so: "Casiir",
+        name_en: "Juices"
     },
     {
         id: 20103,
         subcategory_id: 201,
-        name: "Energy Drinks",
-        slug: "energy-drinks"
+        slug: "energy-drinks",
+        name_so: "Cabitaan Tamareed",
+        name_en: "Energy Drinks"
     },
     {
         id: 20104,
         subcategory_id: 201,
-        name: "Flavoured Water",
-        slug: "flavoured-water"
+        slug: "flavoured-water",
+        name_so: "Biyo Dhadhan Leh",
+        name_en: "Flavoured Water"
     },
     {
         id: 20105,
         subcategory_id: 201,
-        name: "Mixers & Tonic",
-        slug: "mixers-tonic"
+        slug: "mixers-tonic",
+        name_so: "Tonic & Mixers",
+        name_en: "Mixers & Tonic"
     },
-    /* =========================
-     🥤 BEVERAGES → Tea, Coffee & Health Drinks (subcategory_id: 202)
-     (your example becomes REAL here)
-  ========================= */ {
+    // Tea & Coffee
+    {
         id: 20201,
         subcategory_id: 202,
-        name: "Instant Coffee",
-        slug: "instant-coffee"
+        slug: "instant-coffee",
+        name_so: "Kafee Degdeg",
+        name_en: "Instant Coffee"
     },
     {
         id: 20202,
         subcategory_id: 202,
-        name: "Ground Coffee",
-        slug: "ground-coffee"
+        slug: "ground-coffee",
+        name_so: "Kafee Shiidan",
+        name_en: "Ground Coffee"
     },
     {
         id: 20203,
         subcategory_id: 202,
-        name: "Coffee Beans",
-        slug: "coffee-beans"
+        slug: "coffee-beans",
+        name_so: "Buun Kafee",
+        name_en: "Coffee Beans"
     },
     {
         id: 20204,
         subcategory_id: 202,
-        name: "Tea Bags",
-        slug: "tea-bags"
+        slug: "tea-bags",
+        name_so: "Bacaha Shaaha",
+        name_en: "Tea Bags"
     },
     {
         id: 20205,
         subcategory_id: 202,
-        name: "Green Tea",
-        slug: "green-tea"
+        slug: "green-tea",
+        name_so: "Shaah Cagaaran",
+        name_en: "Green Tea"
     },
     {
         id: 20206,
         subcategory_id: 202,
-        name: "Herbal & Exotic Tea",
-        slug: "herbal-exotic-tea"
+        slug: "herbal-exotic-tea",
+        name_so: "Shaah Dhir",
+        name_en: "Herbal & Exotic Tea"
     },
     {
         id: 20207,
         subcategory_id: 202,
-        name: "Gourmet / Premium Tea",
-        slug: "gourmet-premium-tea"
+        slug: "gourmet-premium-tea",
+        name_so: "Shaah Premium",
+        name_en: "Gourmet / Premium Tea"
     },
     {
         id: 20208,
         subcategory_id: 202,
-        name: "Health Drinks",
-        slug: "health-drinks"
+        slug: "health-drinks",
+        name_so: "Cabitaan Caafimaad",
+        name_en: "Health Drinks"
     },
-    /* =========================
-     👶 BABY CARE
-  ========================= */ {
+    // Baby
+    {
         id: 30101,
         subcategory_id: 301,
-        name: "Cereals & Purees",
-        slug: "cereals-purees"
+        slug: "cereals-purees",
+        name_so: "Boorash & Puree",
+        name_en: "Cereals & Purees"
     },
     {
         id: 30102,
         subcategory_id: 301,
-        name: "Formula",
-        slug: "formula"
+        slug: "formula",
+        name_so: "Caano Formula",
+        name_en: "Formula"
     },
     {
         id: 30103,
         subcategory_id: 301,
-        name: "Snacks for Babies",
-        slug: "baby-snacks"
+        slug: "baby-snacks",
+        name_so: "Cunto Fudud Ilmo",
+        name_en: "Snacks for Babies"
     },
     {
         id: 30201,
         subcategory_id: 302,
-        name: "Tape Diapers",
-        slug: "tape-diapers"
+        slug: "tape-diapers",
+        name_so: "Xafaayad (Tape)",
+        name_en: "Tape Diapers"
     },
     {
         id: 30202,
         subcategory_id: 302,
-        name: "Pants Diapers",
-        slug: "pants-diapers"
+        slug: "pants-diapers",
+        name_so: "Xafaayad (Pants)",
+        name_en: "Pants Diapers"
     },
     {
         id: 30203,
         subcategory_id: 302,
-        name: "Baby Wipes",
-        slug: "baby-wipes"
+        slug: "baby-wipes",
+        name_so: "Tirtire Ilmo",
+        name_en: "Baby Wipes"
     },
     {
         id: 30204,
         subcategory_id: 302,
-        name: "Diaper Rash Cream",
-        slug: "diaper-rash-cream"
+        slug: "diaper-rash-cream",
+        name_so: "Kareem Finan",
+        name_en: "Diaper Rash Cream"
     },
+    // Personal Care
     {
-        id: 30301,
-        subcategory_id: 303,
-        name: "Baby Soap & Wash",
-        slug: "baby-soap-wash"
-    },
-    {
-        id: 30302,
-        subcategory_id: 303,
-        name: "Baby Shampoo",
-        slug: "baby-shampoo"
-    },
-    {
-        id: 30303,
-        subcategory_id: 303,
-        name: "Baby Lotion & Oil",
-        slug: "baby-lotion-oil"
-    },
-    {
-        id: 30401,
-        subcategory_id: 304,
-        name: "Bottles",
-        slug: "bottles"
-    },
-    {
-        id: 30402,
-        subcategory_id: 304,
-        name: "Feeding Accessories",
-        slug: "feeding-accessories"
-    },
-    {
-        id: 30403,
-        subcategory_id: 304,
-        name: "Sippers & Cups",
-        slug: "sippers-cups"
-    },
-    /* =========================
-     💄 PERSONAL CARE
-  ========================= */ {
         id: 40101,
         subcategory_id: 401,
-        name: "Soaps",
-        slug: "soaps"
+        slug: "soaps",
+        name_so: "Saabuun",
+        name_en: "Soaps"
     },
     {
         id: 40102,
         subcategory_id: 401,
-        name: "Body Wash",
-        slug: "body-wash"
+        slug: "body-wash",
+        name_so: "Body Wash",
+        name_en: "Body Wash"
     },
     {
         id: 40103,
         subcategory_id: 401,
-        name: "Deodorants",
-        slug: "deodorants"
+        slug: "deodorants",
+        name_so: "Deodorant",
+        name_en: "Deodorants"
     },
     {
         id: 40201,
         subcategory_id: 402,
-        name: "Shampoo",
-        slug: "shampoo"
+        slug: "shampoo",
+        name_so: "Shaambo",
+        name_en: "Shampoo"
     },
     {
         id: 40202,
         subcategory_id: 402,
-        name: "Conditioner",
-        slug: "conditioner"
+        slug: "conditioner",
+        name_so: "Conditioner",
+        name_en: "Conditioner"
     },
     {
         id: 40203,
         subcategory_id: 402,
-        name: "Hair Oil",
-        slug: "hair-oil"
+        slug: "hair-oil",
+        name_so: "Saliidda Timaha",
+        name_en: "Hair Oil"
     },
+    // Home & Kitchen
     {
-        id: 40301,
-        subcategory_id: 403,
-        name: "Toothpaste",
-        slug: "toothpaste"
-    },
-    {
-        id: 40302,
-        subcategory_id: 403,
-        name: "Toothbrushes",
-        slug: "toothbrushes"
-    },
-    {
-        id: 40303,
-        subcategory_id: 403,
-        name: "Mouthwash",
-        slug: "mouthwash"
-    },
-    {
-        id: 40401,
-        subcategory_id: 404,
-        name: "Face Wash",
-        slug: "face-wash"
-    },
-    {
-        id: 40402,
-        subcategory_id: 404,
-        name: "Moisturisers",
-        slug: "moisturisers"
-    },
-    {
-        id: 40403,
-        subcategory_id: 404,
-        name: "Sunscreen",
-        slug: "sunscreen"
-    },
-    {
-        id: 40501,
-        subcategory_id: 405,
-        name: "Sanitary & Hygiene",
-        slug: "sanitary-hygiene"
-    },
-    {
-        id: 40502,
-        subcategory_id: 405,
-        name: "Shaving & Grooming",
-        slug: "shaving-grooming"
-    },
-    {
-        id: 40503,
-        subcategory_id: 405,
-        name: "Hand Wash & Sanitiser",
-        slug: "handwash-sanitiser"
-    },
-    /* =========================
-     🏠 HOME & KITCHEN
-  ========================= */ {
         id: 50101,
         subcategory_id: 501,
-        name: "Cookware",
-        slug: "cookware"
+        slug: "cookware",
+        name_so: "Cookware",
+        name_en: "Cookware"
     },
     {
         id: 50102,
         subcategory_id: 501,
-        name: "Dinnerware",
-        slug: "dinnerware"
+        slug: "dinnerware",
+        name_so: "Weel Cunto",
+        name_en: "Dinnerware"
     },
     {
         id: 50103,
         subcategory_id: 501,
-        name: "Kitchen Tools",
-        slug: "kitchen-tools"
-    },
-    {
-        id: 50201,
-        subcategory_id: 502,
-        name: "Cleaning Liquids",
-        slug: "cleaning-liquids"
-    },
-    {
-        id: 50202,
-        subcategory_id: 502,
-        name: "Tissues & Wipes",
-        slug: "tissues-wipes"
-    },
-    {
-        id: 50203,
-        subcategory_id: 502,
-        name: "Garbage Bags",
-        slug: "garbage-bags"
-    },
-    {
-        id: 50301,
-        subcategory_id: 503,
-        name: "Small Appliances",
-        slug: "small-appliances"
-    },
-    {
-        id: 50302,
-        subcategory_id: 503,
-        name: "Irons",
-        slug: "irons"
-    },
-    {
-        id: 50303,
-        subcategory_id: 503,
-        name: "Kettles",
-        slug: "kettles"
+        slug: "kitchen-tools",
+        name_so: "Qalabka Jikada",
+        name_en: "Kitchen Tools"
     }
 ];
 const products = [
-    // Groceries
     {
         id: 1,
         name: "Basmati Rice 5kg",
@@ -694,7 +671,9 @@ const products = [
         is_discounted: true,
         base_price: 18.5,
         tags: [
-            "rice"
+            "rice",
+            "bariis",
+            "kilo-bariis"
         ]
     },
     {
@@ -708,7 +687,8 @@ const products = [
         is_discounted: false,
         base_price: 11,
         tags: [
-            "cooking-oil"
+            "cooking-oil",
+            "saliid"
         ]
     },
     {
@@ -722,7 +702,8 @@ const products = [
         is_discounted: false,
         base_price: 1.8,
         tags: [
-            "bananas"
+            "bananas",
+            "moos"
         ]
     },
     {
@@ -736,7 +717,8 @@ const products = [
         is_discounted: true,
         base_price: 2.2,
         tags: [
-            "biscuits"
+            "biscuits",
+            "buskud"
         ]
     },
     // Beverages
@@ -873,6 +855,7 @@ const products = [
     }
 ];
 const productVariants = [
+    // Existing (from your paste)
     {
         id: 1,
         product_id: 1,
@@ -980,19 +963,84 @@ const productVariants = [
         price: 1.0,
         mrp: 1.3,
         stock: 300
+    },
+    // Added defaults for products that had no variants: 3,4,6,8,9,10,12
+    {
+        id: 13,
+        product_id: 3,
+        label: "1 kg",
+        sku: "BANANA-1KG",
+        price: 1.8,
+        mrp: 2.0,
+        stock: 120
+    },
+    {
+        id: 14,
+        product_id: 4,
+        label: "1 pack",
+        sku: "BISCUIT-MIX-1PK",
+        price: 2.2,
+        mrp: 2.6,
+        stock: 90
+    },
+    {
+        id: 15,
+        product_id: 6,
+        label: "500 g",
+        sku: "TEA-BLK-500G",
+        price: 3.4,
+        mrp: 3.9,
+        stock: 70
+    },
+    {
+        id: 16,
+        product_id: 8,
+        label: "500 ml",
+        sku: "BODYWASH-500ML",
+        price: 3.0,
+        mrp: 3.5,
+        stock: 80
+    },
+    {
+        id: 17,
+        product_id: 9,
+        label: "1 pc",
+        sku: "PAN-NONSTICK-1PC",
+        price: 7.5,
+        mrp: 8.5,
+        stock: 40
+    },
+    {
+        id: 18,
+        product_id: 10,
+        label: "2 kg",
+        sku: "DETERGENT-2KG",
+        price: 5.9,
+        mrp: 6.5,
+        stock: 65
+    },
+    {
+        id: 19,
+        product_id: 12,
+        label: "4-socket",
+        sku: "EXT-4SOCKET",
+        price: 4.5,
+        mrp: 5.0,
+        stock: 50
     }
 ];
 const productImages = [
+    // Fixed: removed double dot in "/dairy..webp" -> "/dairy.webp"
     {
         id: 1,
         product_id: 1,
-        url: "/.webp",
+        url: "/dairy.webp",
         is_primary: true
     },
     {
         id: 2,
         product_id: 1,
-        url: "/products/alfanar-2.webp",
+        url: "/alfanar.webp",
         is_primary: false
     },
     {
@@ -1001,6 +1049,7 @@ const productImages = [
         url: "/products/oil.webp",
         is_primary: true
     },
+    // Your paste had these for product_id 3 (kept)
     {
         id: 4,
         product_id: 3,
@@ -1012,6 +1061,67 @@ const productImages = [
         product_id: 3,
         url: "/products/a15-back.jpg",
         is_primary: false
+    },
+    // Added minimal images so UI doesn’t look empty
+    {
+        id: 6,
+        product_id: 4,
+        url: "/bakery.webp",
+        is_primary: true
+    },
+    {
+        id: 7,
+        product_id: 5,
+        url: "/drink.webp",
+        is_primary: true
+    },
+    {
+        id: 8,
+        product_id: 6,
+        url: "/tea.webp",
+        is_primary: true
+    },
+    {
+        id: 9,
+        product_id: 7,
+        url: "/nuna.webp",
+        is_primary: true
+    },
+    {
+        id: 10,
+        product_id: 8,
+        url: "/bath.webp.jpeg",
+        is_primary: true
+    },
+    {
+        id: 11,
+        product_id: 9,
+        url: "/cutlery.webp",
+        is_primary: true
+    },
+    {
+        id: 12,
+        product_id: 10,
+        url: "/laundry.webp",
+        is_primary: true
+    },
+    {
+        id: 13,
+        product_id: 11,
+        url: "/decor.webp",
+        is_primary: true
+    },
+    {
+        id: 14,
+        product_id: 12,
+        url: "/products/device.webp",
+        is_primary: true
+    },
+    {
+        id: 15,
+        product_id: 13,
+        url: "/products/stationery.webp",
+        is_primary: true
     }
 ];
 const brands = [
@@ -1076,6 +1186,55 @@ const brands = [
         slug: "huggies"
     }
 ];
+const customers = [
+    {
+        id: 1,
+        name: "Ahmed Ali",
+        phone: "0622000001"
+    },
+    {
+        id: 2,
+        name: "Amina Noor",
+        phone: "0622000002"
+    },
+    {
+        id: 3,
+        name: "Hodan Yusuf",
+        phone: "0619000123"
+    },
+    {
+        id: 4,
+        name: "Mohamed Hassan",
+        phone: "0622000456"
+    },
+    {
+        id: 5,
+        name: "Fatima Omar",
+        phone: "0615557788"
+    },
+    {
+        id: 6,
+        name: "Abdiqani Mohamed",
+        phone: "0627003344"
+    },
+    {
+        id: 7,
+        name: "Khadra Aden",
+        phone: "0612223344"
+    },
+    {
+        id: 8,
+        name: "Sahra Ismail",
+        phone: "0626112233"
+    }
+];
+const orders = [];
+const orderItems = [];
+const payments = [];
+const getProductBySlug = (slug)=>products.find((p)=>p.slug === slug);
+const getVariantsByProductId = (product_id)=>productVariants.filter((v)=>v.product_id === product_id);
+const getPrimaryImageByProductId = (product_id)=>productImages.find((img)=>img.product_id === product_id && img.is_primary) || productImages.find((img)=>img.product_id === product_id);
+const getBrandById = (brand_id)=>brands.find((b)=>b.id === brand_id);
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
@@ -1093,6 +1252,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/data/store.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$CartContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/context/CartContext.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$LanguageContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/context/LanguageContext.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
@@ -1101,33 +1262,59 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+;
+;
 /** ===== helpers ===== */ function money(n) {
     return `₹${Number(n ?? 0).toFixed(0)}`;
+}
+function safeImg(src) {
+    const s = String(src ?? "").trim();
+    if (!s) return "/example.png";
+    if (s.startsWith("/")) return s;
+    if (s.startsWith("http://") || s.startsWith("https://")) return s;
+    return "/example.png";
 }
 function getPrimaryImageUrl(productId) {
     const primary = __TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["productImages"].find((img)=>img.product_id === productId && img.is_primary);
     const any = __TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["productImages"].find((img)=>img.product_id === productId);
-    return primary?.url || any?.url || "/example.png";
+    return safeImg(primary?.url || any?.url || "/example.png");
 }
-function getBestVariant(productId, basePrice) {
-    const vars = __TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["productVariants"].filter((v)=>v.product_id === productId);
-    if (vars.length === 0) {
-        return {
-            price: basePrice ?? 0,
-            mrp: null,
-            label: ""
-        };
-    }
-    const best = vars.reduce((min, v)=>v.price < min.price ? v : min, vars[0]);
-    return {
-        price: best.price,
-        mrp: best.mrp ?? null,
-        label: best.label ?? ""
-    };
+function getVariantsFor(productId) {
+    return __TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["productVariants"].filter((v)=>v.product_id === productId).slice().sort((a, b)=>a.price - b.price);
+}
+function getDefaultVariantId(productId) {
+    const vars = getVariantsFor(productId);
+    return vars.length ? vars[0].id : null;
+}
+function getVariantById(productId, variantId) {
+    if (variantId == null) return null;
+    return __TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["productVariants"].find((v)=>v.product_id === productId && v.id === variantId) || null;
+}
+function getVariantPrice(productId, variantId, basePrice) {
+    if (variantId == null) return Number(basePrice ?? 0);
+    const v = getVariantById(productId, variantId);
+    return Number(v?.price ?? basePrice ?? 0);
+}
+function getVariantMRP(productId, variantId) {
+    if (variantId == null) return null;
+    const v = getVariantById(productId, variantId);
+    return v?.mrp ?? null;
+}
+function getLabel(obj, lang) {
+    const so = obj?.name_so ?? obj?.name ?? "";
+    const en = obj?.name_en ?? obj?.name ?? "";
+    return lang === "en" ? en : so;
+}
+function getSecondary(obj, lang) {
+    const so = obj?.name_so ?? obj?.name ?? "";
+    const en = obj?.name_en ?? obj?.name ?? "";
+    return lang === "en" ? so : en;
 }
 function SubcategoryPage() {
     _s();
     const { slug } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useParams"])();
+    const { items, addItem, setQty } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$CartContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCart"])();
+    const { lang } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$LanguageContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useLanguage"])();
     const currentSub = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "SubcategoryPage.useMemo[currentSub]": ()=>__TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["subcategories"].find({
                 "SubcategoryPage.useMemo[currentSub]": (s)=>s.slug === slug
@@ -1136,17 +1323,15 @@ function SubcategoryPage() {
         slug
     ]);
     if (!currentSub) {
-        // client page: simple fallback
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
             className: "min-h-screen bg-white p-6 text-black",
             children: "Subcategory not found."
         }, void 0, false, {
             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-            lineNumber: 47,
+            lineNumber: 103,
             columnNumber: 7
         }, this);
     }
-    // ✅ Sub-subcategories under this subcategory
     const ssList = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "SubcategoryPage.useMemo[ssList]": ()=>(__TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["subsubcategories"] ?? []).filter({
                 "SubcategoryPage.useMemo[ssList]": (x)=>x.subcategory_id === currentSub.id
@@ -1154,9 +1339,22 @@ function SubcategoryPage() {
     }["SubcategoryPage.useMemo[ssList]"], [
         currentSub.id
     ]);
-    // selected sub-subcategory slug (null = All)
     const [activeSS, setActiveSS] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    // Products in this subcategory
+    const [selectedVariantByProduct, setSelectedVariantByProduct] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({});
+    const [justAddedId, setJustAddedId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "SubcategoryPage.useEffect": ()=>{
+            if (justAddedId === null) return;
+            const t = setTimeout({
+                "SubcategoryPage.useEffect.t": ()=>setJustAddedId(null)
+            }["SubcategoryPage.useEffect.t"], 900);
+            return ({
+                "SubcategoryPage.useEffect": ()=>clearTimeout(t)
+            })["SubcategoryPage.useEffect"];
+        }
+    }["SubcategoryPage.useEffect"], [
+        justAddedId
+    ]);
     const baseList = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "SubcategoryPage.useMemo[baseList]": ()=>__TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["products"].filter({
                 "SubcategoryPage.useMemo[baseList]": (p)=>p.subcategory_id === currentSub.id
@@ -1164,111 +1362,141 @@ function SubcategoryPage() {
     }["SubcategoryPage.useMemo[baseList]"], [
         currentSub.id
     ]);
-    // ✅ Filtered products (only show items from chosen sub-subcategory)
+    function norm(x) {
+        return String(x ?? "").toLowerCase().trim().replace(/[-_]+/g, " ").replace(/\s+/g, " ");
+    }
     const filtered = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "SubcategoryPage.useMemo[filtered]": ()=>{
-            if (!activeSS) return baseList; // All
+            if (!activeSS) return baseList;
+            const ss = ssList.find({
+                "SubcategoryPage.useMemo[filtered].ss": (x)=>x.slug === activeSS
+            }["SubcategoryPage.useMemo[filtered].ss"]);
+            const slugKey = norm(activeSS);
+            const nameKey = norm(ss?.name ?? ss?.name_en ?? ss?.name_so ?? "");
             return baseList.filter({
-                "SubcategoryPage.useMemo[filtered]": (p)=>(p.tags ?? []).includes(activeSS)
+                "SubcategoryPage.useMemo[filtered]": (p)=>{
+                    const tags = Array.isArray(p.tags) ? p.tags : [];
+                    const tagStr = tags.map(norm);
+                    return tagStr.includes(slugKey) || nameKey && tagStr.includes(nameKey);
+                }
             }["SubcategoryPage.useMemo[filtered]"]);
         }
     }["SubcategoryPage.useMemo[filtered]"], [
         activeSS,
-        baseList
+        baseList,
+        ssList
     ]);
-    // Optional: title (JioMart shows "Search Results" often; you can keep subcategory name)
-    const titleText = activeSS ? ssList.find((x)=>x.slug === activeSS)?.name ?? currentSub.name : currentSub.name;
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-        className: "min-h-screen bg-[#F4F6F8]",
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("header", {
-                className: "sticky top-0 z-50 bg-[#0B6EA9]",
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "SubcategoryPage.useEffect": ()=>{
+            setSelectedVariantByProduct({
+                "SubcategoryPage.useEffect": (prev)=>{
+                    const next = {
+                        ...prev
+                    };
+                    for (const p of filtered){
+                        if (next[p.id] === undefined) {
+                            next[p.id] = getDefaultVariantId(p.id);
+                        }
+                    }
+                    return next;
+                }
+            }["SubcategoryPage.useEffect"]);
+        }
+    }["SubcategoryPage.useEffect"], [
+        filtered
+    ]);
+    const activeObj = activeSS ? ssList.find((x)=>x.slug === activeSS) : null;
+    const titlePrimary = activeObj ? getLabel(activeObj, lang) : getLabel(currentSub, lang);
+    const titleSecondary = activeObj ? getSecondary(activeObj, lang) : getSecondary(currentSub, lang);
+    const cartTotals = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "SubcategoryPage.useMemo[cartTotals]": ()=>{
+            let total = 0;
+            let count = 0;
+            for (const it of items ?? []){
+                const p = __TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["products"].find({
+                    "SubcategoryPage.useMemo[cartTotals].p": (x)=>x.id === it.productId
+                }["SubcategoryPage.useMemo[cartTotals].p"]);
+                if (!p) continue;
+                const price = getVariantPrice(it.productId, it.variantId ?? null, p.base_price);
+                total += price * (it.qty ?? 1);
+                count += it.qty ?? 1;
+            }
+            return {
+                total,
+                count
+            };
+        }
+    }["SubcategoryPage.useMemo[cartTotals]"], [
+        items
+    ]);
+    function ProductAdd({ productId, basePrice, selectedVariantId }) {
+        const item = (items ?? []).find((i)=>i.productId === productId && (i.variantId ?? null) === (selectedVariantId ?? null));
+        const qty = item?.qty ?? 0;
+        if (!item) {
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                onClick: ()=>{
+                    addItem(productId, selectedVariantId, 1);
+                    setJustAddedId(productId);
+                },
+                className: "mt-2 w-full h-10 rounded-xl border-2 border-[#0B6EA9] text-[#0B6EA9] font-bold flex items-center justify-center gap-2 active:scale-[0.99] transition",
                 children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "mx-auto max-w-md px-3 py-2 flex items-center gap-2",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                href: "/",
-                                className: "h-10 w-10 grid place-items-center rounded-full bg-[#0A5F91] text-white",
-                                children: "←"
-                            }, void 0, false, {
-                                fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 85,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex-1 h-10 rounded-full bg-[#0A5F91] px-4 flex items-center text-white/90 text-sm",
-                                children: "🔎 Search JioMart"
-                            }, void 0, false, {
-                                fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 89,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                href: "/cart",
-                                className: "relative h-10 w-10 grid place-items-center rounded-full bg-[#0A5F91] text-white",
-                                children: [
-                                    "🛒",
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "absolute -top-1 -right-1 bg-red-500 text-[10px] px-1.5 rounded-full",
-                                        children: "8"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                        lineNumber: 95,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 93,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                        lineNumber: 84,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white border-t",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "mx-auto max-w-md px-4 py-2 text-sm text-gray-800 flex items-center gap-2",
-                            children: [
-                                "📍 ",
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "font-medium",
-                                    children: "Mumbai 400020"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 102,
-                                    columnNumber: 16
-                                }, this),
-                                " ",
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "text-gray-500",
-                                    children: "▾"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 102,
-                                    columnNumber: 67
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                            lineNumber: 101,
-                            columnNumber: 11
-                        }, this)
+                    lang === "en" ? "Add" : "Ku dar",
+                    " ",
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "text-xl leading-none",
+                        children: "+"
                     }, void 0, false, {
                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                        lineNumber: 100,
-                        columnNumber: 9
+                        lineNumber: 223,
+                        columnNumber: 46
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                lineNumber: 83,
-                columnNumber: 7
-            }, this),
+                lineNumber: 216,
+                columnNumber: 9
+            }, this);
+        }
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "mt-2 flex items-center justify-between",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    onClick: ()=>setQty(productId, selectedVariantId, qty - 1),
+                    className: "w-10 h-10 rounded-full bg-[#0B6EA9] text-white text-xl font-bold grid place-items-center",
+                    children: "−"
+                }, void 0, false, {
+                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                    lineNumber: 230,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "text-sm font-extrabold text-gray-900",
+                    children: qty
+                }, void 0, false, {
+                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                    lineNumber: 237,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    onClick: ()=>setQty(productId, selectedVariantId, qty + 1),
+                    className: "w-10 h-10 rounded-full bg-[#0B6EA9] text-white text-xl font-bold grid place-items-center",
+                    children: "+"
+                }, void 0, false, {
+                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                    lineNumber: 239,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/subcategory/[slug]/page.tsx",
+            lineNumber: 229,
+            columnNumber: 7
+        }, this);
+    }
+    const hasRail = ssList.length > 0;
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
+        className: "min-h-screen bg-[#F4F6F8] pb-28",
+        children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
                 className: "bg-white border-b",
                 children: [
@@ -1276,11 +1504,28 @@ function SubcategoryPage() {
                         className: "mx-auto max-w-md px-4 py-3 flex items-center justify-between",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "text-sm font-semibold text-gray-900",
-                                children: titleText
-                            }, void 0, false, {
+                                className: "leading-tight",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "text-sm font-semibold text-gray-900",
+                                        children: titlePrimary
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                        lineNumber: 259,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "text-[11px] text-gray-500",
+                                        children: titleSecondary
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                        lineNumber: 260,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 110,
+                                lineNumber: 258,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1288,30 +1533,36 @@ function SubcategoryPage() {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         className: "h-9 px-3 rounded-full border text-sm bg-white flex items-center gap-2",
-                                        children: "↕ Sort"
-                                    }, void 0, false, {
+                                        children: [
+                                            "↕ ",
+                                            lang === "en" ? "Sort" : "Kala saar"
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                        lineNumber: 113,
+                                        lineNumber: 264,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         className: "h-9 px-3 rounded-full border text-sm bg-white flex items-center gap-2",
-                                        children: "⚙ Filter"
-                                    }, void 0, false, {
+                                        children: [
+                                            "⚙ ",
+                                            lang === "en" ? "Filter" : "Shaandhee"
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                        lineNumber: 116,
+                                        lineNumber: 267,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 112,
+                                lineNumber: 263,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                        lineNumber: 109,
+                        lineNumber: 257,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1319,44 +1570,54 @@ function SubcategoryPage() {
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 className: "h-8 px-3 rounded-full bg-gray-100 text-xs whitespace-nowrap flex items-center gap-2",
-                                children: "↕ By Popularity ▾"
-                            }, void 0, false, {
+                                children: [
+                                    "↕ ",
+                                    lang === "en" ? "By Popularity" : "Caannimo",
+                                    " ▾"
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 123,
+                                lineNumber: 274,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 className: "h-8 px-3 rounded-full bg-gray-100 text-xs whitespace-nowrap",
-                                children: "Brands ▾"
-                            }, void 0, false, {
+                                children: [
+                                    lang === "en" ? "Brands" : "Summado",
+                                    " ▾"
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 126,
+                                lineNumber: 277,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 className: "h-8 px-3 rounded-full bg-gray-100 text-xs whitespace-nowrap",
-                                children: "Filters ▾"
-                            }, void 0, false, {
+                                children: [
+                                    lang === "en" ? "Filters" : "Shaandheyn",
+                                    " ▾"
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 127,
+                                lineNumber: 280,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                        lineNumber: 122,
+                        lineNumber: 273,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                lineNumber: 108,
+                lineNumber: 256,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-                className: "mx-auto max-w-md grid grid-cols-[96px_1fr]",
+                className: `mx-auto max-w-md grid ${hasRail ? "grid-cols-[96px_1fr]" : "grid-cols-1"}`,
                 children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
+                    hasRail && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
                         className: "bg-white border-r",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1367,33 +1628,51 @@ function SubcategoryPage() {
                                         className: "w-12 h-12 mx-auto rounded-xl bg-gray-100 overflow-hidden grid place-items-center",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             className: "text-[11px] font-extrabold text-gray-700",
-                                            children: "All"
+                                            children: lang === "en" ? "All" : "Dhammaan"
                                         }, void 0, false, {
                                             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                            lineNumber: 143,
-                                            columnNumber: 15
+                                            lineNumber: 304,
+                                            columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                        lineNumber: 142,
-                                        columnNumber: 13
+                                        lineNumber: 303,
+                                        columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: `mt-2 text-[11px] text-center ${activeSS === null ? "text-[#0B6EA9] font-semibold" : "text-gray-700"}`,
-                                        children: "All"
-                                    }, void 0, false, {
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: lang === "en" ? "All" : "Dhammaan"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                                lineNumber: 315,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "text-[9px] text-gray-500",
+                                                children: lang === "en" ? "Dhammaan" : "All"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                                lineNumber: 316,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                        lineNumber: 145,
-                                        columnNumber: 13
+                                        lineNumber: 308,
+                                        columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                lineNumber: 136,
-                                columnNumber: 11
+                                lineNumber: 295,
+                                columnNumber: 13
                             }, this),
                             ssList.map((ss)=>{
                                 const isActive = activeSS === ss.slug;
+                                const primary = getLabel(ss, lang);
+                                const secondary = getSecondary(ss, lang);
                                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>setActiveSS(ss.slug),
                                     className: `w-full block px-2 py-3 border-l-4 ${isActive ? "border-[#0B6EA9] bg-[#EAF4FB]" : "border-transparent"}`,
@@ -1402,37 +1681,53 @@ function SubcategoryPage() {
                                             className: "w-12 h-12 mx-auto rounded-xl bg-gray-100 overflow-hidden grid place-items-center",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 className: "text-[10px] font-bold text-gray-700 text-center px-1 leading-tight",
-                                                children: ss.name?.split(" ").slice(0, 2).join(" ")
+                                                children: primary.split(" ").slice(0, 2).join(" ")
                                             }, void 0, false, {
                                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                lineNumber: 163,
-                                                columnNumber: 19
+                                                lineNumber: 338,
+                                                columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                            lineNumber: 161,
-                                            columnNumber: 17
+                                            lineNumber: 337,
+                                            columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: `mt-2 text-[11px] leading-tight text-center ${isActive ? "text-[#0B6EA9] font-semibold" : "text-gray-700"}`,
-                                            children: ss.name
-                                        }, void 0, false, {
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    children: primary
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                                    lineNumber: 349,
+                                                    columnNumber: 21
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "text-[9px] text-gray-500",
+                                                    children: secondary
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                                    lineNumber: 350,
+                                                    columnNumber: 21
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
                                             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                            lineNumber: 167,
-                                            columnNumber: 17
+                                            lineNumber: 342,
+                                            columnNumber: 19
                                         }, this)
                                     ]
                                 }, ss.id, true, {
                                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 154,
-                                    columnNumber: 15
+                                    lineNumber: 328,
+                                    columnNumber: 17
                                 }, this);
                             })
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                        lineNumber: 134,
-                        columnNumber: 9
+                        lineNumber: 294,
+                        columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "p-3",
@@ -1441,28 +1736,36 @@ function SubcategoryPage() {
                             children: [
                                 filtered.map((p)=>{
                                     const imgUrl = getPrimaryImageUrl(p.id);
-                                    const { price, mrp, label } = getBestVariant(p.id, p.base_price);
+                                    const vars = getVariantsFor(p.id);
+                                    const hasVariants = vars.length > 0;
+                                    const selectedVariantId = selectedVariantByProduct[p.id] ?? getDefaultVariantId(p.id);
+                                    const selectedV = getVariantById(p.id, selectedVariantId);
+                                    const price = getVariantPrice(p.id, selectedVariantId, p.base_price);
+                                    const mrp = getVariantMRP(p.id, selectedVariantId);
+                                    const label = selectedV?.label ?? "";
                                     const offPct = mrp && price ? Math.round((mrp - price) / mrp * 100) : null;
+                                    const chips = vars.slice(0, 3);
+                                    const extraCount = Math.max(0, vars.length - chips.length);
                                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "bg-white rounded-2xl shadow-sm border overflow-hidden",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "relative p-2",
                                                 children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                        className: "absolute right-2 top-2 w-8 h-8 rounded-full bg-white shadow grid place-items-center text-gray-500",
-                                                        children: "♡"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 186,
-                                                        columnNumber: 21
-                                                    }, this),
                                                     label ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "absolute right-2 bottom-2 text-[10px] px-2 py-0.5 rounded-full bg-black/70 text-white",
                                                         children: label
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 191,
+                                                        lineNumber: 388,
+                                                        columnNumber: 23
+                                                    }, this) : null,
+                                                    justAddedId === p.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "absolute left-2 top-2 text-[11px] px-2 py-1 rounded-full bg-green-600 text-white font-bold shadow",
+                                                        children: lang === "en" ? "Added ✓" : "Waa la daray ✓"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                                        lineNumber: 394,
                                                         columnNumber: 23
                                                     }, this) : null,
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1476,18 +1779,18 @@ function SubcategoryPage() {
                                                             className: "mx-auto h-28 w-auto object-contain"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                            lineNumber: 197,
+                                                            lineNumber: 400,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 196,
+                                                        lineNumber: 399,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                lineNumber: 185,
+                                                lineNumber: 386,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1498,18 +1801,62 @@ function SubcategoryPage() {
                                                         children: p.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 208,
+                                                        lineNumber: 411,
                                                         columnNumber: 21
                                                     }, this),
+                                                    hasVariants ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "mt-1 flex flex-wrap gap-1.5",
+                                                        children: [
+                                                            chips.map((v)=>{
+                                                                const active = v.id === selectedVariantId;
+                                                                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                    onClick: ()=>setSelectedVariantByProduct((prev)=>({
+                                                                                ...prev,
+                                                                                [p.id]: v.id
+                                                                            })),
+                                                                    className: `h-7 px-2 rounded-full border text-[11px] font-semibold ${active ? "border-[#0B6EA9] bg-[#EAF4FB] text-[#0B6EA9]" : "bg-white text-gray-700"}`,
+                                                                    children: v.label
+                                                                }, v.id, false, {
+                                                                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                                                    lineNumber: 420,
+                                                                    columnNumber: 29
+                                                                }, this);
+                                                            }),
+                                                            extraCount > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                                href: `/product/${p.slug}`,
+                                                                className: "h-7 px-2 rounded-full border text-[11px] font-semibold bg-white text-[#0B6EA9] grid place-items-center",
+                                                                children: [
+                                                                    "+",
+                                                                    extraCount,
+                                                                    " ",
+                                                                    lang === "en" ? "more" : "kale"
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                                                lineNumber: 440,
+                                                                columnNumber: 27
+                                                            }, this) : null
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                                        lineNumber: 416,
+                                                        columnNumber: 23
+                                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "h-[28px]"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                                        lineNumber: 449,
+                                                        columnNumber: 23
+                                                    }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "mt-1 flex items-end gap-2",
+                                                        className: "mt-2 flex items-end gap-2",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "text-[14px] font-extrabold text-gray-900",
                                                                 children: money(price)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                                lineNumber: 211,
+                                                                lineNumber: 453,
                                                                 columnNumber: 23
                                                             }, this),
                                                             mrp ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1517,222 +1864,182 @@ function SubcategoryPage() {
                                                                 children: money(mrp)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                                lineNumber: 212,
-                                                                columnNumber: 30
+                                                                lineNumber: 457,
+                                                                columnNumber: 25
                                                             }, this) : null
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 210,
+                                                        lineNumber: 452,
                                                         columnNumber: 21
                                                     }, this),
                                                     offPct ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "text-[12px] font-semibold text-red-600",
                                                         children: [
                                                             offPct,
-                                                            "% Off"
+                                                            "% ",
+                                                            lang === "en" ? "Off" : "Dhimis"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 216,
+                                                        lineNumber: 464,
                                                         columnNumber: 23
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "h-[18px]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 218,
+                                                        lineNumber: 468,
                                                         columnNumber: 23
                                                     }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                        className: "mt-2 w-full h-10 rounded-xl border-2 border-[#0B6EA9] text-[#0B6EA9] font-bold flex items-center justify-center gap-2",
-                                                        children: [
-                                                            "Add ",
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "text-xl leading-none",
-                                                                children: "+"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                                lineNumber: 222,
-                                                                columnNumber: 27
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ProductAdd, {
+                                                        productId: p.id,
+                                                        basePrice: p.base_price,
+                                                        selectedVariantId: selectedVariantId
+                                                    }, void 0, false, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 221,
+                                                        lineNumber: 471,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "mt-2 h-7 rounded-lg bg-[#E8F5EE] text-[#0F8A4B] text-xs font-semibold grid place-items-center",
-                                                        children: "⚡ Quick"
-                                                    }, void 0, false, {
+                                                        children: [
+                                                            "⚡ ",
+                                                            lang === "en" ? "Quick" : "Degdeg"
+                                                        ]
+                                                    }, void 0, true, {
                                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                        lineNumber: 225,
+                                                        lineNumber: 477,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                lineNumber: 207,
+                                                lineNumber: 410,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, p.id, true, {
                                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                        lineNumber: 184,
+                                        lineNumber: 382,
                                         columnNumber: 17
                                     }, this);
                                 }),
                                 filtered.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "col-span-2 bg-white rounded-2xl border p-4 text-sm text-gray-600",
-                                    children: [
-                                        "No products found in this section.",
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "mt-1 text-xs text-gray-500",
-                                            children: [
-                                                "(Make sure products have ",
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("code", {
-                                                    children: "subsub_slug"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                    lineNumber: 237,
-                                                    columnNumber: 44
-                                                }, this),
-                                                " or ",
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("code", {
-                                                    children: "subsub_id"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                                    lineNumber: 237,
-                                                    columnNumber: 72
-                                                }, this),
-                                                ".)"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                            lineNumber: 236,
-                                            columnNumber: 17
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
+                                    children: lang === "en" ? "No products found in this section." : "Alaab lagama helin qaybtaan."
+                                }, void 0, false, {
                                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 234,
+                                    lineNumber: 486,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                            lineNumber: 177,
+                            lineNumber: 360,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                        lineNumber: 176,
+                        lineNumber: 359,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                lineNumber: 132,
+                lineNumber: 287,
                 columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-                className: "sticky bottom-0 bg-white border-t",
+            cartTotals.count > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "fixed left-0 right-0 bottom-4 z-40",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "mx-auto max-w-md grid grid-cols-4 py-2 text-xs text-gray-700",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                            href: "/",
-                            className: "grid place-items-center gap-1",
-                            children: [
-                                "🏠",
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    children: "Home"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 249,
-                                    columnNumber: 15
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                            lineNumber: 248,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                            href: "/categories",
-                            className: "grid place-items-center gap-1",
-                            children: [
-                                "📂",
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    children: "Categories"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 252,
-                                    columnNumber: 15
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                            lineNumber: 251,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                            href: "/wishlist",
-                            className: "grid place-items-center gap-1",
-                            children: [
-                                "♡",
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    children: "Wishlist"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 255,
-                                    columnNumber: 14
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                            lineNumber: 254,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                            href: "/orders",
-                            className: "grid place-items-center gap-1",
-                            children: [
-                                "📦",
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    children: "Orders"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                                    lineNumber: 258,
-                                    columnNumber: 15
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                            lineNumber: 257,
-                            columnNumber: 11
-                        }, this)
-                    ]
-                }, void 0, true, {
+                    className: "mx-auto max-w-md px-3",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                        href: "/cart",
+                        className: "flex items-center justify-between bg-[#0B6EA9] text-white rounded-2xl px-4 py-3 shadow-lg",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "text-xs opacity-90",
+                                        children: [
+                                            cartTotals.count,
+                                            " ",
+                                            lang === "en" ? "item" : "shay",
+                                            cartTotals.count > 1 ? "s" : "",
+                                            " ",
+                                            lang === "en" ? "in cart" : "gaadhiga ku jira"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                        lineNumber: 505,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "text-lg font-extrabold",
+                                        children: money(cartTotals.total)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                        lineNumber: 510,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                lineNumber: 504,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "text-right leading-tight font-extrabold",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        children: lang === "en" ? "Go to Cart →" : "U gudub Gaadhiga →"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                        lineNumber: 514,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "text-[10px] opacity-80",
+                                        children: lang === "en" ? "U gudub Gaadhiga" : "Go to Cart"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                        lineNumber: 515,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                                lineNumber: 513,
+                                columnNumber: 15
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/subcategory/[slug]/page.tsx",
+                        lineNumber: 500,
+                        columnNumber: 13
+                    }, this)
+                }, void 0, false, {
                     fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                    lineNumber: 247,
-                    columnNumber: 9
+                    lineNumber: 499,
+                    columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/subcategory/[slug]/page.tsx",
-                lineNumber: 246,
-                columnNumber: 7
+                lineNumber: 498,
+                columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/subcategory/[slug]/page.tsx",
-        lineNumber: 81,
+        lineNumber: 252,
         columnNumber: 5
     }, this);
 }
-_s(SubcategoryPage, "KCeylgT5zjvay1scxRLL1p/2nwg=", false, function() {
+_s(SubcategoryPage, "1br7cy59YN7RDjLrOmajUG5SIXE=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useParams"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useParams"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$CartContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCart"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$LanguageContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useLanguage"]
     ];
 });
 _c = SubcategoryPage;

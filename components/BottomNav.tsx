@@ -40,13 +40,7 @@ export default function BottomNav() {
           >
             <span className="text-xl leading-none">⚡</span>
           </Link>
-          <span
-            className={`mt-1 text-[11px] ${
-              isActive("/fast") ? "text-[#0B6EA9] font-extrabold" : "text-gray-700"
-            }`}
-          >
-            Shop Fast
-          </span>
+
         </div>
 
         {/* Cart */}

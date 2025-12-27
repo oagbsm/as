@@ -2,6 +2,11 @@
 "[project]/data/store.ts [app-client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
+// store.ts
+// Minimal “mock DB” for frontend + early checkout tables (orders/orderItems/payments)
+// --------------------
+// Types
+// --------------------
 __turbopack_context__.s([
     "brands",
     ()=>brands,
@@ -9,6 +14,20 @@ __turbopack_context__.s([
     ()=>categories,
     "customers",
     ()=>customers,
+    "getBrandById",
+    ()=>getBrandById,
+    "getPrimaryImageByProductId",
+    ()=>getPrimaryImageByProductId,
+    "getProductBySlug",
+    ()=>getProductBySlug,
+    "getVariantsByProductId",
+    ()=>getVariantsByProductId,
+    "orderItems",
+    ()=>orderItems,
+    "orders",
+    ()=>orders,
+    "payments",
+    ()=>payments,
     "productImages",
     ()=>productImages,
     "productVariants",
@@ -23,668 +42,624 @@ __turbopack_context__.s([
 const categories = [
     {
         id: 1,
-        name: "Groceries",
         slug: "groceries",
-        img: "/groceries.webp"
+        img: "/groceries.webp",
+        name_so: "Raashin",
+        name_en: "Groceries"
     },
     {
         id: 2,
-        name: " Beverages",
         slug: "beverages",
-        img: "/drink.webp"
+        img: "/drink.webp",
+        name_so: "Cabitaan",
+        name_en: "Beverages"
     },
     {
         id: 3,
-        name: "Baby Care",
         slug: "baby-care",
-        img: "/baby.webp"
+        img: "/baby.webp",
+        name_so: "Ilmo",
+        name_en: "Baby Care"
     },
     {
         id: 4,
-        name: " Personal Care",
         slug: "personal-care",
-        img: "/personal.webp"
+        img: "/personal.webp",
+        name_so: "Nadaafad",
+        name_en: "Personal Care"
     },
     {
         id: 5,
-        name: " Home & Kitchen",
         slug: "home-kitchen",
-        img: "/home.webp"
+        img: "/home.webp",
+        name_so: "Guri & Jikada",
+        name_en: "Home & Kitchen"
     },
     {
         id: 6,
-        name: " Fashion",
         slug: "fashion",
-        img: "/products/baby.webp"
+        img: "/products/baby.webp",
+        name_so: "Dharka",
+        name_en: "Fashion"
     },
-    // Daily-use electronics (NOT phones)
     {
         id: 7,
-        name: "Daily Electronics",
         slug: "daily-electronics",
-        img: "/products/health.webp"
+        img: "/products/health.webp",
+        name_so: "Koronto & Qalab",
+        name_en: "Daily Electronics"
     },
     {
         id: 8,
-        name: "Stationery",
         slug: "stationery",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Qalinka & Buugaag",
+        name_en: "Stationery"
     }
 ];
 const subcategories = [
-    /* =========================
-     🛒 GROCERIES (category_id: 1)
-  ========================= */ {
+    // GROCERIES
+    {
         id: 101,
         category_id: 1,
-        name: "Fruits & Vegetables",
         slug: "fruits-vegetables",
-        img: "/fruit.webp"
+        img: "/fruit.webp",
+        name_so: "Miraha & Khudaarta",
+        name_en: "Fruits & Vegetables"
     },
     {
         id: 102,
         category_id: 1,
-        name: "Dairy & Bakery",
         slug: "dairy-bakery",
-        img: "/bakery.webp"
+        img: "/bakery.webp",
+        name_so: "Caano & Rooti",
+        name_en: "Dairy & Bakery"
     },
     {
         id: 103,
         category_id: 1,
-        name: "Staples (Atta, Rice, Dal & Oil)",
         slug: "staples-atta-rice-dal-oil",
-        img: "/oil.webp"
+        img: "/oil.webp",
+        name_so: "Raashin Asaasi",
+        name_en: "Staples (Atta, Rice, Dal & Oil)"
     },
     {
         id: 104,
         category_id: 1,
-        name: "Snacks & Branded Foods",
         slug: "snacks-branded-foods",
-        img: "/bakery.webp"
+        img: "/bakery.webp",
+        name_so: "Cunto Fudud",
+        name_en: "Snacks & Branded Foods"
     },
     {
         id: 105,
         category_id: 1,
-        name: "Sweets, Dry Fruits & Dates",
         slug: "sweets-dry-fruits-dates",
-        img: "/pick.webp"
+        img: "/pick.webp",
+        name_so: "Macmacaan & Timir",
+        name_en: "Sweets, Dry Fruits & Dates"
     },
     {
         id: 106,
         category_id: 1,
-        name: "Frozen & Ready Foods",
         slug: "frozen-ready-foods",
-        img: "/frozen.webp"
+        img: "/frozen.webp",
+        name_so: "Cunto Qabow/Diyaarsan",
+        name_en: "Frozen & Ready Foods"
     },
-    /* =========================
-     🥤 BEVERAGES (category_id: 2)
-  ========================= */ {
+    // BEVERAGES
+    {
         id: 201,
         category_id: 2,
-        name: "Soft Drinks & Juices",
         slug: "soft-drinks-juices",
-        img: "/drink.webp"
+        img: "/drink.webp",
+        name_so: "Cabbitaan Fudud & Casiir",
+        name_en: "Soft Drinks & Juices"
     },
     {
         id: 202,
         category_id: 2,
-        name: "Tea, Coffee & Health Drinks",
         slug: "tea-coffee-health-drinks",
-        img: "/tea.webp"
+        img: "/tea.webp",
+        name_so: "Shaah & Kafee",
+        name_en: "Tea, Coffee & Health Drinks"
     },
-    /* =========================
-     👶 BABY CARE (category_id: 3)
-  ========================= */ {
+    // BABY
+    {
         id: 301,
         category_id: 3,
-        name: "Baby Food",
         slug: "baby-food",
-        img: "/baby.webp"
+        img: "/baby.webp",
+        name_so: "Cuntada Ilmaha",
+        name_en: "Baby Food"
     },
     {
         id: 302,
         category_id: 3,
-        name: "Diapers & Wipes",
         slug: "diapers-wipes",
-        img: "/nuna.webp"
+        img: "/nuna.webp",
+        name_so: "Xafaayad & Tirtire",
+        name_en: "Diapers & Wipes"
     },
     {
         id: 303,
         category_id: 3,
-        name: "Baby Bath & Skin Care",
         slug: "baby-bath-skin-care",
-        img: "/babycream.jpeg"
+        img: "/babycream.jpeg",
+        name_so: "Qubays & Daryeel Maqaarka",
+        name_en: "Baby Bath & Skin Care"
     },
     {
         id: 304,
         category_id: 3,
-        name: "Baby Feeding Essentials",
         slug: "baby-feeding-essentials",
-        img: "/babyfeeding.webp"
+        img: "/babyfeeding.webp",
+        name_so: "Qalabka Quudinta",
+        name_en: "Baby Feeding Essentials"
     },
-    /* =========================
-     💄 PERSONAL CARE (category_id: 4)
-  ========================= */ {
+    // PERSONAL CARE
+    {
         id: 401,
         category_id: 4,
-        name: "Bath & Body",
         slug: "bath-body",
-        img: "/bath.webp.jpeg"
+        img: "/bath.webp.jpeg",
+        name_so: "Qubays & Jirka",
+        name_en: "Bath & Body"
     },
     {
         id: 402,
         category_id: 4,
-        name: "Hair Care",
         slug: "hair-care",
-        img: "/shampoo.jpg"
+        img: "/shampoo.jpg",
+        name_so: "Daryeel Timaha",
+        name_en: "Hair Care"
     },
     {
         id: 403,
         category_id: 4,
-        name: "Oral Care",
         slug: "oral-care",
-        img: "/oralcare.webp"
+        img: "/oralcare.webp",
+        name_so: "Daryeel Afka",
+        name_en: "Oral Care"
     },
     {
         id: 404,
         category_id: 4,
-        name: "Skin Care",
         slug: "skin-care",
-        img: "/nivea.webp"
+        img: "/nivea.webp",
+        name_so: "Daryeel Maqaarka",
+        name_en: "Skin Care"
     },
     {
         id: 405,
         category_id: 4,
-        name: "Grooming & Hygiene",
         slug: "grooming-hygiene",
-        img: "/groom.webp"
+        img: "/groom.webp",
+        name_so: "Nadaafad & Isqurxin",
+        name_en: "Grooming & Hygiene"
     },
-    /* =========================
-     🏠 HOME & KITCHEN (category_id: 5)
-  ========================= */ {
+    // HOME & KITCHEN
+    {
         id: 501,
         category_id: 5,
-        name: "Kitchen & Dining",
         slug: "kitchen-dining",
-        img: "/cutlery.webp"
+        img: "/cutlery.webp",
+        name_so: "Jikada & Cuntada",
+        name_en: "Kitchen & Dining"
     },
     {
         id: 502,
         category_id: 5,
-        name: "Household Essentials",
         slug: "household-essentials",
-        img: "/cleaner.webp"
+        img: "/cleaner.webp",
+        name_so: "Baahida Guriga",
+        name_en: "Household Essentials"
     },
     {
         id: 503,
         category_id: 5,
-        name: "Home Appliances",
         slug: "home-appliances",
-        img: "/products/device.webp"
+        img: "/products/device.webp",
+        name_so: "Qalabka Guriga",
+        name_en: "Home Appliances"
     },
-    // Extra (still JioMart-style and useful)
     {
         id: 504,
         category_id: 5,
-        name: "Storage & Containers",
         slug: "storage-containers",
-        img: "/storage.webp"
+        img: "/storage.webp",
+        name_so: "Kayd & Weelal",
+        name_en: "Storage & Containers"
     },
     {
         id: 505,
         category_id: 5,
-        name: "Cleaning Supplies",
         slug: "cleaning-supplies",
-        img: "/products/cleaning.webp"
+        img: "/products/cleaning.webp",
+        name_so: "Qalabka Nadiifinta",
+        name_en: "Cleaning Supplies"
     },
     {
         id: 506,
         category_id: 5,
-        name: "Laundry Essentials",
         slug: "laundry-essentials",
-        img: "/laundry.webp"
+        img: "/laundry.webp",
+        name_so: "Dharka & Dhaqid",
+        name_en: "Laundry Essentials"
     },
-    /* =========================
-     👕 FASHION (category_id: 6)
-  ========================= */ {
+    // FASHION
+    {
         id: 601,
         category_id: 6,
-        name: "Men’s Clothing",
         slug: "mens-clothing",
-        img: "/products/baby.webp"
+        img: "/products/baby.webp",
+        name_so: "Dharka Ragga",
+        name_en: "Men’s Clothing"
     },
     {
         id: 602,
         category_id: 6,
-        name: "Women’s Clothing",
         slug: "womens-clothing",
-        img: "/products/beauty.webp"
+        img: "/products/beauty.webp",
+        name_so: "Dharka Dumarka",
+        name_en: "Women’s Clothing"
     },
     {
         id: 603,
         category_id: 6,
-        name: "Kids Wear",
         slug: "kids-wear",
-        img: "/products/baby.webp"
+        img: "/products/baby.webp",
+        name_so: "Dharka Carruurta",
+        name_en: "Kids Wear"
     },
     {
         id: 604,
         category_id: 6,
-        name: "Footwear",
         slug: "footwear",
-        img: "/products/health.webp"
+        img: "/products/health.webp",
+        name_so: "Kabo",
+        name_en: "Footwear"
     },
     {
         id: 605,
         category_id: 6,
-        name: "Innerwear",
         slug: "innerwear",
-        img: "/products/men.webp"
+        img: "/products/men.webp",
+        name_so: "Dharka Hoose",
+        name_en: "Innerwear"
     },
-    /* =========================
-     🔌 DAILY ELECTRONICS (category_id: 7)
-     (no mobiles/phones)
-  ========================= */ {
+    // DAILY ELECTRONICS
+    {
         id: 701,
         category_id: 7,
-        name: "LED Bulbs & Lights",
         slug: "led-bulbs-lights",
-        img: "/decor.webp"
+        img: "/decor.webp",
+        name_so: "Nalal & Bulbo",
+        name_en: "LED Bulbs & Lights"
     },
     {
         id: 702,
         category_id: 7,
-        name: "Extension Boards & Plugs",
         slug: "extension-boards-plugs",
-        img: "/products/device.webp"
+        img: "/products/device.webp",
+        name_so: "Kordhin & Fiyuus",
+        name_en: "Extension Boards & Plugs"
     },
     {
         id: 703,
         category_id: 7,
-        name: "Chargers & Adapters",
         slug: "chargers-adapters",
-        img: "/products/device.webp"
+        img: "/products/device.webp",
+        name_so: "Charger & Adapter",
+        name_en: "Chargers & Adapters"
     },
     {
         id: 704,
         category_id: 7,
-        name: "Batteries & Cells",
         slug: "batteries-cells",
-        img: "/products/health.webp"
+        img: "/products/health.webp",
+        name_so: "Baytari",
+        name_en: "Batteries & Cells"
     },
     {
         id: 705,
         category_id: 7,
-        name: "Emergency Lights",
         slug: "emergency-lights",
-        img: "/decor.webp"
+        img: "/decor.webp",
+        name_so: "Nalal Degdeg",
+        name_en: "Emergency Lights"
     },
     {
         id: 706,
         category_id: 7,
-        name: "Switches & Electricals",
         slug: "switches-electricals",
-        img: "/products/device.webp"
+        img: "/products/device.webp",
+        name_so: "Switch & Koronto",
+        name_en: "Switches & Electricals"
     },
-    /* =========================
-     ✏️ STATIONERY (category_id: 8)
-  ========================= */ {
+    // STATIONERY
+    {
         id: 801,
         category_id: 8,
-        name: "Notebooks & Registers",
         slug: "notebooks-registers",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Buugaag & Diiwaan",
+        name_en: "Notebooks & Registers"
     },
     {
         id: 802,
         category_id: 8,
-        name: "Pens & Writing",
         slug: "pens-writing",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Qalin & Qoris",
+        name_en: "Pens & Writing"
     },
     {
         id: 803,
         category_id: 8,
-        name: "School Supplies",
         slug: "school-supplies",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Qalabka Dugsiga",
+        name_en: "School Supplies"
     },
     {
         id: 804,
         category_id: 8,
-        name: "Office Supplies",
         slug: "office-supplies",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Qalabka Xafiiska",
+        name_en: "Office Supplies"
     },
     {
         id: 805,
         category_id: 8,
-        name: "Art & Craft",
         slug: "art-craft",
-        img: "/products/stationery.webp"
+        img: "/products/stationery.webp",
+        name_so: "Farshaxan & Gacan",
+        name_en: "Art & Craft"
     }
 ];
 const subsubcategories = [
-    /* =========================
-     🥤 BEVERAGES → Soft Drinks & Juices (subcategory_id: 201)
-  ========================= */ {
+    // Fruits & Vegetables
+    {
         id: 10101,
         subcategory_id: 101,
-        name: "Bananas",
-        slug: "bananas"
+        slug: "bananas",
+        name_so: "Moos",
+        name_en: "Bananas"
     },
+    // Staples
+    {
+        id: 10301,
+        subcategory_id: 103,
+        slug: "rice",
+        name_so: "Bariis",
+        name_en: "Rice"
+    },
+    {
+        id: 10302,
+        subcategory_id: 103,
+        slug: "flour",
+        name_so: "Bur",
+        name_en: "Flour"
+    },
+    {
+        id: 10303,
+        subcategory_id: 103,
+        slug: "cooking-oil",
+        name_so: "Saliid",
+        name_en: "Cooking Oil"
+    },
+    // Soft Drinks & Juices
     {
         id: 20101,
         subcategory_id: 201,
-        name: "Cola & Soda",
-        slug: "cola-soda"
+        slug: "cola-soda",
+        name_so: "Kola & Soda",
+        name_en: "Cola & Soda"
     },
     {
         id: 20102,
         subcategory_id: 201,
-        name: "Juices",
-        slug: "juices"
+        slug: "juices",
+        name_so: "Casiir",
+        name_en: "Juices"
     },
     {
         id: 20103,
         subcategory_id: 201,
-        name: "Energy Drinks",
-        slug: "energy-drinks"
+        slug: "energy-drinks",
+        name_so: "Cabitaan Tamareed",
+        name_en: "Energy Drinks"
     },
     {
         id: 20104,
         subcategory_id: 201,
-        name: "Flavoured Water",
-        slug: "flavoured-water"
+        slug: "flavoured-water",
+        name_so: "Biyo Dhadhan Leh",
+        name_en: "Flavoured Water"
     },
     {
         id: 20105,
         subcategory_id: 201,
-        name: "Mixers & Tonic",
-        slug: "mixers-tonic"
+        slug: "mixers-tonic",
+        name_so: "Tonic & Mixers",
+        name_en: "Mixers & Tonic"
     },
-    /* =========================
-     🥤 BEVERAGES → Tea, Coffee & Health Drinks (subcategory_id: 202)
-     (your example becomes REAL here)
-  ========================= */ {
+    // Tea & Coffee
+    {
         id: 20201,
         subcategory_id: 202,
-        name: "Instant Coffee",
-        slug: "instant-coffee"
+        slug: "instant-coffee",
+        name_so: "Kafee Degdeg",
+        name_en: "Instant Coffee"
     },
     {
         id: 20202,
         subcategory_id: 202,
-        name: "Ground Coffee",
-        slug: "ground-coffee"
+        slug: "ground-coffee",
+        name_so: "Kafee Shiidan",
+        name_en: "Ground Coffee"
     },
     {
         id: 20203,
         subcategory_id: 202,
-        name: "Coffee Beans",
-        slug: "coffee-beans"
+        slug: "coffee-beans",
+        name_so: "Buun Kafee",
+        name_en: "Coffee Beans"
     },
     {
         id: 20204,
         subcategory_id: 202,
-        name: "Tea Bags",
-        slug: "tea-bags"
+        slug: "tea-bags",
+        name_so: "Bacaha Shaaha",
+        name_en: "Tea Bags"
     },
     {
         id: 20205,
         subcategory_id: 202,
-        name: "Green Tea",
-        slug: "green-tea"
+        slug: "green-tea",
+        name_so: "Shaah Cagaaran",
+        name_en: "Green Tea"
     },
     {
         id: 20206,
         subcategory_id: 202,
-        name: "Herbal & Exotic Tea",
-        slug: "herbal-exotic-tea"
+        slug: "herbal-exotic-tea",
+        name_so: "Shaah Dhir",
+        name_en: "Herbal & Exotic Tea"
     },
     {
         id: 20207,
         subcategory_id: 202,
-        name: "Gourmet / Premium Tea",
-        slug: "gourmet-premium-tea"
+        slug: "gourmet-premium-tea",
+        name_so: "Shaah Premium",
+        name_en: "Gourmet / Premium Tea"
     },
     {
         id: 20208,
         subcategory_id: 202,
-        name: "Health Drinks",
-        slug: "health-drinks"
+        slug: "health-drinks",
+        name_so: "Cabitaan Caafimaad",
+        name_en: "Health Drinks"
     },
-    /* =========================
-     👶 BABY CARE
-  ========================= */ {
+    // Baby
+    {
         id: 30101,
         subcategory_id: 301,
-        name: "Cereals & Purees",
-        slug: "cereals-purees"
+        slug: "cereals-purees",
+        name_so: "Boorash & Puree",
+        name_en: "Cereals & Purees"
     },
     {
         id: 30102,
         subcategory_id: 301,
-        name: "Formula",
-        slug: "formula"
+        slug: "formula",
+        name_so: "Caano Formula",
+        name_en: "Formula"
     },
     {
         id: 30103,
         subcategory_id: 301,
-        name: "Snacks for Babies",
-        slug: "baby-snacks"
+        slug: "baby-snacks",
+        name_so: "Cunto Fudud Ilmo",
+        name_en: "Snacks for Babies"
     },
     {
         id: 30201,
         subcategory_id: 302,
-        name: "Tape Diapers",
-        slug: "tape-diapers"
+        slug: "tape-diapers",
+        name_so: "Xafaayad (Tape)",
+        name_en: "Tape Diapers"
     },
     {
         id: 30202,
         subcategory_id: 302,
-        name: "Pants Diapers",
-        slug: "pants-diapers"
+        slug: "pants-diapers",
+        name_so: "Xafaayad (Pants)",
+        name_en: "Pants Diapers"
     },
     {
         id: 30203,
         subcategory_id: 302,
-        name: "Baby Wipes",
-        slug: "baby-wipes"
+        slug: "baby-wipes",
+        name_so: "Tirtire Ilmo",
+        name_en: "Baby Wipes"
     },
     {
         id: 30204,
         subcategory_id: 302,
-        name: "Diaper Rash Cream",
-        slug: "diaper-rash-cream"
+        slug: "diaper-rash-cream",
+        name_so: "Kareem Finan",
+        name_en: "Diaper Rash Cream"
     },
+    // Personal Care
     {
-        id: 30301,
-        subcategory_id: 303,
-        name: "Baby Soap & Wash",
-        slug: "baby-soap-wash"
-    },
-    {
-        id: 30302,
-        subcategory_id: 303,
-        name: "Baby Shampoo",
-        slug: "baby-shampoo"
-    },
-    {
-        id: 30303,
-        subcategory_id: 303,
-        name: "Baby Lotion & Oil",
-        slug: "baby-lotion-oil"
-    },
-    {
-        id: 30401,
-        subcategory_id: 304,
-        name: "Bottles",
-        slug: "bottles"
-    },
-    {
-        id: 30402,
-        subcategory_id: 304,
-        name: "Feeding Accessories",
-        slug: "feeding-accessories"
-    },
-    {
-        id: 30403,
-        subcategory_id: 304,
-        name: "Sippers & Cups",
-        slug: "sippers-cups"
-    },
-    /* =========================
-     💄 PERSONAL CARE
-  ========================= */ {
         id: 40101,
         subcategory_id: 401,
-        name: "Soaps",
-        slug: "soaps"
+        slug: "soaps",
+        name_so: "Saabuun",
+        name_en: "Soaps"
     },
     {
         id: 40102,
         subcategory_id: 401,
-        name: "Body Wash",
-        slug: "body-wash"
+        slug: "body-wash",
+        name_so: "Body Wash",
+        name_en: "Body Wash"
     },
     {
         id: 40103,
         subcategory_id: 401,
-        name: "Deodorants",
-        slug: "deodorants"
+        slug: "deodorants",
+        name_so: "Deodorant",
+        name_en: "Deodorants"
     },
     {
         id: 40201,
         subcategory_id: 402,
-        name: "Shampoo",
-        slug: "shampoo"
+        slug: "shampoo",
+        name_so: "Shaambo",
+        name_en: "Shampoo"
     },
     {
         id: 40202,
         subcategory_id: 402,
-        name: "Conditioner",
-        slug: "conditioner"
+        slug: "conditioner",
+        name_so: "Conditioner",
+        name_en: "Conditioner"
     },
     {
         id: 40203,
         subcategory_id: 402,
-        name: "Hair Oil",
-        slug: "hair-oil"
+        slug: "hair-oil",
+        name_so: "Saliidda Timaha",
+        name_en: "Hair Oil"
     },
+    // Home & Kitchen
     {
-        id: 40301,
-        subcategory_id: 403,
-        name: "Toothpaste",
-        slug: "toothpaste"
-    },
-    {
-        id: 40302,
-        subcategory_id: 403,
-        name: "Toothbrushes",
-        slug: "toothbrushes"
-    },
-    {
-        id: 40303,
-        subcategory_id: 403,
-        name: "Mouthwash",
-        slug: "mouthwash"
-    },
-    {
-        id: 40401,
-        subcategory_id: 404,
-        name: "Face Wash",
-        slug: "face-wash"
-    },
-    {
-        id: 40402,
-        subcategory_id: 404,
-        name: "Moisturisers",
-        slug: "moisturisers"
-    },
-    {
-        id: 40403,
-        subcategory_id: 404,
-        name: "Sunscreen",
-        slug: "sunscreen"
-    },
-    {
-        id: 40501,
-        subcategory_id: 405,
-        name: "Sanitary & Hygiene",
-        slug: "sanitary-hygiene"
-    },
-    {
-        id: 40502,
-        subcategory_id: 405,
-        name: "Shaving & Grooming",
-        slug: "shaving-grooming"
-    },
-    {
-        id: 40503,
-        subcategory_id: 405,
-        name: "Hand Wash & Sanitiser",
-        slug: "handwash-sanitiser"
-    },
-    /* =========================
-     🏠 HOME & KITCHEN
-  ========================= */ {
         id: 50101,
         subcategory_id: 501,
-        name: "Cookware",
-        slug: "cookware"
+        slug: "cookware",
+        name_so: "Cookware",
+        name_en: "Cookware"
     },
     {
         id: 50102,
         subcategory_id: 501,
-        name: "Dinnerware",
-        slug: "dinnerware"
+        slug: "dinnerware",
+        name_so: "Weel Cunto",
+        name_en: "Dinnerware"
     },
     {
         id: 50103,
         subcategory_id: 501,
-        name: "Kitchen Tools",
-        slug: "kitchen-tools"
-    },
-    {
-        id: 50201,
-        subcategory_id: 502,
-        name: "Cleaning Liquids",
-        slug: "cleaning-liquids"
-    },
-    {
-        id: 50202,
-        subcategory_id: 502,
-        name: "Tissues & Wipes",
-        slug: "tissues-wipes"
-    },
-    {
-        id: 50203,
-        subcategory_id: 502,
-        name: "Garbage Bags",
-        slug: "garbage-bags"
-    },
-    {
-        id: 50301,
-        subcategory_id: 503,
-        name: "Small Appliances",
-        slug: "small-appliances"
-    },
-    {
-        id: 50302,
-        subcategory_id: 503,
-        name: "Irons",
-        slug: "irons"
-    },
-    {
-        id: 50303,
-        subcategory_id: 503,
-        name: "Kettles",
-        slug: "kettles"
+        slug: "kitchen-tools",
+        name_so: "Qalabka Jikada",
+        name_en: "Kitchen Tools"
     }
 ];
 const products = [
-    // Groceries
     {
         id: 1,
         name: "Basmati Rice 5kg",
@@ -696,7 +671,9 @@ const products = [
         is_discounted: true,
         base_price: 18.5,
         tags: [
-            "rice"
+            "rice",
+            "bariis",
+            "kilo-bariis"
         ]
     },
     {
@@ -710,7 +687,8 @@ const products = [
         is_discounted: false,
         base_price: 11,
         tags: [
-            "cooking-oil"
+            "cooking-oil",
+            "saliid"
         ]
     },
     {
@@ -724,7 +702,8 @@ const products = [
         is_discounted: false,
         base_price: 1.8,
         tags: [
-            "bananas"
+            "bananas",
+            "moos"
         ]
     },
     {
@@ -738,7 +717,8 @@ const products = [
         is_discounted: true,
         base_price: 2.2,
         tags: [
-            "biscuits"
+            "biscuits",
+            "buskud"
         ]
     },
     // Beverages
@@ -875,6 +855,7 @@ const products = [
     }
 ];
 const productVariants = [
+    // Existing (from your paste)
     {
         id: 1,
         product_id: 1,
@@ -982,13 +963,78 @@ const productVariants = [
         price: 1.0,
         mrp: 1.3,
         stock: 300
+    },
+    // Added defaults for products that had no variants: 3,4,6,8,9,10,12
+    {
+        id: 13,
+        product_id: 3,
+        label: "1 kg",
+        sku: "BANANA-1KG",
+        price: 1.8,
+        mrp: 2.0,
+        stock: 120
+    },
+    {
+        id: 14,
+        product_id: 4,
+        label: "1 pack",
+        sku: "BISCUIT-MIX-1PK",
+        price: 2.2,
+        mrp: 2.6,
+        stock: 90
+    },
+    {
+        id: 15,
+        product_id: 6,
+        label: "500 g",
+        sku: "TEA-BLK-500G",
+        price: 3.4,
+        mrp: 3.9,
+        stock: 70
+    },
+    {
+        id: 16,
+        product_id: 8,
+        label: "500 ml",
+        sku: "BODYWASH-500ML",
+        price: 3.0,
+        mrp: 3.5,
+        stock: 80
+    },
+    {
+        id: 17,
+        product_id: 9,
+        label: "1 pc",
+        sku: "PAN-NONSTICK-1PC",
+        price: 7.5,
+        mrp: 8.5,
+        stock: 40
+    },
+    {
+        id: 18,
+        product_id: 10,
+        label: "2 kg",
+        sku: "DETERGENT-2KG",
+        price: 5.9,
+        mrp: 6.5,
+        stock: 65
+    },
+    {
+        id: 19,
+        product_id: 12,
+        label: "4-socket",
+        sku: "EXT-4SOCKET",
+        price: 4.5,
+        mrp: 5.0,
+        stock: 50
     }
 ];
 const productImages = [
+    // Fixed: removed double dot in "/dairy..webp" -> "/dairy.webp"
     {
         id: 1,
         product_id: 1,
-        url: "/dairy..webp",
+        url: "/dairy.webp",
         is_primary: true
     },
     {
@@ -1003,6 +1049,7 @@ const productImages = [
         url: "/products/oil.webp",
         is_primary: true
     },
+    // Your paste had these for product_id 3 (kept)
     {
         id: 4,
         product_id: 3,
@@ -1014,6 +1061,67 @@ const productImages = [
         product_id: 3,
         url: "/products/a15-back.jpg",
         is_primary: false
+    },
+    // Added minimal images so UI doesn’t look empty
+    {
+        id: 6,
+        product_id: 4,
+        url: "/bakery.webp",
+        is_primary: true
+    },
+    {
+        id: 7,
+        product_id: 5,
+        url: "/drink.webp",
+        is_primary: true
+    },
+    {
+        id: 8,
+        product_id: 6,
+        url: "/tea.webp",
+        is_primary: true
+    },
+    {
+        id: 9,
+        product_id: 7,
+        url: "/nuna.webp",
+        is_primary: true
+    },
+    {
+        id: 10,
+        product_id: 8,
+        url: "/bath.webp.jpeg",
+        is_primary: true
+    },
+    {
+        id: 11,
+        product_id: 9,
+        url: "/cutlery.webp",
+        is_primary: true
+    },
+    {
+        id: 12,
+        product_id: 10,
+        url: "/laundry.webp",
+        is_primary: true
+    },
+    {
+        id: 13,
+        product_id: 11,
+        url: "/decor.webp",
+        is_primary: true
+    },
+    {
+        id: 14,
+        product_id: 12,
+        url: "/products/device.webp",
+        is_primary: true
+    },
+    {
+        id: 15,
+        product_id: 13,
+        url: "/products/stationery.webp",
+        is_primary: true
     }
 ];
 const brands = [
@@ -1120,6 +1228,13 @@ const customers = [
         phone: "0626112233"
     }
 ];
+const orders = [];
+const orderItems = [];
+const payments = [];
+const getProductBySlug = (slug)=>products.find((p)=>p.slug === slug);
+const getVariantsByProductId = (product_id)=>productVariants.filter((v)=>v.product_id === product_id);
+const getPrimaryImageByProductId = (product_id)=>productImages.find((img)=>img.product_id === product_id && img.is_primary) || productImages.find((img)=>img.product_id === product_id);
+const getBrandById = (brand_id)=>brands.find((b)=>b.id === brand_id);
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
@@ -1137,9 +1252,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/data/store.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$CartContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/context/CartContext.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$LanguageContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/context/LanguageContext.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -1172,11 +1289,40 @@ function getBestVariant(productId, basePrice) {
         price: best.price
     };
 }
+function PrimarySecondary({ primary, secondary, center = true, primaryClass = "text-[11px] font-medium", secondaryClass = "text-[9px] text-gray-500" }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: `${center ? "text-center" : "text-left"} leading-tight`,
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: primaryClass,
+                children: primary
+            }, void 0, false, {
+                fileName: "[project]/app/page.tsx",
+                lineNumber: 44,
+                columnNumber: 7
+            }, this),
+            secondary ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: secondaryClass,
+                children: secondary
+            }, void 0, false, {
+                fileName: "[project]/app/page.tsx",
+                lineNumber: 45,
+                columnNumber: 20
+            }, this) : null
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/page.tsx",
+        lineNumber: 43,
+        columnNumber: 5
+    }, this);
+}
+_c = PrimarySecondary;
 function HomePage() {
     _s();
     const sectionRefs = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])({});
     const [activeSlide, setActiveSlide] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const { items } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$CartContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCart"])();
+    const { lang } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$LanguageContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useLanguage"])();
     const categoryMap = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "HomePage.useMemo[categoryMap]": ()=>{
             return __TURBOPACK__imported__module__$5b$project$5d2f$data$2f$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["categories"].map({
@@ -1208,7 +1354,6 @@ function HomePage() {
             block: "start"
         });
     };
-    // ✅ Sticky cart bar totals
     const cartTotals = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "HomePage.useMemo[cartTotals]": ()=>{
             let total = 0;
@@ -1230,22 +1375,19 @@ function HomePage() {
     }["HomePage.useMemo[cartTotals]"], [
         items
     ]);
+    const cartCtaPrimary = lang === "en" ? "Go to Cart →" : "U gudub Gaadhiga →";
+    const cartCtaSecondary = lang === "en" ? "U gudub Gaadhiga" : "Go to Cart";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
         className: "min-h-screen bg-white text-black pb-28",
         children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(TopNavbar, {
-                locationText: "Deliver to: Mogadishu",
-                searchPlaceholder: "Search products"
-            }, void 0, false, {
-                fileName: "[project]/app/page.tsx",
-                lineNumber: 75,
-                columnNumber: 7
-            }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
                 className: "border-b bg-white",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "mx-auto max-w-md px-2 py-2 flex gap-4 overflow-x-auto",
-                    children: categoryMap.map((cat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    children: categoryMap.map((cat)=>{
+                        const primary = lang === "en" ? cat.name_en : cat.name_so;
+                        const secondary = lang === "en" ? cat.name_so : cat.name_en;
+                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             onClick: ()=>scrollToCategory(cat.slug),
                             className: "min-w-[78px]",
                             children: [
@@ -1253,42 +1395,50 @@ function HomePage() {
                                     className: "mx-auto h-14 w-14 rounded-full bg-blue-50 overflow-hidden flex items-center justify-center",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                         src: cat.img,
-                                        alt: cat.name,
+                                        alt: primary,
                                         width: 56,
                                         height: 56,
                                         className: "w-full h-full object-contain p-1"
                                     }, void 0, false, {
                                         fileName: "[project]/app/page.tsx",
-                                        lineNumber: 90,
-                                        columnNumber: 17
+                                        lineNumber: 110,
+                                        columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/page.tsx",
-                                    lineNumber: 89,
-                                    columnNumber: 15
+                                    lineNumber: 109,
+                                    columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "mt-1 text-[11px] text-center leading-tight",
-                                    children: cat.name
+                                    className: "mt-1",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(PrimarySecondary, {
+                                        primary: primary,
+                                        secondary: secondary
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/page.tsx",
+                                        lineNumber: 120,
+                                        columnNumber: 19
+                                    }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/page.tsx",
-                                    lineNumber: 99,
-                                    columnNumber: 15
+                                    lineNumber: 119,
+                                    columnNumber: 17
                                 }, this)
                             ]
                         }, cat.id, true, {
                             fileName: "[project]/app/page.tsx",
-                            lineNumber: 84,
-                            columnNumber: 13
-                        }, this))
+                            lineNumber: 104,
+                            columnNumber: 15
+                        }, this);
+                    })
                 }, void 0, false, {
                     fileName: "[project]/app/page.tsx",
-                    lineNumber: 82,
+                    lineNumber: 98,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 81,
+                lineNumber: 97,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1308,43 +1458,59 @@ function HomePage() {
                                 className: "flex-none w-full h-[180px] object-cover"
                             }, s.id, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 115,
+                                lineNumber: 136,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 110,
+                        lineNumber: 131,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/page.tsx",
-                    lineNumber: 109,
+                    lineNumber: 130,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 108,
+                lineNumber: 129,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
                 className: "bg-white px-3 pb-10 pt-3",
-                children: categoryMap.map((cat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                children: categoryMap.map((cat)=>{
+                    const catPrimary = lang === "en" ? cat.name_en : cat.name_so;
+                    const catSecondary = lang === "en" ? cat.name_so : cat.name_en;
+                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         ref: (el)=>{
                             sectionRefs.current[cat.slug] = el;
                         },
                         className: "scroll-mt-[140px] pb-6",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "mb-3 text-lg font-extrabold",
-                                children: cat.name
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "mb-3",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(PrimarySecondary, {
+                                    primary: catPrimary,
+                                    secondary: catSecondary,
+                                    center: false,
+                                    primaryClass: "text-lg font-extrabold",
+                                    secondaryClass: "text-xs text-gray-500"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/page.tsx",
+                                    lineNumber: 164,
+                                    columnNumber: 17
+                                }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 138,
-                                columnNumber: 13
+                                lineNumber: 163,
+                                columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "grid grid-cols-4 gap-x-3 gap-y-5",
-                                children: cat.subcats.slice(0, 8).map((sub)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                children: cat.subcats.slice(0, 8).map((sub)=>{
+                                    const subPrimary = lang === "en" ? sub.name_en : sub.name_so;
+                                    const subSecondary = lang === "en" ? sub.name_so : sub.name_en;
+                                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                         href: `/subcategory/${sub.slug}`,
                                         className: "flex flex-col items-center",
                                         children: [
@@ -1352,47 +1518,56 @@ function HomePage() {
                                                 className: "relative h-[54px] w-[54px] rounded-xl overflow-hidden bg-gray-100",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                     src: sub.img,
-                                                    alt: sub.name,
+                                                    alt: subPrimary,
                                                     fill: true,
                                                     className: "object-cover"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/page.tsx",
-                                                    lineNumber: 148,
-                                                    columnNumber: 21
+                                                    lineNumber: 185,
+                                                    columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/page.tsx",
-                                                lineNumber: 147,
-                                                columnNumber: 19
+                                                lineNumber: 184,
+                                                columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "mt-1 text-[11px] text-center leading-tight",
-                                                children: sub.name
+                                                className: "mt-1",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(PrimarySecondary, {
+                                                    primary: subPrimary,
+                                                    secondary: subSecondary
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/page.tsx",
+                                                    lineNumber: 189,
+                                                    columnNumber: 25
+                                                }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/page.tsx",
-                                                lineNumber: 150,
-                                                columnNumber: 19
+                                                lineNumber: 188,
+                                                columnNumber: 23
                                             }, this)
                                         ]
                                     }, sub.id, true, {
                                         fileName: "[project]/app/page.tsx",
-                                        lineNumber: 142,
-                                        columnNumber: 17
-                                    }, this))
+                                        lineNumber: 179,
+                                        columnNumber: 21
+                                    }, this);
+                                })
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 140,
-                                columnNumber: 13
+                                lineNumber: 173,
+                                columnNumber: 15
                             }, this)
                         ]
                     }, cat.id, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 131,
-                        columnNumber: 11
-                    }, this))
+                        lineNumber: 156,
+                        columnNumber: 13
+                    }, this);
+                })
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 129,
+                lineNumber: 150,
                 columnNumber: 7
             }, this),
             cartTotals.count > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1415,7 +1590,7 @@ function HomePage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/page.tsx",
-                                        lineNumber: 169,
+                                        lineNumber: 209,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1423,54 +1598,72 @@ function HomePage() {
                                         children: money(cartTotals.total)
                                     }, void 0, false, {
                                         fileName: "[project]/app/page.tsx",
-                                        lineNumber: 172,
+                                        lineNumber: 212,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 168,
+                                lineNumber: 208,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "font-extrabold",
-                                children: "Go to Cart →"
-                            }, void 0, false, {
+                                className: "text-right leading-tight font-extrabold",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        children: cartCtaPrimary
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/page.tsx",
+                                        lineNumber: 216,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "text-[10px] opacity-80",
+                                        children: cartCtaSecondary
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/page.tsx",
+                                        lineNumber: 217,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 174,
+                                lineNumber: 215,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 164,
+                        lineNumber: 204,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/page.tsx",
-                    lineNumber: 163,
+                    lineNumber: 203,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 162,
+                lineNumber: 202,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/page.tsx",
-        lineNumber: 73,
+        lineNumber: 93,
         columnNumber: 5
     }, this);
 }
-_s(HomePage, "gKBLYjIQ+q+R7y42m9Y67LjL9ws=", false, function() {
+_s(HomePage, "qrPmz9YpxZ1qRYnRBKLjxmsA5hc=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$CartContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCart"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$CartContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCart"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$LanguageContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useLanguage"]
     ];
 });
-_c = HomePage;
-var _c;
-__turbopack_context__.k.register(_c, "HomePage");
+_c1 = HomePage;
+var _c, _c1;
+__turbopack_context__.k.register(_c, "PrimarySecondary");
+__turbopack_context__.k.register(_c1, "HomePage");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }

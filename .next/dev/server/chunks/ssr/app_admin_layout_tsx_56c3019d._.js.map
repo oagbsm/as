@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/a./mato1/app/admin/layout.tsx"],"sourcesContent":["// app/admin/layout.tsx\nexport default function AdminLayout({ children }: { children: React.ReactNode }) {\n  return <div className=\"min-h-screen bg-gray-50 text-black\">{children}</div>;\n}"],"names":[],"mappings":"AAAA,uBAAuB;;;;;;;AACR,SAAS,YAAY,EAAE,QAAQ,EAAiC;IAC7E,qBAAO,8OAAC;QAAI,WAAU;kBAAsC;;;;;;AAC9D"}}]
+}

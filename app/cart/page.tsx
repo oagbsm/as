@@ -4,11 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-import TopNavbar from "@/components/TopNavBar";
 import { useCart } from "@/context/CartContext";
 import { useOrderMode } from "@/context/OrderModeContext";
-
-import { products, productImages, productVariants, customers } from "@/data/store";
 
 import {
   saveLocalOrder,
@@ -20,40 +17,19 @@ import {
 
 import { recordPayment } from "@/lib/payments";
 
+import {
+  fetchProductsByIds,
+  fetchVariantsByProductIds,
+  fetchImagesByProductIds,
+  searchCustomers,
+  safeImg,
+} from "@/lib/db";
+
 type CartItem = { productId: number; variantId: number | null; qty: number };
 
 function formatGBP(n: number) {
   return new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(
     Number(n || 0)
-  );
-}
-
-function getVariantLabel(variantId: number | null) {
-  if (variantId == null) return null;
-  return productVariants.find((v: any) => v.id === variantId)?.label ?? null;
-}
-
-function getVariantPrice(productId: number, variantId: number | null, basePrice: number) {
-  if (variantId == null) return Number(basePrice ?? 0);
-  const v = productVariants.find(
-    (vv: any) => vv.product_id === productId && vv.id === variantId
-  );
-  return Number(v?.price ?? basePrice ?? 0);
-}
-
-function getVariantImageUrl(productId: number, variantId: number | null) {
-  // optional: if you later add variant_id to productImages, this will work automatically
-  if (variantId != null) {
-    const img = productImages.find(
-      (im: any) => im.product_id === productId && im.variant_id === variantId
-    )?.url;
-    if (img) return img;
-  }
-
-  return (
-    productImages.find((im: any) => im.product_id === productId && im.is_primary)?.url ||
-    productImages.find((im: any) => im.product_id === productId)?.url ||
-    "/example.png"
   );
 }
 
@@ -71,19 +47,24 @@ function labelPM(m: PaymentMethod) {
 export default function CartPage() {
   const { mode } = useOrderMode();
 
-  // IMPORTANT:
-  // This cart page expects variant-safe cart items and functions:
+  // cart expects variant-safe items:
   // items: { productId, variantId, qty }[]
   // setQty(productId, variantId, qty)
   // removeItem(productId, variantId)
   const { items, setQty, removeItem, clearCart } = useCart();
   const cartItems: CartItem[] = Array.isArray(items) ? (items as any) : [];
 
+  // ✅ supabase-loaded catalog bits for cart rendering
+  const [products, setProducts] = useState<any[]>([]);
+  const [productVariants, setProductVariants] = useState<any[]>([]);
+  const [productImages, setProductImages] = useState<any[]>([]);
+
   // Local order fields
   const [customerQuery, setCustomerQuery] = useState("");
   const [selectedCustomer, setSelectedCustomer] = useState<
     null | { id: number; name: string; phone: string }
   >(null);
+
   const [note, setNote] = useState("Local minimart order (test)");
 
   const [isCredit, setIsCredit] = useState(false);
@@ -92,6 +73,29 @@ export default function CartPage() {
 
   const [savedMsg, setSavedMsg] = useState<string | null>(null);
   const [creditDue, setCreditDue] = useState<number>(0);
+
+  // ✅ Load just what cart needs (based on current cart items)
+  useEffect(() => {
+    const ids = Array.from(new Set(cartItems.map((x) => x.productId)));
+    if (!ids.length) {
+      setProducts([]);
+      setProductVariants([]);
+      setProductImages([]);
+      return;
+    }
+
+    (async () => {
+      const prods = await fetchProductsByIds(ids);
+      const [vars, imgs] = await Promise.all([
+        fetchVariantsByProductIds(ids),
+        fetchImagesByProductIds(ids),
+      ]);
+
+      setProducts(prods);
+      setProductVariants(vars);
+      setProductImages(imgs);
+    })();
+  }, [cartItems]);
 
   // ✅ reset local-only state when switching to ONLINE (clean UX)
   useEffect(() => {
@@ -121,23 +125,62 @@ export default function CartPage() {
     return () => clearTimeout(t);
   }, [savedMsg]);
 
-  const suggestions = useMemo(() => {
-    if (mode !== "local") return [];
-    const q = customerQuery.trim().toLowerCase();
-    if (!q) return [];
-    return (customers as any[])
-      .filter((c) => {
-        const name = (c.name ?? "").toLowerCase();
-        const phone = String(c.phone ?? "").toLowerCase();
-        return name.includes(q) || phone.includes(q);
-      })
-      .slice(0, 8);
-  }, [mode, customerQuery]);
+  // ===== helpers (now backed by supabase arrays) =====
+  function getVariantLabel(variantId: number | null) {
+    if (variantId == null) return null;
+    return productVariants.find((v: any) => v.id === variantId)?.label ?? null;
+  }
+
+  function getVariantPrice(productId: number, variantId: number | null, basePrice: number) {
+    if (variantId == null) return Number(basePrice ?? 0);
+    const v = productVariants.find(
+      (vv: any) => vv.product_id === productId && vv.id === variantId
+    );
+    return Number(v?.price ?? basePrice ?? 0);
+  }
+
+  function getVariantImageUrl(productId: number, variantId: number | null) {
+    // optional: if you later add variant_id to product_images, this will work automatically
+    if (variantId != null) {
+      const img = productImages.find(
+        (im: any) => im.product_id === productId && im.variant_id === variantId
+      )?.url;
+      if (img) return safeImg(img);
+    }
+
+    const primary = productImages.find((im: any) => im.product_id === productId && im.is_primary)
+      ?.url;
+    const anyImg = productImages.find((im: any) => im.product_id === productId)?.url;
+
+    return safeImg(primary || anyImg || "/example.png");
+  }
+
+  // ✅ Suggestions now come from Supabase `customers` table
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  useEffect(() => {
+    if (mode !== "local") {
+      setSuggestions([]);
+      return;
+    }
+    const q = customerQuery.trim();
+    if (!q || selectedCustomer) {
+      setSuggestions([]);
+      return;
+    }
+
+    const t = setTimeout(() => {
+      searchCustomers(q)
+        .then((rows) => setSuggestions(rows))
+        .catch(() => setSuggestions([]));
+    }, 150);
+
+    return () => clearTimeout(t);
+  }, [mode, customerQuery, selectedCustomer]);
 
   const rows = useMemo(() => {
     return cartItems
       .map((ci) => {
-        const p: any = (products as any[]).find((x) => x.id === ci.productId);
+        const p: any = products.find((x: any) => x.id === ci.productId);
         if (!p) return null;
 
         const basePrice = Number(p?.base_price ?? 0);
@@ -160,7 +203,7 @@ export default function CartPage() {
         };
       })
       .filter(Boolean) as any[];
-  }, [cartItems]);
+  }, [cartItems, products, productVariants, productImages]);
 
   const subtotal = useMemo(
     () => rows.reduce((sum, r) => sum + (r?.lineTotal ?? 0), 0),
@@ -231,8 +274,6 @@ export default function CartPage() {
 
   return (
     <main className="min-h-screen bg-white text-black">
-      <TopNavbar showBack backHref="/" locationText="Mini-mart / Delivery" />
-
       {/* ✅ Local-only panel */}
       {mode === "local" ? (
         <div className="max-w-6xl mx-auto px-4 pt-4">
@@ -288,7 +329,9 @@ export default function CartPage() {
                     Change customer
                   </button>
                 ) : (
-                  <div className="mt-2 text-xs text-gray-500">Optional: walk-in (not for credit).</div>
+                  <div className="mt-2 text-xs text-gray-500">
+                    Optional: walk-in (not for credit).
+                  </div>
                 )}
               </div>
 
@@ -371,7 +414,6 @@ export default function CartPage() {
               ) : null}
             </div>
 
-            {/* Optional: local quick links */}
             <div className="mt-4 flex flex-wrap gap-2">
               <Link
                 href="/orders"
@@ -417,7 +459,7 @@ export default function CartPage() {
                   <div className="flex gap-4">
                     <div className="w-20 h-20 rounded-xl overflow-hidden bg-gray-50 flex-shrink-0">
                       <Image
-                        src={img}
+                        src={safeImg(img)}
                         alt={name ?? "Product"}
                         width={120}
                         height={120}
@@ -505,7 +547,9 @@ export default function CartPage() {
                 onClick={checkoutLocal}
                 disabled={!canCheckout}
                 className={`mt-5 inline-flex w-full justify-center rounded-full py-3 text-sm font-semibold ${
-                  !canCheckout ? "bg-gray-200 text-gray-500" : "bg-blue-600 text-white hover:opacity-95"
+                  !canCheckout
+                    ? "bg-gray-200 text-gray-500"
+                    : "bg-blue-600 text-white hover:opacity-95"
                 }`}
               >
                 {isCredit ? "Save Credit Order" : `Checkout (Paid: ${labelPM(paymentMethod)})`}
@@ -514,7 +558,9 @@ export default function CartPage() {
               <Link
                 href="/checkout"
                 className={`mt-5 inline-flex w-full justify-center rounded-full py-3 text-sm font-semibold ${
-                  !canCheckout ? "bg-gray-200 text-gray-500 pointer-events-none" : "bg-blue-600 text-white hover:opacity-95"
+                  !canCheckout
+                    ? "bg-gray-200 text-gray-500 pointer-events-none"
+                    : "bg-blue-600 text-white hover:opacity-95"
                 }`}
               >
                 Checkout (Online)
@@ -522,13 +568,9 @@ export default function CartPage() {
             )}
 
             {mode === "local" ? (
-              <p className="text-xs text-gray-500 mt-3">
-                Local paid checkouts appear in Payments.
-              </p>
+              <p className="text-xs text-gray-500 mt-3">Local paid checkouts appear in Payments.</p>
             ) : (
-              <p className="text-xs text-gray-500 mt-3">
-                Online checkout uses your normal flow.
-              </p>
+              <p className="text-xs text-gray-500 mt-3">Online checkout uses your normal flow.</p>
             )}
           </div>
         </aside>
