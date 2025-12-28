@@ -199,6 +199,12 @@
       "namedRegex": "^/checkout(?:/)?$"
     },
     {
+      "page": "/explore",
+      "regex": "^/explore(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/explore(?:/)?$"
+    },
+    {
       "page": "/fast",
       "regex": "^/fast(?:/)?$",
       "routeKeys": {},

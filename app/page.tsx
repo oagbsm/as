@@ -58,7 +58,7 @@ const PROMO_CARDS = [
 ];
 
 function money(n: number) {
-  return `₹${Number(n ?? 0).toFixed(0)}`;
+  return `$${Number(n ?? 0).toFixed(2)}`;
 }
 
 function PrimarySecondary({
@@ -434,7 +434,7 @@ export default function HomePage() {
 
       {/* STICKY GO TO CART BAR */}
       {cartTotals.count > 0 && (
-        <div className="fixed left-0 right-0 bottom-16 z-40">
+        <div className="fixed left-0 right-0 bottom-[100px] z-40">
           <div className="mx-auto max-w-md px-3">
             <Link
               href="/cart"

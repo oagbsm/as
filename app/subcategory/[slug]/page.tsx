@@ -18,7 +18,7 @@ import {
 
 /** ===== helpers ===== */
 function money(n: number) {
-  return `₹${Number(n ?? 0).toFixed(0)}`;
+  return `$${Number(n ?? 0).toFixed(2)}`;
 }
 
 function safeImg(src: any) {
@@ -381,58 +381,63 @@ const seoLine =
           {/* LEFT RAIL */}
           {hasRail && (
             <aside className="bg-gray-50 border-r px-1.5 py-2 space-y-1.5">
-<button
-  type="button"
-  onClick={() => setActiveSS(null)}
-  className={`w-full flex items-center justify-center rounded-xl px-2 py-3 ${
-    activeSS === null ? "bg-[#0B6EA9]/10 border border-[#0B6EA9]" : "bg-white border border-gray-200"
-  }`}
->
-  <span className={`text-[11px] font-bold ${
-    activeSS === null ? "text-[#0B6EA9]" : "text-gray-800"
-  }`}>
-    {lang === "en" ? "ALL" : "DHAMMAAN"}
-  </span>
-</button>
-{ssList.map((ss: any) => {
-  const isActive = activeSS === ss.slug;
-  const primary = getLabel(ss, lang);
+              <button
+                type="button"
+                onClick={() => setActiveSS(null)}
+                className={`w-full flex items-center justify-center rounded-xl px-2 py-3 ${
+                  activeSS === null
+                    ? "bg-[#0B6EA9]/10 border border-[#0B6EA9]"
+                    : "bg-white border border-gray-200"
+                }`}
+              >
+                <span
+                  className={`text-[11px] font-bold ${
+                    activeSS === null ? "text-[#0B6EA9]" : "text-gray-800"
+                  }`}
+                >
+                  {lang === "en" ? "ALL" : "DHAMMAAN"}
+                </span>
+              </button>
 
-  return (
-    <button
-      key={ss.id}
-      type="button"
-      onClick={() => setActiveSS(ss.slug)}
-      className="w-full flex flex-col items-center rounded-xl px-1.5 py-2"
-    >
-      <div className="w-14 h-14 rounded-xl bg-gray-100 overflow-hidden relative">
-        <Image
-          src={safeImg(ss.img)}
-          alt={primary}
-          fill
-          className="object-contain p-2"
-        />
-      </div>
-      <div className="mt-1 text-[10px] text-center leading-tight">
-        <div
-          className={
-            isActive
-              ? "text-[#0B6EA9] font-semibold"
-              : "text-gray-800 font-semibold"
-          }
-        >
-          {primary}
-        </div>
-      </div>
-    </button>
-  );
-})}
+              {ssList.map((ss: any) => {
+                const isActive = activeSS === ss.slug;
+                const primary = getLabel(ss, lang);
+
+                return (
+                  <button
+                    key={ss.id}
+                    type="button"
+                    onClick={() => setActiveSS(ss.slug)}
+                    className="w-full flex flex-col items-center rounded-xl px-1.5 py-2"
+                  >
+                    <div className="w-14 h-14 rounded-xl bg-gray-100 overflow-hidden relative">
+                      <Image
+                        src={safeImg(ss.img)}
+                        alt={primary}
+                        fill
+                        className="object-contain p-2"
+                      />
+                    </div>
+                    <div className="mt-1 text-[10px] text-center leading-tight">
+                      <div
+                        className={
+                          isActive
+                            ? "text-[#0B6EA9] font-semibold"
+                            : "text-gray-800 font-semibold"
+                        }
+                      >
+                        {primary}
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
             </aside>
           )}
 
           {/* RIGHT GRID */}
           <div className="p-3">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-2">
               {loading ? (
                 <div className="col-span-2 bg-white rounded-2xl border p-4 text-sm text-gray-600">
                   Loading...
@@ -510,7 +515,7 @@ const seoLine =
                               alt={p.name}
                               width={220}
                               height={220}
-                              className={`mx-auto h-36 object-contain w-full ${
+                              className={`mx-auto h-32 object-contain w-full ${
                                 p.is_concept
                                   ? "drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]"
                                   : ""

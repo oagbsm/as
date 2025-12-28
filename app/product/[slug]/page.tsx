@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 export const revalidate = 3600; // rebuild metadata every hour
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -19,7 +20,7 @@ import {
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://matomart.so";
 
 function money(n: number) {
-  return `KES ${Number(n ?? 0).toFixed(0)}`;
+  return `$${Number(n ?? 0).toFixed(2)}`;
 }
 
 function safeImg(src: any) {
@@ -90,11 +91,9 @@ export async function generateMetadata({
   const baseName = product.name; // e.g. "Baraka Corn Flakes 500g"
 
   const subLabelSo =
-    subNameSo ||
-    "Raashin iyo alaabooyin kale oo tayo leh";
+    subNameSo || "Raashin iyo alaabooyin kale oo tayo leh";
   const subLabelEn =
-    subNameEn ||
-    "Groceries and daily essentials";
+    subNameEn || "Groceries and daily essentials";
 
   const title = `${baseName} | MatoMart Soomaaliya – ${subLabelSo}`;
   const description =
@@ -141,6 +140,7 @@ export async function generateMetadata({
     },
   };
 }
+
 export default async function ProductPage({
   params,
 }: {
@@ -160,9 +160,15 @@ export default async function ProductPage({
   const [variants, images, sub, related, brands] = await Promise.all([
     fetchVariantsByProductId(product.id),
     fetchImagesByProductId(product.id),
-    hasSubcategoryId ? fetchSubcategoryById(subcategoryId) : Promise.resolve(null),
     hasSubcategoryId
-      ? fetchRelatedProducts({ subcategoryId, excludeProductId: product.id, limit: 12 })
+      ? fetchSubcategoryById(subcategoryId)
+      : Promise.resolve(null),
+    hasSubcategoryId
+      ? fetchRelatedProducts({
+          subcategoryId,
+          excludeProductId: product.id,
+          limit: 12,
+        })
       : Promise.resolve([]),
     fetchBrandsByIds([(product as any).brand_id]),
   ]);
@@ -175,7 +181,9 @@ export default async function ProductPage({
   const priceValue = firstVariant?.price ?? basePrice ?? 0;
   const priceDisplay = money(priceValue);
   const availability =
-    firstVariant && typeof firstVariant.stock === "number" && firstVariant.stock > 0
+    firstVariant &&
+    typeof firstVariant.stock === "number" &&
+    firstVariant.stock > 0
       ? "https://schema.org/InStock"
       : "https://schema.org/OutOfStock";
 
@@ -206,7 +214,7 @@ export default async function ProductPage({
       : undefined,
     offers: {
       "@type": "Offer",
-      priceCurrency: "USD", // adjust later if you switch currency
+      priceCurrency: "USD",
       price: priceValue,
       availability,
       url: productUrl,
@@ -215,12 +223,15 @@ export default async function ProductPage({
   };
 
   return (
-    <main className="min-h-screen bg-[#F4F6F8] pb-16">
+    <main className="min-h-screen bg-[#F4F6F8] pb-32">
+      {/* JSON-LD SEO */}
       <script
         type="application/ld+json"
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+
+      {/* TOP PRODUCT HEADER + CLIENT AREA */}
       <section className="mx-auto max-w-md bg-white border-b">
         <div className="px-4 pt-4">
           <div className="flex items-center justify-between mb-2">
@@ -231,7 +242,9 @@ export default async function ProductPage({
 
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <div className="text-[#0B6EA9] text-sm font-semibold">{subLabel(sub)}</div>
+              <div className="text-[#0B6EA9] text-sm font-semibold">
+                {subLabel(sub)}
+              </div>
 
               <h1 className="mt-1 text-sm font-semibold text-gray-900 leading-snug">
                 {product.name}
@@ -261,47 +274,38 @@ export default async function ProductPage({
         />
       </section>
 
+      {/* PRODUCT DETAILS (no return policy / article id) */}
       <section className="mx-auto max-w-md bg-white mt-2 border-t border-b">
         <div className="px-4 py-4">
-          <div className="text-base font-semibold text-gray-900">Product Details</div>
-          <p className="mt-2 text-sm text-gray-700 leading-relaxed">
-            {(product as any).long_description || (product as any).description || "No description available."}
-          </p>
-        </div>  
-
-        <div className="px-4 py-4 border-t">
-          <div className="text-base font-semibold text-gray-900">Return Policy</div>
-          <p className="mt-2 text-sm text-gray-700">
-            This product is non-returnable. For more details, please refer to the policy.
-          </p>
-        </div>
-
-        <div className="px-4 py-4 border-t flex items-center justify-between">
-          <div>
-            <div className="text-sm font-semibold text-gray-900">Article ID</div>
-            <div className="text-sm text-gray-600">PVKJTWVCE1</div>
+          <div className="text-base font-semibold text-gray-900">
+            Product Details
           </div>
-          <button className="h-10 w-10 rounded-xl border bg-white grid place-items-center">
-            📋
-          </button>
+          <p className="mt-2 text-sm text-gray-700 leading-relaxed">
+            {(product as any).long_description ||
+              (product as any).description ||
+              "No description available."}
+          </p>
         </div>
       </section>
 
+      {/* RELATED PRODUCTS */}
       <section className="mx-auto max-w-md bg-white mt-2 border-t border-b">
         <div className="px-4 py-4 flex items-center justify-between">
-          <div className="text-base font-semibold text-gray-900">You may also like</div>
+          <div className="text-base font-semibold text-gray-900">
+            You may also like
+          </div>
         </div>
 
         <div className="px-4 pb-4 overflow-x-auto">
           <div className="flex gap-3">
             {related.map((p: any) => {
               const img =
-                images.find((im: any) => im.product_id === p.id && im.is_primary)?.url ||
+                images.find(
+                  (im: any) => im.product_id === p.id && im.is_primary
+                )?.url ||
                 images.find((im: any) => im.product_id === p.id)?.url ||
                 "/example.png";
 
-              // fetchRelatedProducts doesn't include variants/images; keep it simple:
-              // show base_price now; variant pricing can be added later with a batched query.
               const price = p.base_price ?? 0;
 
               return (
@@ -313,7 +317,11 @@ export default async function ProductPage({
 
                   <Link href={`/product/${p.slug}`} className="block px-3">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={safeImg(img)} alt={p.name} className="mx-auto h-28 w-auto object-contain" />
+                    <img
+                      src={safeImg(img)}
+                      alt={p.name}
+                      className="mx-auto h-28 w-auto object-contain"
+                    />
                   </Link>
 
                   <div className="px-3 pb-3">
@@ -323,20 +331,43 @@ export default async function ProductPage({
                     </div>
 
                     <div className="mt-1 flex items-end gap-2">
-                      <div className="font-extrabold text-gray-900 text-sm">{money(price)}</div>
+                      <div className="font-extrabold text-gray-900 text-sm">
+                        {money(price)}
+                      </div>
                     </div>
 
                     <div className="h-[14px]" />
-
-                    <AddToCartButton productId={p.id} />
+                    {/* <AddToCartButton productId={p.id} /> */}
                   </div>
                 </div>
               );
             })}
 
             {related.length === 0 && (
-              <div className="text-sm text-gray-600">No related products yet.</div>
+              <div className="text-sm text-gray-600">
+                No related products yet.
+              </div>
             )}
+          </div>
+        </div>
+      </section>
+
+      {/* Sticky Add to Cart bar above bottom nav */}
+      <section className="fixed inset-x-0 bottom-[90px] z-40 border-t bg-white">
+        <div className="mx-auto max-w-md px-4 py-3 flex items-center justify-between gap-4">
+          <div className="flex flex-col">
+            <span className="text-[11px] text-gray-500">Price</span>
+            <span className="text-lg font-extrabold text-gray-900">
+              {priceDisplay}
+            </span>
+          </div>
+          <div className="flex-1 flex justify-end">
+            {/* This button shows:
+                - "Add +" when not in cart
+                - "-  qty  +" when in cart
+               Quantity styling (big, bold, black, spaced out) is handled inside AddToCartButton.tsx
+            */}
+            <AddToCartButton productId={product.id} />
           </div>
         </div>
       </section>

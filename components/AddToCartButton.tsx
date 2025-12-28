@@ -27,7 +27,7 @@ export default function AddToCartButton({ productId }: { productId: number }) {
     return (
       <button
         onClick={() => addItem(productId, defaultVariantId, 1)}
-        className="mt-2 w-full h-10 rounded-xl border-2 border-[#0B6EA9] text-[#0B6EA9] font-bold"
+        className="mt-2 w-full h-10 bg-[#0B6EA9] rounded-xl border-2 border-[#0B6EA9] text-white font-bold"
       >
         Add +
       </button>
@@ -36,19 +36,21 @@ export default function AddToCartButton({ productId }: { productId: number }) {
 
   // IN cart → show − qty +
   return (
-    <div className="mt-2 flex items-center justify-between">
+    <div className="mt-2 flex items-center gap-4">
       <button
         onClick={() => setQty(productId, defaultVariantId, qty - 1)}
-        className="w-10 h-10 rounded-full bg-[#0B6EA9] text-white text-xl"
+        className="h-10 w-10 rounded-xl border bg-white text-[#0B6EA9] text-2xl font-bold grid place-items-center"
       >
         −
       </button>
 
-      <span className="font-bold">{qty}</span>
+      <span className="min-w-[60px] text-center text-black font-bold text-xl">
+        {qty}
+      </span>
 
       <button
         onClick={() => setQty(productId, defaultVariantId, qty + 1)}
-        className="w-10 h-10 rounded-full bg-[#0B6EA9] text-white text-xl"
+        className="h-10 w-10 rounded-xl border bg-white text-[#0B6EA9] text-2xl font-bold grid place-items-center"
       >
         +
       </button>

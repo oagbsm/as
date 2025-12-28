@@ -388,7 +388,7 @@ function highlightMatch(text, termRaw) {
         ]
     }, void 0, true);
 }
-function SearchPage() {
+function SearchPageInner() {
     _s();
     const { lang } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$LanguageContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useLanguage"])();
     const inputRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
@@ -405,16 +405,16 @@ function SearchPage() {
     const [productVariants, setProductVariants] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [productImages, setProductImages] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "SearchPage.useEffect": ()=>{
+        "SearchPageInner.useEffect": ()=>{
             setRecent(loadRecent());
             if (activeTag) {
                 setQ(activeTag);
             }
             setTimeout({
-                "SearchPage.useEffect": ()=>inputRef.current?.focus()
-            }["SearchPage.useEffect"], 50);
+                "SearchPageInner.useEffect": ()=>inputRef.current?.focus()
+            }["SearchPageInner.useEffect"], 50);
             ({
-                "SearchPage.useEffect": async ()=>{
+                "SearchPageInner.useEffect": async ()=>{
                     const [cats, subs, prods, vars, imgs] = await Promise.all([
                         (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["fetchAllCategories"])(),
                         (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["fetchAllSubcategories"])(),
@@ -428,9 +428,9 @@ function SearchPage() {
                     setProductVariants(vars);
                     setProductImages(imgs);
                 }
-            })["SearchPage.useEffect"]();
+            })["SearchPageInner.useEffect"]();
         }
-    }["SearchPage.useEffect"], [
+    }["SearchPageInner.useEffect"], [
         activeTag
     ]);
     const term = normalize(isResults ? activeTag : q);
@@ -452,52 +452,52 @@ function SearchPage() {
         };
     }
     const results = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
-        "SearchPage.useMemo[results]": ()=>{
+        "SearchPageInner.useMemo[results]": ()=>{
             if (!term) return [];
             const scored = products.map({
-                "SearchPage.useMemo[results].scored": (p)=>{
+                "SearchPageInner.useMemo[results].scored": (p)=>{
                     const cat = categories.find({
-                        "SearchPage.useMemo[results].scored.cat": (c)=>c.id === p.category_id
-                    }["SearchPage.useMemo[results].scored.cat"]);
+                        "SearchPageInner.useMemo[results].scored.cat": (c)=>c.id === p.category_id
+                    }["SearchPageInner.useMemo[results].scored.cat"]);
                     const sub = subcategories.find({
-                        "SearchPage.useMemo[results].scored.sub": (s)=>s.id === p.subcategory_id
-                    }["SearchPage.useMemo[results].scored.sub"]);
+                        "SearchPageInner.useMemo[results].scored.sub": (s)=>s.id === p.subcategory_id
+                    }["SearchPageInner.useMemo[results].scored.sub"]);
                     const extraHay = normalize(`${cat?.name_so ?? ""} ${cat?.name_en ?? ""} ${sub?.name_so ?? ""} ${sub?.name_en ?? ""}`);
                     const baseScore = scoreProduct(term, p);
                     const tokens = term.split(" ").filter(Boolean);
                     const extra = tokens.some({
-                        "SearchPage.useMemo[results].scored": (tok)=>extraHay.includes(tok)
-                    }["SearchPage.useMemo[results].scored"]) ? 30 : 0;
+                        "SearchPageInner.useMemo[results].scored": (tok)=>extraHay.includes(tok)
+                    }["SearchPageInner.useMemo[results].scored"]) ? 30 : 0;
                     const s = baseScore + extra;
                     return s > 0 ? {
                         p,
                         s
                     } : null;
                 }
-            }["SearchPage.useMemo[results].scored"]).filter(Boolean);
+            }["SearchPageInner.useMemo[results].scored"]).filter(Boolean);
             scored.sort({
-                "SearchPage.useMemo[results]": (a, b)=>b.s - a.s
-            }["SearchPage.useMemo[results]"]);
+                "SearchPageInner.useMemo[results]": (a, b)=>b.s - a.s
+            }["SearchPageInner.useMemo[results]"]);
             return scored.slice(0, 30).map({
-                "SearchPage.useMemo[results]": (x)=>x.p
-            }["SearchPage.useMemo[results]"]);
+                "SearchPageInner.useMemo[results]": (x)=>x.p
+            }["SearchPageInner.useMemo[results]"]);
         }
-    }["SearchPage.useMemo[results]"], [
+    }["SearchPageInner.useMemo[results]"], [
         term,
         products,
         categories,
         subcategories
     ]);
     const suggestions = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
-        "SearchPage.useMemo[suggestions]": ()=>{
+        "SearchPageInner.useMemo[suggestions]": ()=>{
             if (!term) return [];
             const tokens = term.split(" ").filter(Boolean);
             const tagScores = new Map();
             products.forEach({
-                "SearchPage.useMemo[suggestions]": (p)=>{
+                "SearchPageInner.useMemo[suggestions]": (p)=>{
                     if (!Array.isArray(p.tags)) return;
                     p.tags.forEach({
-                        "SearchPage.useMemo[suggestions]": (tag)=>{
+                        "SearchPageInner.useMemo[suggestions]": (tag)=>{
                             const normTag = normalize(tag);
                             let score = 0;
                             for (const tok of tokens){
@@ -511,32 +511,32 @@ function SearchPage() {
                                 }
                             }
                         }
-                    }["SearchPage.useMemo[suggestions]"]);
+                    }["SearchPageInner.useMemo[suggestions]"]);
                 }
-            }["SearchPage.useMemo[suggestions]"]);
+            }["SearchPageInner.useMemo[suggestions]"]);
             return Array.from(tagScores.entries()).sort({
-                "SearchPage.useMemo[suggestions]": (a, b)=>b[1] - a[1]
-            }["SearchPage.useMemo[suggestions]"]).slice(0, 10).map({
-                "SearchPage.useMemo[suggestions]": ([tag])=>tag
-            }["SearchPage.useMemo[suggestions]"]);
+                "SearchPageInner.useMemo[suggestions]": (a, b)=>b[1] - a[1]
+            }["SearchPageInner.useMemo[suggestions]"]).slice(0, 10).map({
+                "SearchPageInner.useMemo[suggestions]": ([tag])=>tag
+            }["SearchPageInner.useMemo[suggestions]"]);
         }
-    }["SearchPage.useMemo[suggestions]"], [
+    }["SearchPageInner.useMemo[suggestions]"], [
         term,
         products
     ]);
     const popularCats = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
-        "SearchPage.useMemo[popularCats]": ()=>categories.slice(0, 8)
-    }["SearchPage.useMemo[popularCats]"], [
+        "SearchPageInner.useMemo[popularCats]": ()=>categories.slice(0, 8)
+    }["SearchPageInner.useMemo[popularCats]"], [
         categories
     ]);
     const quickSubs = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
-        "SearchPage.useMemo[quickSubs]": ()=>subcategories.slice(0, 14)
-    }["SearchPage.useMemo[quickSubs]"], [
+        "SearchPageInner.useMemo[quickSubs]": ()=>subcategories.slice(0, 14)
+    }["SearchPageInner.useMemo[quickSubs]"], [
         subcategories
     ]);
     const recommended = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
-        "SearchPage.useMemo[recommended]": ()=>products.slice(0, 10)
-    }["SearchPage.useMemo[recommended]"], [
+        "SearchPageInner.useMemo[recommended]": ()=>products.slice(0, 10)
+    }["SearchPageInner.useMemo[recommended]"], [
         products
     ]);
     function runSearch(tagOverride) {
@@ -819,16 +819,38 @@ function SearchPage() {
         columnNumber: 5
     }, this);
 }
-_s(SearchPage, "QrJPgAX2tyw1k7C9szUk0OaG3bM=", false, function() {
+_s(SearchPageInner, "QrJPgAX2tyw1k7C9szUk0OaG3bM=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$LanguageContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useLanguage"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSearchParams"]
     ];
 });
-_c = SearchPage;
-var _c;
-__turbopack_context__.k.register(_c, "SearchPage");
+_c = SearchPageInner;
+function SearchPage() {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Suspense"], {
+        fallback: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
+            className: "min-h-screen bg-white text-black pb-24"
+        }, void 0, false, {
+            fileName: "[project]/app/search/page.tsx",
+            lineNumber: 368,
+            columnNumber: 9
+        }, void 0),
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SearchPageInner, {}, void 0, false, {
+            fileName: "[project]/app/search/page.tsx",
+            lineNumber: 371,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/app/search/page.tsx",
+        lineNumber: 366,
+        columnNumber: 5
+    }, this);
+}
+_c1 = SearchPage;
+var _c, _c1;
+__turbopack_context__.k.register(_c, "SearchPageInner");
+__turbopack_context__.k.register(_c1, "SearchPage");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }

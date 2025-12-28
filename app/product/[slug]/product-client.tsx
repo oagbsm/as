@@ -24,7 +24,7 @@ type ProductImage = {
 };
 
 function money(n: number) {
-  return `₹${Number(n ?? 0).toFixed(0)}`;
+  return `$${Number(n ?? 0).toFixed(2)}`;
 }
 
 // ✅ prevents Next/Image crash
@@ -208,10 +208,10 @@ export default function ProductClient({
       ) : null}
 
       {/* QUANTITY */}
-      <div className="mt-4 flex items-center justify-between">
+      {/* <div className="mt-4 flex items-center justify-between">
         <div className="text-sm font-semibold text-gray-900">Quantity</div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           <button
             disabled={!canDec}
             onClick={() => setQty((q) => Math.max(1, q - 1))}
@@ -222,7 +222,9 @@ export default function ProductClient({
             −
           </button>
 
-          <div className="min-w-[44px] text-center font-extrabold">{qty}</div>
+          <div className="min-w-[70px] text-center font-extrabold text-black text-2xl">
+            {qty}
+          </div>
 
           <button
             disabled={!canInc}
@@ -234,17 +236,8 @@ export default function ProductClient({
             +
           </button>
         </div>
-      </div>
+      </div> */}
 
-      {/* ADD */}
-      <button
-        onClick={onAdd}
-        className="mt-4 w-full h-12 rounded-2xl bg-[#0B6EA9] text-white font-extrabold text-base"
-      >
-        Add to Cart
-      </button>
-
-      <div className="mt-2 text-xs text-gray-500">Product ID: {productId}</div>
     </div>
   );
 }

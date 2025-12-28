@@ -2,19 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://localhost:3000/</loc>
-<lastmod>2025-12-28T07:38:21.357Z</lastmod>
+<lastmod>2025-12-28T12:28:12.671Z</lastmod>
 </url>
 <url>
 <loc>http://localhost:3000/search</loc>
-<lastmod>2025-12-28T07:38:21.357Z</lastmod>
+<lastmod>2025-12-28T12:28:12.671Z</lastmod>
 </url>
 <url>
 <loc>http://localhost:3000/health-hub</loc>
-<lastmod>2025-12-28T07:38:21.357Z</lastmod>
+<lastmod>2025-12-28T12:28:12.671Z</lastmod>
 </url>
 <url>
 <loc>http://localhost:3000/offers</loc>
-<lastmod>2025-12-28T07:38:21.357Z</lastmod>
+<lastmod>2025-12-28T12:28:12.671Z</lastmod>
 </url>
 <url>
 <loc>http://localhost:3000/category/baby</loc>
