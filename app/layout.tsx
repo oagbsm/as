@@ -4,6 +4,7 @@ import { CartProvider } from "@/context/CartContext";
 import { OrderModeProvider } from "@/context/OrderModeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import AppShell from "@/components/AppShell";
+import BottomNav from "@/components/BottomNav";
 
 export const metadata = {
   metadataBase: new URL("https://matomart.so"),
@@ -27,31 +28,6 @@ export const metadata = {
     card: "summary_large_image",
   },
 };
-
-function BottomNav() {
-  return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:backdrop-blur">
-      <div className="mx-auto flex max-w-md items-center justify-between px-6 py-2 text-[11px] font-medium text-gray-600">
-        <a href="/" className="flex flex-1 flex-col items-center gap-0.5">
-          <span className="text-lg">🏠</span>
-          <span>Home</span>
-        </a>
-        <a href="/categories" className="flex flex-1 flex-col items-center gap-0.5">
-          <span className="text-lg">🧺</span>
-          <span>Categories</span>
-        </a>
-        {/* <a href="/profile" className="flex flex-1 flex-col items-center gap-0.5">
-          <span className="text-lg">👤</span>
-          <span>Profile</span>
-        </a> */}
-        <a href="/cart" className="flex flex-1 flex-col items-center gap-0.5">
-          <span className="text-lg">🛒</span>
-          <span>Cart</span>
-        </a>
-      </div>
-    </nav>
-  );
-}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 17, "column": 0}, "map": {"version":3,"sources":["file:///Users/a./mato1/app/search/results/%5Btag%5D/page.tsx"],"sourcesContent":["<header className=\"sticky top-0 z-50 bg-white shadow-sm border-b border-[#E5EEF4]\">\n  <div className=\"mx-auto max-w-md px-3 py-2 flex flex-col gap-2\">\n    <div className=\"flex bg-white rounded-full px-1 py-1 gap-1 shadow-sm border border-[#E5EEF4]\">\n      {/* Language toggle content */}\n    </div>\n    <div className=\"flex items-center gap-2 bg-white rounded-full px-3 py-2 shadow-sm border border-[#E5EEF4]\">\n      <button\n        className=\"h-9 w-9 rounded-full bg-[#0B6EA9] text-white grid place-items-center shadow-sm\"\n      >\n        ←\n      </button>\n      {/* Search input or other content */}\n    </div>\n  </div>\n</header>"],"names":[],"mappings":";AAAA,QAAC;IAAO,WAAU;cAChB,cAAA,QAAC;QAAI,WAAU;;0BACb,QAAC;gBAAI,WAAU;;;;;;0BAGf,QAAC;gBAAI,WAAU;0BACb,cAAA,QAAC;oBACC,WAAU;8BACX"}}]
+}

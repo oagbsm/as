@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import AddToCartButton from "@/components/AddToCartButton";
 import { useLanguage } from "@/context/LanguageContext";
@@ -82,9 +83,31 @@ function scoreProduct(termRaw: string, p: any) {
   return score;
 }
 
-export default function SearchPage() {
+function highlightMatch(text: string, termRaw: string) {
+  const t = termRaw.trim();
+  if (!t) return text;
+  const lowerText = text.toLowerCase();
+  const lowerT = t.toLowerCase();
+  const idx = lowerText.indexOf(lowerT);
+  if (idx === -1) return text;
+
+  return (
+    <>
+      {text.slice(0, idx)}
+      <span className="font-semibold">{text.slice(idx, idx + t.length)}</span>
+      {text.slice(idx + t.length)}
+    </>
+  );
+}
+
+function SearchPageInner() {
   const { lang } = useLanguage();
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const activeTag = searchParams.get("tag") || "";
+  const isResults = !!activeTag;
 
   const [q, setQ] = useState("");
   const [recent, setRecent] = useState<string[]>([]);
@@ -98,6 +121,9 @@ export default function SearchPage() {
 
   useEffect(() => {
     setRecent(loadRecent());
+    if (activeTag) {
+      setQ(activeTag);
+    }
     setTimeout(() => inputRef.current?.focus(), 50);
 
     (async () => {
@@ -115,9 +141,9 @@ export default function SearchPage() {
       setProductVariants(vars);
       setProductImages(imgs);
     })();
-  }, []);
+  }, [activeTag]);
 
-  const term = normalize(q);
+  const term = normalize(isResults ? activeTag : q);
 
   function getPrimaryImageUrl(productId: number) {
     const primary = productImages.find((img: any) => img.product_id === productId && img.is_primary);
@@ -157,343 +183,192 @@ export default function SearchPage() {
     return scored.slice(0, 30).map((x) => x.p);
   }, [term, products, categories, subcategories]);
 
+  const suggestions = useMemo(() => {
+    if (!term) return [];
+
+    const tokens = term.split(" ").filter(Boolean);
+    const tagScores = new Map<string, number>();
+
+    products.forEach((p: any) => {
+      if (!Array.isArray(p.tags)) return;
+
+      p.tags.forEach((tag: string) => {
+        const normTag = normalize(tag);
+        let score = 0;
+
+        for (const tok of tokens) {
+          if (normTag.includes(tok)) score += 100;
+          if (normTag.startsWith(tok)) score += 50;
+        }
+
+        if (score > 0) {
+          const prev = tagScores.get(tag) ?? 0;
+          if (score > prev) {
+            tagScores.set(tag, score);
+          }
+        }
+      });
+    });
+
+    return Array.from(tagScores.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10)
+      .map(([tag]) => tag);
+  }, [term, products]);
+
   const popularCats = useMemo(() => categories.slice(0, 8), [categories]);
   const quickSubs = useMemo(() => subcategories.slice(0, 14), [subcategories]);
   const recommended = useMemo(() => products.slice(0, 10), [products]);
 
-  function runSearch() {
-    if (!q.trim()) return;
-    saveRecent(q);
+  function runSearch(tagOverride?: string) {
+    const value = (tagOverride ?? q).trim();
+    if (!value) return;
+    saveRecent(value);
     setRecent(loadRecent());
+    router.push(`/search/results/${encodeURIComponent(value)}`);
   }
 
   return (
     <main className="min-h-screen bg-white text-black pb-24">
-      {/* ✅ In-page Search (since you asked to hide navbar search on this page) */}
-      <section className="mx-auto max-w-md px-4 pt-4">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            runSearch();
-          }}
-          className="flex items-center gap-2"
-        >
-          <div className="flex-1 h-11 rounded-full border bg-white px-4 flex items-center gap-2">
-            <span className="text-gray-400">🔎</span>
-            <input
-              ref={inputRef}
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder={lang === "en" ? "Search products & brands" : "Raadi alaab & summado"}
-              className="flex-1 outline-none text-sm"
-            />
-            {q ? (
-              <button type="button" onClick={() => setQ("")} className="text-gray-500 px-2">
-                ✕
-              </button>
+      {/* FULL SCREEN SEARCH HEADER LIKE REFERENCE UI */}
+      <section className="px-3 pt-3 pb-2 border-b border-gray-200">
+        <div className="relative max-w-md mx-auto">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              runSearch();
+            }}
+            className="flex items-center gap-3"
+          >
+            {/* Back button */}
+            <button
+              type="button"
+              onClick={() =>
+                typeof window !== "undefined" && window.history.length > 1
+                  ? router.back()
+                  : router.push("/")
+              }
+              className="h-9 w-9 rounded-full flex items-center justify-center border border-gray-300 bg-white"
+              aria-label="Back"
+            >
+              <span className="text-xl leading-none text-gray-700">←</span>
+            </button>
+
+            {/* Search bar */}
+            <div className="flex-1 h-11 rounded-full border border-[#4A6FB8] bg-white px-3 flex items-center gap-2">
+              {/* Logo-style icon */}
+              <div className="h-7 w-7 rounded-md border border-[#4A6FB8] flex items-center justify-center">
+                <span className="text-lg font-extrabold text-[#4A6FB8]">m</span>
+              </div>
+
+              <input
+                ref={inputRef}
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder={lang === "en" ? "Search" : "Raadi"}
+                className="flex-1 outline-none text-base"
+              />
+            </div>
+
+            {/* Clear button on the far right */}
+            <button
+              type="button"
+              onClick={() => {
+                setQ("");
+                if (isResults) {
+                  router.push("/search");
+                }
+              }}
+              className="h-9 w-9 rounded-full flex items-center justify-center border border-gray-300 bg-white"
+              aria-label="Clear"
+            >
+              <span className="text-xl leading-none text-gray-700">✕</span>
+            </button>
+          </form>
+
+          {/* DROPDOWN SUGGESTIONS REMOVED */}
+        </div>
+      </section>
+      {!isResults ? (
+        // FULL-PAGE TAG LIST
+        <section className="px-3 pt-4 pb-6">
+          <div className="max-w-md mx-auto">
+            {q && suggestions.length > 0 ? (
+              <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                {suggestions.map((tag: string) => (
+                  <button
+                    key={tag}
+                    type="button"
+                    className="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 border-b last:border-b-0"
+                    onClick={() => runSearch(tag)}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="h-8 w-8 rounded-full border border-gray-400 flex items-center justify-center">
+                        <span className="text-gray-500">🔍</span>
+                      </div>
+                      <div className="text-base text-gray-900 text-left">
+                        {highlightMatch(tag, q)}
+                      </div>
+                    </div>
+                    <div className="text-2xl leading-none text-[#4A6FB8]">→</div>
+                  </button>
+                ))}
+              </div>
+            ) : q ? (
+              // NO TAGS FOUND → WHATSAPP CONTACT
+              <div className="bg-white border rounded-2xl p-4 text-sm text-gray-700">
+                {lang === "en" ? (
+                  <>
+                    No matching tags found for <b>{q}</b>.
+                    <br />
+                    <span className="block mt-2 text-gray-700">
+                      Can&apos;t find what you need? We can try to source it for you.
+                    </span>
+                    <span className="block mt-1 text-gray-700">
+                      Do you want it yourself or know a shop that has it? Tap WhatsApp and send us details.
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    Calaamado ku habboon lagama helin <b>{q}</b>.
+                    <br />
+                    <span className="block mt-2 text-gray-700">
+                      Ma helaysid waxaad raadineysay? Waxaan isku dayi karnaa inaan kuu soo helno.
+                    </span>
+                    <span className="block mt-1 text-gray-700">
+                      Adigu ma rabtaa mise qof ama dukaan ayaad taqaannaa oo haysta? Riix WhatsApp oo
+                      noogu soo dir faahfaahinta.
+                    </span>
+                  </>
+                )}
+
+                <a
+                  href={`https://wa.me/252622073874?text=${encodeURIComponent(
+                    `MatoMart - I can't find this item: "${q}". Please help me source it.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-flex items-center justify-center rounded-full bg-[#0B6EA9] px-4 py-2 text-sm font-semibold text-white"
+                >
+                  WhatsApp
+                </a>
+              </div>
             ) : null}
           </div>
-
-          <button
-            type="submit"
-            className="h-11 px-4 rounded-full bg-[#0B6EA9] text-white font-extrabold text-sm"
-          >
-            {lang === "en" ? "Search" : "Raadi"}
-          </button>
-        </form>
-      </section>
-
-      {!term ? (
-        <>
-          {/* RECENT */}
-          <section className="mx-auto max-w-md px-4 pt-6">
-            <div className="flex items-center justify-between">
-              <div className="font-extrabold text-gray-900">
-                {lang === "en" ? "Recent Searches" : "Raadintii u dambeysay"}
-              </div>
-              {recent.length > 0 ? (
-                <button
-                  onClick={() => {
-                    clearRecent();
-                    setRecent([]);
-                  }}
-                  className="text-sm font-semibold text-[#0B6EA9]"
-                >
-                  {lang === "en" ? "Clear" : "Tirtir"}
-                </button>
-              ) : null}
-            </div>
-
-            <div className="mt-3 flex flex-wrap gap-2">
-              {recent.length === 0 ? (
-                <div className="text-sm text-gray-500">
-                  {lang === "en" ? "No recent searches yet." : "Weli wax raadis ah ma jiraan."}
-                </div>
-              ) : (
-                recent.map((r) => (
-                  <button
-                    key={r}
-                    onClick={() => setQ(r)}
-                    className="px-3 py-1.5 rounded-full bg-gray-100 text-sm"
-                  >
-                    {r}
-                  </button>
-                ))
-              )}
-            </div>
-          </section>
-
-          {/* POPULAR CATEGORIES */}
-          <section className="mx-auto max-w-md px-4 pt-8">
-            <div className="font-extrabold text-gray-900">
-              {lang === "en" ? "Popular Categories" : "Qaybaha Caanka ah"}
-            </div>
-
-            <div className="mt-3 grid grid-cols-4 gap-3">
-              {popularCats.map((cat: any) => (
-                <Link
-                  key={cat.id}
-                  href={`/category/${cat.slug}`}
-                  className="flex flex-col items-center text-center"
-                >
-                  <div className="h-14 w-14 rounded-full bg-blue-50 overflow-hidden grid place-items-center">
-                    <Image
-                      src={safeImg(cat.img)}
-                      alt={getLabel(cat, lang)}
-                      width={56}
-                      height={56}
-                      className="object-contain p-1"
-                    />
-                  </div>
-                  <div className="mt-2 text-[11px] leading-tight">{getLabel(cat, lang)}</div>
-                </Link>
-              ))}
-            </div>
-          </section>
-
-          {/* QUICK PICKS */}
-          <section className="mx-auto max-w-md px-4 pt-8">
-            <div className="font-extrabold text-gray-900">
-              {lang === "en" ? "Quick Picks" : "Doorasho Degdeg ah"}
-            </div>
-
-            <div className="mt-3 flex flex-wrap gap-2">
-              {quickSubs.map((sub: any) => (
-                <Link
-                  key={sub.id}
-                  href={`/subcategory/${sub.slug}`}
-                  className="px-3 py-1.5 rounded-full border bg-white text-sm"
-                >
-                  {getLabel(sub, lang)}
-                </Link>
-              ))}
-            </div>
-          </section>
-
-          {/* RECOMMENDED */}
-          <section className="mx-auto max-w-md px-4 pt-8">
-            <div className="flex items-center justify-between">
-              <div className="font-extrabold text-gray-900">
-                {lang === "en" ? "Recommended for you" : "Kugula Talo Galay"}
-              </div>
-              <Link href="/" className="text-sm font-semibold text-[#0B6EA9]">
-                {lang === "en" ? "Browse" : "Daawo"}
-              </Link>
-            </div>
-
-            <div className="mt-4 space-y-3">
-              {recommended.map((p: any) => {
-                const img = getPrimaryImageUrl(p.id);
-                const { price, mrp } = getBestVariant(p.id, p.base_price);
-                const offPct = mrp && price ? Math.round(((mrp - price) / mrp) * 100) : null;
-
-                return (
-                  <div key={p.id} className="bg-white border rounded-2xl p-3 flex gap-3">
-                    <Link
-                      href={`/product/${p.slug}`}
-                      className="w-24 h-24 rounded-xl bg-gray-50 border overflow-hidden grid place-items-center"
-                    >
-                      <Image src={img} alt={p.name} width={96} height={96} className="object-contain" />
-                    </Link>
-
-                    <div className="flex-1 min-w-0">
-                      <Link href={`/product/${p.slug}`} className="block">
-                        <div className="text-sm font-semibold text-gray-900 line-clamp-2">
-                          {p.name}
-                        </div>
-                      </Link>
-
-                      <div className="mt-2 flex items-end gap-2">
-                        <div className="text-lg font-extrabold text-gray-900">{money(price)}</div>
-                        {mrp ? (
-                          <div className="text-sm text-gray-400 line-through">{money(mrp)}</div>
-                        ) : null}
-                        {offPct ? (
-                          <div className="text-xs font-extrabold text-green-700 bg-green-50 px-2 py-1 rounded-full">
-                            {offPct}% OFF
-                          </div>
-                        ) : null}
-                      </div>
-
-                      <div className="mt-3 max-w-[160px]">
-                        <AddToCartButton productId={p.id} />
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-        </>
-      ) : (
-        // RESULTS
-        <section className="mx-auto max-w-md px-4 pt-6">
-          <div className="flex items-center justify-between">
-            <div className="font-extrabold text-gray-900">
-              {lang === "en" ? "Search Results" : "Natiijooyinka Raadinta"}
-              <span className="ml-2 text-sm text-gray-500">({results.length})</span>
-            </div>
-            <button onClick={() => setQ("")} className="text-sm font-semibold text-[#0B6EA9]">
-              {lang === "en" ? "Clear" : "Tirtir"}
-            </button>
-          </div>
-
-          <div className="mt-4 space-y-3">
-            {results.length === 0 ? (
-              <>
-                <div className="bg-white border rounded-2xl p-4 text-sm text-gray-600">
-                  {lang === "en" ? (
-                    <>
-                      No results for <b>{q}</b>.
-                      <br />
-                      <span className="block mt-2 text-gray-700">
-                        Can&apos;t find what you need? We can try to source it for you.
-                      </span>
-                      <span className="block mt-1 text-gray-700">
-                        Do you want it yourself or know a shop that has it? Tap WhatsApp and send us details.
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      Natiijo ma leh <b>{q}</b>.
-                      <br />
-                      <span className="block mt-2 text-gray-700">
-                        Ma helaysid waxaad raadineysay? Waxaan isku dayi karnaa inaan kuu soo helno.
-                      </span>
-                      <span className="block mt-1 text-gray-700">
-                        Adigu ma rabtaa mise qof ama dukaan ayaad taqaannaa oo haysta? Riix WhatsApp oo
-                        noogu soo dir faahfaahinta.
-                      </span>
-                    </>
-                  )}
-
-                  <a
-                    href={`https://wa.me/252622073874?text=${encodeURIComponent(
-                      `MatoMart - I can't find this item: "${q}". Please help me source it.`
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-3 inline-flex items-center justify-center rounded-full bg-[#0B6EA9] px-4 py-2 text-sm font-semibold text-white"
-                  >
-                    WhatsApp
-                  </a>
-                </div>
-
-                {recommended.length > 0 && (
-                  <div className="mt-6">
-                    <div className="font-extrabold text-gray-900">
-                      {lang === "en" ? "You may like these instead" : "Kuwani ayaa laga yaabaa inay ku anficiyaan"}
-                    </div>
-                    <div className="mt-4 space-y-3">
-                      {recommended.slice(0, 8).map((p: any) => {
-                        const img = getPrimaryImageUrl(p.id);
-                        const { price, mrp } = getBestVariant(p.id, p.base_price);
-                        const offPct = mrp && price ? Math.round(((mrp - price) / mrp) * 100) : null;
-
-                        return (
-                          <div key={p.id} className="bg-white border rounded-2xl p-3 flex gap-3">
-                            <Link
-                              href={`/product/${p.slug}`}
-                              className="w-24 h-24 rounded-xl bg-gray-50 border overflow-hidden grid place-items-center"
-                            >
-                              <Image src={img} alt={p.name} width={96} height={96} className="object-contain" />
-                            </Link>
-
-                            <div className="flex-1 min-w-0">
-                              <Link href={`/product/${p.slug}`} className="block">
-                                <div className="text-sm font-semibold text-gray-900 line-clamp-2">
-                                  {p.name}
-                                </div>
-                              </Link>
-
-                              <div className="mt-2 flex items-end gap-2">
-                                <div className="text-lg font-extrabold text-gray-900">{money(price)}</div>
-                                {mrp ? (
-                                  <div className="text-sm text-gray-400 line-through">{money(mrp)}</div>
-                                ) : null}
-                                {offPct ? (
-                                  <div className="text-xs font-extrabold text-green-700 bg-green-50 px-2 py-1 rounded-full">
-                                    {offPct}% OFF
-                                  </div>
-                                ) : null}
-                              </div>
-
-                              <div className="mt-3 max-w-[160px]">
-                                <AddToCartButton productId={p.id} />
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </>
-            ) : (
-              results.map((p: any) => {
-                const img = getPrimaryImageUrl(p.id);
-                const { price, mrp } = getBestVariant(p.id, p.base_price);
-                const offPct = mrp && price ? Math.round(((mrp - price) / mrp) * 100) : null;
-
-                return (
-                  <div key={p.id} className="bg-white border rounded-2xl p-3 flex gap-3">
-                    <Link
-                      href={`/product/${p.slug}`}
-                      className="w-24 h-24 rounded-xl bg-gray-50 border overflow-hidden grid place-items-center"
-                    >
-                      <Image src={img} alt={p.name} width={96} height={96} className="object-contain" />
-                    </Link>
-
-                    <div className="flex-1 min-w-0">
-                      <Link href={`/product/${p.slug}`} className="block">
-                        <div className="text-sm font-semibold text-gray-900 line-clamp-2">
-                          {p.name}
-                        </div>
-                      </Link>
-
-                      <div className="mt-2 flex items-end gap-2">
-                        <div className="text-lg font-extrabold text-gray-900">{money(price)}</div>
-                        {mrp ? (
-                          <div className="text-sm text-gray-400 line-through">{money(mrp)}</div>
-                        ) : null}
-                        {offPct ? (
-                          <div className="text-xs font-extrabold text-green-700 bg-green-50 px-2 py-1 rounded-full">
-                            {offPct}% OFF
-                          </div>
-                        ) : null}
-                      </div>
-
-                      <div className="mt-3 max-w-[160px]">
-                        <AddToCartButton productId={p.id} />
-                      </div>
-                    </div>
-                  </div>
-                );
-              })
-            )}
-          </div>
         </section>
-      )}
+      ) : null}
     </main>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen bg-white text-black pb-24" />
+      }
+    >
+      <SearchPageInner />
+    </Suspense>
   );
 }

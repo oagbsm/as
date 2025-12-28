@@ -2,24 +2,22 @@
 
 import Link from "next/link";
 
-export default function SearchBar({ placeholder }: { placeholder: string }) {
+export default function SearchBar({ placeholder = "50,000+ items" }) {
   return (
     <Link
       href="/search"
-      className="flex items-center w-full h-10 rounded-md bg-white px-3 gap-2 text-sm text-gray-700 shadow-sm border border-gray-300"
+      className="flex items-center w-full h-11 rounded-full bg-white px-4 gap-3 text-sm text-[#0B6EA9] shadow-md border border-[#DDEAF3] active:scale-[0.98] transition-all"
+      style={{ fontSize: "14px" }}
     >
-      {/* Left logo placeholder – you can replace with your brand logo */}
-      <div className="h-5 w-5 rounded-md bg-[#0B6EA9] flex items-center justify-center text-white text-[11px] font-bold">
-        M
+      <div className="h-8 w-8 rounded-full bg-[#0B6EA9] flex items-center justify-center text-white text-[12px] font-bold shadow-sm">
+        🛒
       </div>
 
-      <span className="flex-1 truncate text-[13px] text-gray-600 font-medium leading-snug">
-        <span>Search </span>
-        <span className="font-semibold text-gray-600">{placeholder}</span>
-        <span> items</span>
+      <span className="flex-1 truncate text-[14px] text-[#0B6EA9]/70 font-medium leading-snug">
+        Search for <span className="font-semibold text-[#0B6EA9]">{placeholder}</span>
       </span>
 
-      <span className="text-[#0B6EA9] text-lg">🔍</span>
+      <span className="text-[#0B6EA9] text-xl">🔎</span>
     </Link>
   );
 }

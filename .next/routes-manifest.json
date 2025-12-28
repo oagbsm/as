@@ -29,6 +29,14 @@
       "namedRegex": "^/product/(?<nxtPslug>[^/]+?)(?:/)?$"
     },
     {
+      "page": "/search/results/[tag]",
+      "regex": "^/search/results/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPtag": "nxtPtag"
+      },
+      "namedRegex": "^/search/results/(?<nxtPtag>[^/]+?)(?:/)?$"
+    },
+    {
       "page": "/subcategory/vegetables/[slug]",
       "regex": "^/subcategory/vegetables/([^/]+?)(?:/)?$",
       "routeKeys": {
@@ -207,6 +215,12 @@
       "regex": "^/payments(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/payments(?:/)?$"
+    },
+    {
+      "page": "/profile",
+      "regex": "^/profile(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/profile(?:/)?$"
     },
     {
       "page": "/robots.txt",

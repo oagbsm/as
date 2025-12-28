@@ -27,47 +27,37 @@ export default function TopNavbar() {
   const placeholderCount = "50,000+";
 
   return (
-<header className="sticky top-0 z-50 bg-gradient-to-b from-[#6FB7E6] via-[#2E8CCF] to-[#0B6EA9]">
-  <div className="mx-auto max-w-md px-2 pt-2 pb-2">
+<header className="sticky top-0 z-50 bg-gradient-to-b from-[#A4D8F5] via-[#6BBCE9] to-[#2A99D9]">
+  <div className="mx-auto max-w-md px-2 pt-1 pb-1">
         {/* LANGUAGE TOGGLE */}
-        <div className="flex justify-end mb-2">
-          <div className="flex bg-white/20 backdrop-blur-sm rounded-full px-2 py-1 gap-1 text-white text-xs font-medium border border-white/30">
+        <div className="flex justify-end mb-1">
+          <div className="flex bg-white/30 backdrop-blur-sm rounded-full px-2 py-1 gap-1 border border-white/40 shadow-sm">
             <button
-              onClick={() => {
-                setLang("so");
-                setCookie("lang", "so");
-              }}
-              className={`px-2 py-0.5 rounded-full transition ${
-                lang === "so"
-                  ? "bg-white text-[#0B6EA9]"
-                  : "text-white/80"
+              onClick={() => { setLang("so"); setCookie("lang", "so"); }}
+              className={`px-2 py-0.5 rounded-full transition flex items-center justify-center ${
+                lang === "so" ? "bg-white text-[#39A3E6] shadow" : "text-white/90"
               }`}
             >
-              SO
+              🇸🇴
             </button>
             <button
-              onClick={() => {
-                setLang("en");
-                setCookie("lang", "en");
-              }}
-              className={`px-2 py-0.5 rounded-full transition ${
-                lang === "en"
-                  ? "bg-white text-[#0B6EA9]"
-                  : "text-white/80"
+              onClick={() => { setLang("en"); setCookie("lang", "en"); }}
+              className={`px-2 py-0.5 rounded-full transition flex items-center justify-center ${
+                lang === "en" ? "bg-white text-[#39A3E6] shadow" : "text-white/90"
               }`}
             >
-              EN
+              🇬🇧
             </button>
           </div>
         </div>
         {/* ===== ROW 1 ===== */}
-<div className="flex items-center gap-1 bg-white rounded-md px-2 py-1 shadow-sm border border-gray-200">
+<div className="flex items-center gap-2 bg-white rounded-full px-2.5 py-1.5 shadow-md">
           {showBack && (
             <button
               onClick={() =>
                 window.history.length > 1 ? router.back() : router.push("/")
               }
-              className="h-10 w-10 rounded-full bg-[#0A5F91] text-white grid place-items-center"
+              className="h-9 w-9 rounded-full bg-[#39A3E6] text-white grid place-items-center shadow"
               aria-label="Back"
             >
               ←
