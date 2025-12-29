@@ -17,6 +17,13 @@ type Subcategory = {
   slug: string;
 };
 
+type SubsubCategory = {
+  id: number;
+  subcategory_id: number;
+  name_en: string;
+  slug: string;
+};
+
 type Brand = {
   id: number;
   name: string;
@@ -41,10 +48,12 @@ function slugify(value: string): string {
 export default function AddProductPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
+  const [subsubcategories, setSubsubcategories] = useState<SubsubCategory[]>([]);
   const [brands, setBrands] = useState<Brand[]>([]);
 
   const [categoryId, setCategoryId] = useState<number | "">("");
   const [subcategoryId, setSubcategoryId] = useState<number | "">("");
+  const [subsubId, setSubsubId] = useState<number | "">("");
   const [brandId, setBrandId] = useState<number | "">("");
 
   const [name, setName] = useState("");
@@ -74,14 +83,17 @@ export default function AddProductPage() {
   // --- Load reference data on mount ---
   useEffect(() => {
     const loadMeta = async () => {
-      const [catRes, subRes, brandRes] = await Promise.all([
+      const [catRes, subRes, subsubRes, brandRes] = await Promise.all([
         supabase.from("categories").select("id,name_en,slug").order("id"),
         supabase.from("subcategories").select("id,category_id,name_en,slug").order("id"),
+        supabase.from("subsubcategories").select("id,subcategory_id,name_en,slug").order("id"),
         supabase.from("brands").select("id,name,slug").order("name"),
       ]);
 
       if (!catRes.error && catRes.data) setCategories(catRes.data as Category[]);
       if (!subRes.error && subRes.data) setSubcategories(subRes.data as Subcategory[]);
+      if (!subsubRes.error && subsubRes.data)
+        setSubsubcategories(subsubRes.data as SubsubCategory[]);
       if (!brandRes.error && brandRes.data) setBrands(brandRes.data as Brand[]);
     };
 
@@ -125,9 +137,52 @@ export default function AddProductPage() {
     setStatus({ type: "success", message: `Brand "${brand.name}" created.` });
   };
 
+  const handleCreateSubsub = async () => {
+    if (!subcategoryId) {
+      window.alert("Please select a subcategory first.");
+      return;
+    }
+
+    const name = window.prompt("New sub-subcategory name");
+    if (!name) return;
+
+    const newSlug = slugify(name);
+
+    const { data, error } = await supabase
+      .from("subsubcategories")
+      .insert({
+        subcategory_id: Number(subcategoryId),
+        name_en: name,
+        name_so: name,
+        slug: newSlug,
+      })
+      .select("id,subcategory_id,name_en,slug")
+      .single();
+
+    if (error || !data) {
+      console.error(error);
+      setStatus({
+        type: "error",
+        message: "Failed to create sub-subcategory. Please try again.",
+      });
+      return;
+    }
+
+    const created = data as SubsubCategory;
+    setSubsubcategories((prev) => [...prev, created]);
+    setSubsubId(created.id);
+    setStatus({ type: "success", message: `Sub-subcategory "${created.name_en}" created.` });
+  };
+
   const filteredSubcategories = subcategories.filter((s) =>
     categoryId ? s.category_id === Number(categoryId) : true
   );
+  const filteredSubsubcategories = subsubcategories.filter((ss) =>
+    subcategoryId ? ss.subcategory_id === Number(subcategoryId) : true
+  );
+  useEffect(() => {
+    setSubsubId("");
+  }, [subcategoryId]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -138,7 +193,7 @@ export default function AddProductPage() {
     if (!slug.trim()) missing.push("Slug");
     if (!categoryId) missing.push("Category");
     if (!subcategoryId) missing.push("Subcategory");
-    if (!brandId) missing.push("Brand");
+    if (!subsubId) missing.push("Sub-subcategory");
     if (!basePrice) missing.push("Base price");
 
     if (missing.length) {
@@ -152,26 +207,32 @@ export default function AddProductPage() {
     setLoading(true);
     try {
       // Insert product
+      const productPayload: any = {
+        name,
+        slug,
+        long_description: longDescription || "",
+        category_id: Number(categoryId),
+        subcategory_id: Number(subcategoryId),
+        subsubcategory_id: Number(subsubId),
+        is_discounted: isDiscounted,
+        base_price: Number(basePrice),
+        tags: tags
+          ? tags
+              .split(",")
+              .map((t) => t.trim())
+              .filter(Boolean)
+          : null,
+        is_active: isActive,
+        is_concept: isConcept,
+      };
+
+      if (brandId) {
+        productPayload.brand_id = Number(brandId);
+      }
+
       const { data: product, error: productError } = await supabase
         .from("products")
-        .insert({
-          name,
-          slug,
-          long_description: longDescription || "",
-          category_id: Number(categoryId),
-          subcategory_id: Number(subcategoryId),
-          brand_id: Number(brandId),
-          is_discounted: isDiscounted,
-          base_price: Number(basePrice),
-          tags: tags
-            ? tags
-                .split(",")
-                .map((t) => t.trim())
-                .filter(Boolean)
-            : null,
-          is_active: isActive,
-          is_concept: isConcept,
-        })
+        .insert(productPayload)
         .select("id")
         .single();
 
@@ -348,7 +409,7 @@ export default function AddProductPage() {
           {/* Classification & pricing */}
           <section className="space-y-3">
             <h2 className="text-xs font-semibold uppercase text-gray-700">Category & pricing</h2>
-            <div className="grid gap-3 md:grid-cols-3">
+            <div className="grid gap-3 md:grid-cols-4">
               <div className="flex flex-col gap-1">
                 <label className="text-xs text-gray-600">Category *</label>
                 <select
@@ -386,7 +447,34 @@ export default function AddProductPage() {
               </div>
 
               <div className="flex flex-col gap-1">
-                <label className="text-xs text-gray-600">Brand *</label>
+                <label className="text-xs text-gray-600">Sub-subcategory *</label>
+                <div className="flex gap-2 items-center">
+                  <select
+                    value={subsubId}
+                    onChange={(e) =>
+                      setSubsubId(e.target.value ? Number(e.target.value) : "")
+                    }
+                    className="border rounded px-2 py-1.5 text-sm bg-white flex-1"
+                  >
+                    <option value="">Select</option>
+                    {filteredSubsubcategories.map((ss) => (
+                      <option key={ss.id} value={ss.id}>
+                        {ss.name_en}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    type="button"
+                    onClick={handleCreateSubsub}
+                    className="text-[11px] px-2 py-1 border rounded bg-white text-gray-700 hover:bg-gray-100"
+                  >
+                    + New
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <label className="text-xs text-gray-600">Brand</label>
                 <div className="flex gap-2 items-center">
                   <select
                     value={brandId}

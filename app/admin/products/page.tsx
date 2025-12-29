@@ -4,7 +4,7 @@ import { useEffect, useState, FormEvent } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
 
-type Category = {
+type Subcategory = {
   id: number;
   name_en: string;
   slug: string;
@@ -48,12 +48,13 @@ function slugify(value: string): string {
 }
 
 export default function AdminProductsPage() {
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
   const [brands, setBrands] = useState<Brand[]>([]);
   const [products, setProducts] = useState<ProductRow[]>([]);
 
   const [loadingList, setLoadingList] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [status, setStatus] = useState<
     null | { type: "success" | "error"; message: string }
   >(null);
@@ -82,7 +83,8 @@ export default function AdminProductsPage() {
       setStatus(null);
 
       const [catRes, brandRes, prodRes] = await Promise.all([
-        supabase.from("categories").select("id,name_en,slug").order("id"),
+        // We now treat this as SUBCATEGORIES (same shape: id, name_en, slug)
+        supabase.from("subcategories").select("id,name_en,slug").order("name_en"),
         supabase.from("brands").select("id,name,slug").order("name"),
         supabase
           .from("products")
@@ -92,7 +94,8 @@ export default function AdminProductsPage() {
           .order("id", { ascending: true }),
       ]);
 
-      if (!catRes.error && catRes.data) setCategories(catRes.data as Category[]);
+      if (!catRes.error && catRes.data)
+        setSubcategories(catRes.data as Subcategory[]);
       if (!brandRes.error && brandRes.data) setBrands(brandRes.data as Brand[]);
       if (!prodRes.error && prodRes.data) setProducts(prodRes.data as ProductRow[]);
       if (prodRes.error) {
@@ -106,7 +109,7 @@ export default function AdminProductsPage() {
   }, []);
 
   const filteredProducts = products.filter((p) => {
-    if (filterCategoryId && p.category_id !== Number(filterCategoryId)) return false;
+    if (filterCategoryId && p.subcategory_id !== Number(filterCategoryId)) return false;
 
     if (!search.trim()) return true;
     const q = search.toLowerCase();
@@ -271,6 +274,76 @@ if (vs.length === 0) {
     }
   };
 
+  const handleDelete = async () => {
+    if (!selectedProductId) return;
+
+    const confirm = window.confirm(
+      "Are you sure you want to delete this product and its variants/images? This cannot be undone."
+    );
+    if (!confirm) return;
+
+    setDeleting(true);
+    setStatus(null);
+
+    try {
+      // 1) Delete order_items for this product so FK on variant_id does not block variant deletion
+      const { error: orderItemsError } = await supabase
+        .from("order_items")
+        .delete()
+        .eq("product_id", selectedProductId);
+
+      if (orderItemsError) {
+        throw new Error(orderItemsError.message);
+      }
+
+      // 2) Delete variants (they depend on product_id)
+      const { error: varError } = await supabase
+        .from("product_variants")
+        .delete()
+        .eq("product_id", selectedProductId);
+
+      if (varError) {
+        throw new Error(varError.message);
+      }
+
+      // 3) Delete product images
+      const { error: imgError } = await supabase
+        .from("product_images")
+        .delete()
+        .eq("product_id", selectedProductId);
+      if (imgError) {
+        throw new Error(imgError.message);
+      }
+
+      // Finally delete the product itself
+      const { error: prodError } = await supabase
+        .from("products")
+        .delete()
+        .eq("id", selectedProductId);
+      if (prodError) {
+        throw new Error(prodError.message);
+      }
+
+      // Remove from local state
+      setProducts((prev) => prev.filter((p) => p.id !== selectedProductId));
+      setSelectedProductId(null);
+      setVariantRows([]);
+
+      setStatus({
+        type: "success",
+        message: "Product deleted successfully.",
+      });
+    } catch (err: any) {
+      console.error(err);
+      setStatus({
+        type: "error",
+        message: err?.message || "Failed to delete product.",
+      });
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 px-4 py-6">
       <div className="max-w-6xl mx-auto">
@@ -308,10 +381,10 @@ if (vs.length === 0) {
                   }
                   className="border rounded px-2 py-1.5 text-xs flex-1"
                 >
-                  <option value="">All categories</option>
-                  {categories.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.name_en}
+                  <option value="">All subcategories</option>
+                  {subcategories.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.name_en}
                     </option>
                   ))}
                 </select>
@@ -584,7 +657,15 @@ if (vs.length === 0) {
 </button>
                 </div>
 
-                <div className="flex justify-end pt-2">
+                <div className="flex justify-between items-center pt-2">
+                  <button
+                    type="button"
+                    onClick={handleDelete}
+                    disabled={deleting}
+                    className="px-3 py-2 text-xs rounded border border-red-500 text-red-600 disabled:opacity-60"
+                  >
+                    {deleting ? "Deleting..." : "Delete product"}
+                  </button>
                   <button
                     type="submit"
                     disabled={saving}

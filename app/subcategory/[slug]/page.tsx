@@ -164,19 +164,9 @@ export default function SubcategoryPage() {
 
     if (activeSS) {
       const ss = ssList.find((x: any) => x.slug === activeSS);
-      const slugKey = norm(activeSS);
-      const nameKey = norm(
-        ss?.name ?? ss?.name_en ?? ss?.name_so ?? ""
-      );
-
-      list = list.filter((p: any) => {
-        const tags = Array.isArray(p.tags) ? p.tags : [];
-        const tagStr = tags.map(norm);
-        return (
-          tagStr.includes(slugKey) ||
-          (nameKey && tagStr.includes(nameKey))
-        );
-      });
+      if (ss) {
+        list = list.filter((p: any) => p.subsubcategory_id === ss.id);
+      }
     }
 
     return list;
